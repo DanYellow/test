@@ -1,0 +1,17 @@
+{
+  "name": "test-release-it",
+  "version": "1.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^9.0.3",
+    "release-it": "^17.10.0"
+  }
+}

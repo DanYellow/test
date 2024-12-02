@@ -12,5 +12,5 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - name: Run release
-        run: npm run release
+        run: npm run release --ci
       - run: echo "🍏 This job's status is ${{ job.status }}."

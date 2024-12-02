@@ -1,0 +1,14 @@
+name: Release
+# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: workflow_dispatch
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Install the dependencies
+        run: npm ci
+      - name: Run release
+        run: npm run release
+      - run: echo "🍏 This job's status is ${{ job.status }}."

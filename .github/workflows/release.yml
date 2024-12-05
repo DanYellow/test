@@ -12,16 +12,15 @@ jobs:
       # - name: Install the dependencies
       #   run: npm ci
       - name: Add ssh key
-        run: echo $DEV_ENV_FILE > deploy_key && chmod 600 deploy_key
+        run: echo ${{secrets.SSH_KEY}} > deploy_key && chmod 600 deploy_key
         env:
           DEV_ENV_FILE : ${{secrets.SSH_KEY}}
-      - name: cat
-        run: cat deploy_key
-      - name: echo
-        run: echo $TEST_HELLO
+      # - name: cat
+      #   run: cat deploy_key
+      # - name: echo
+      #   run: echo $TEST_HELLO
       - name: Move file
-        # run: rsync -Pavz -e "ssh -i deploy_key" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-        run: rsync -Pavz ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        run: rsync -Pavz -e "ssh -i deploy_key" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
       # - name: Run release
       #   run: npm run release
       # - run: echo "🍏 This job's status is ${{ job.status }}."

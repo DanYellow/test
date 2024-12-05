@@ -18,7 +18,7 @@ jobs:
       # - name: echo
       #   run: echo $TEST_HELLO
       - name: Move file
-        run: rsync -Pavz -e "ssh -i deploy_key" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        run: rsync -Pavz -e "ssh -i ./deploy_key" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
       # - name: Run release
       #   run: npm run release
       # - run: echo "🍏 This job's status is ${{ job.status }}."

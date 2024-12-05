@@ -20,8 +20,8 @@ jobs:
         # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
       # - name: cat
       #   run: cat deploy_key
-      - name: echo
-        run: ls ~/.ssh/ -al
+      # - name: echo
+      #   run: ls ~/.ssh/ -al
       - name: Move file
         run: rsync -Pavz -e "ssh -i ./deploy_key -o StrictHostKeyChecking=no" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
       # - name: Run release

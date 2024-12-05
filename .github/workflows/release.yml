@@ -13,17 +13,17 @@ jobs:
       #   run: npm ci
       # - name: Add ssh key
       #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
-      - name: echo 2
-        run: ls ~/.ssh/ -al
+      # - name: echo 2
+      #   run: ls ~/.ssh/ -al
       - name: Add ssh key
-        run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 400 ./deploy_key
+        run: echo "${{secrets.SSH_KEY}}" > ./deploy_key && chmod 400 ./deploy_key
         # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
       # - name: cat
       #   run: cat deploy_key
       - name: echo
         run: ls ~/.ssh/ -al
       - name: Move file
-        run: rsync -Pavz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        run: rsync -Pavz -e "ssh -i ./deploy_key -o StrictHostKeyChecking=no" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
       # - name: Run release
       #   run: npm run release
       # - run: echo "🍏 This job's status is ${{ job.status }}."

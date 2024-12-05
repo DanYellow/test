@@ -12,8 +12,8 @@ jobs:
       # - name: Install the dependencies
       #   run: npm ci
       - name: Add ssh key
-        run: echo "hello" > deploy_key
-      - name: Move file
+        run: echo "${{ secrets.SSH_KEY }}" > deploy_key
+      - name: cat
         run: cat deploy_key
       - name: Move file
         run: rsync -Pavz -e "ssh -i deploy_key" ./index.html danyellow@ssh-danyellow.alwaysdata.net:~/www

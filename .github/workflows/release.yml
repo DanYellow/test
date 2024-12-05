@@ -13,6 +13,7 @@ jobs:
         run: npm ci
       - name: Add ssh key
         run: echo "${{ secrets.SSH_KEY }}" > deploy_key
+      - run: cat "${{ secrets.SSH_KEY }}"
       - name: Move file
         run: rsync -Pavz -e "ssh -i deploy_key" index.html danyellow@ssh-danyellow.alwaysdata.net:~/www
       # - name: Run release

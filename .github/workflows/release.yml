@@ -12,7 +12,7 @@ jobs:
       # - name: Install the dependencies
       #   run: npm ci
       - name: Add ssh key
-        run: echo "${{ secrets.SSH_KEY }}" > deploy_key
+        run: echo "${{ secrets.SSH_KEY }}" > deploy_key && chmod 600 deploy_key
       - name: cat
         run: cat deploy_key
       - name: Move file

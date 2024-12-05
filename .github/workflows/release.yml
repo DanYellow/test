@@ -20,7 +20,7 @@ jobs:
       # - name: echo
       #   run: ls ~/.ssh/ -al
       - name: Move file
-        run: rsync -Pavz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        run: rsync -Pavz -e "ssh -i ~/.ssh/deploy_key" ./index.html ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
       # - name: Run release
       #   run: npm run release
       # - run: echo "🍏 This job's status is ${{ job.status }}."

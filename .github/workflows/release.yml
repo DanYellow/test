@@ -1,5 +1,5 @@
 name: Release
-# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.event.head_commit.message }}
 on: workflow_dispatch
 jobs:
   Explore-GitHub-Actions:

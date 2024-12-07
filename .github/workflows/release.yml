@@ -1,6 +1,16 @@
 name: Release
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.event.head_commit.message }}
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Define env name'     
+        required: true
+        default: 'prod'
+      branch:
+        description: 'Define branch name'     
+        required: true
+        default: 'main'
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -46,3 +56,11 @@ jobs:
     steps:
       - name: echo
         run: ls ~/ -al
+
+  printInputs:
+    runs-on: ubuntu-latest
+    needs: Explore-GitHub-Actions
+    steps:
+    - run: |
+        echo "Env: ${{ github.event.inputs.environment }}" 
+        echo "Branch: ${{ github.event.inputs.branch }}"

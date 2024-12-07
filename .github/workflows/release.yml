@@ -15,6 +15,7 @@ on:
       stage:
         type: choice
         description: Stage
+        default: stage2
         options: 
         - stage1
         - stage2

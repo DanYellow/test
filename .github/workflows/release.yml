@@ -12,6 +12,13 @@ on:
         description: 'Define branch name'     
         required: true
         default: 'main'
+      inputs:
+        stage:
+          type: choice
+          description: Stage
+          options: 
+          - stage1
+          - stage2
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest

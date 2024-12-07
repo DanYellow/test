@@ -34,7 +34,7 @@ jobs:
       #   run: npm run release
       # - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  Explore-GitHub-Actions:
+  Explore-GitHub-Actions2:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

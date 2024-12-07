@@ -36,6 +36,7 @@ jobs:
 
   Explore-GitHub-Actions2:
     runs-on: ubuntu-latest
+    needs: Explore-GitHub-Actions
     steps:
       - name: echo
         run: ls ~/ -al

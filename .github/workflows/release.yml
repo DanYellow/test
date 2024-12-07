@@ -40,3 +40,9 @@ jobs:
     steps:
       - name: echo
         run: ls ~/ -al
+  
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: ls ~/ -al

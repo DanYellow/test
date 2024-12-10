@@ -22,6 +22,7 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    name: Hello world
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4

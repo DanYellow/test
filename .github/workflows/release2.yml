@@ -30,8 +30,8 @@ jobs:
           name: bundle
       # - name: echo
       #   run: ls -al
-      - name: Add ssh key
-        run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
+      # - name: Add ssh key
+      #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
       - name: Fill ssh key
         run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
       - name: Move files

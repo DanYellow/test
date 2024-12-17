@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+}
+
+@supports (interpolate-size: allow-keywords) {
+    :root {
+        @media (prefers-reduced-motion: no-preference) {
+            interpolate-size: allow-keywords;
+        }
+    }
+
+    details {
+        &::details-content {
+            block-size: 0;
+            overflow-y: clip;
+            transition: content-visibility 0.5s allow-discrete, block-size 0.5s;
+        }
+
+        &[open]::details-content {
+            block-size: auto;
+        }
+    }
+}
+
+.no-dimorphism {
+    background: rgb(233, 233, 233);
+    background: linear-gradient(
+        113deg,
+        rgba(125, 211, 252, 1) 0%,
+        rgba(125, 211, 252, 1) 44.5%,
+        rgba(249, 168, 212, 1) 44.5%,
+        rgba(249, 168, 212, 1) 100%
+    );
+}
+
+[inert]:not(li:has(a), dialog, .arrow) {
+    opacity: theme("opacity.20");
+    position: relative;
+    z-index: -10;
+}
+
+.horizontal-evolution-layout {
+    display: grid;
+    grid-template-columns: auto min-content auto;
+    align-items: center;
+}
+
+.vertical-evolution-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+@property --bg-modal-color {
+    syntax: "<color>";
+    initial-value: transparent;
+    inherits: true;
+}
+
+dialog {
+    --animation-speed: 0.3s;
+    opacity: 0;
+    translate: 0 90vh;
+    color: transparent;
+    border-color: transparent;
+    transition: opacity var(--animation-speed) ease-out,
+        translate var(--animation-speed) ease-out,
+        color var(--animation-speed) ease-out,
+        border-color var(--animation-speed) ease-out,
+        overlay var(--animation-speed) ease-out allow-discrete,
+        display var(--animation-speed) ease-out allow-discrete;
+    box-shadow: 0px 0px 53px 0px;
+
+    background-image: radial-gradient(
+            var(--bg-modal-color) 0.5px,
+            transparent 0.5px
+        ),
+        radial-gradient(var(--bg-modal-color) 0.5px, rgba(255,255,255,0) 0.5px),
+        linear-gradient(0deg, var(--bg-modal-color) 0%, var(--bg-modal-color) 6.05%, rgba(255,255,255,0) 6.05%);
+    background-size: 20px 20px, 20px 20px, 100% 1210px;
+    background-position: 0 0, 10px 10px, center bottom -12px;
+    background-repeat: repeat, repeat, no-repeat;
+
+    &[open] {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    @starting-style {
+        &[open] {
+            opacity: 0;
+            translate: 0 90vh;
+            color: transparent;
+            border-color: transparent;
+        }
+    }
+}
+
+.main-infos {
+    background-image: radial-gradient(
+        var(--bg-modal-color) 0.5px,
+        transparent 0.5px
+    ),
+    radial-gradient(var(--bg-modal-color) 0.5px, #fff 0.5px);
+    background-size: 20px 20px, 20px 20px;
+    background-position: -17px 0, 10px 10px;
+}
+
+.type-name {
+    font-weight: bold;
+    color: theme("colors.slate.50");
+    text-shadow: 1px 1px 2px black, 0 0 15em black, 0 0 0.1em black;
+}
+
+details {
+    --animation-speed: 0.3s;
+
+    .stat-bar {
+        transform: scaleX(0);
+        transition: transform 0.95s var(--animation-speed);
+        transform-origin: left center;
+    }
+    &[open] {
+        .stat-bar {
+            transform: scaleX(1);
+            transition: transform 0.95s;
+            transform-origin: left center;
+        }
+
+        @starting-style {
+            .stat-bar {
+                transform: scaleX(0);
+            }
+        }
+
+        summary::marker {
+            color: black !important;
+        }
+    }
+}
+
+.modal-footer {
+    --alpha: 0.6;
+    --animation-speed: 0.45s;
+
+    &::after,
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        pointer-events: none;
+        z-index: -1;
+        bottom: 0;
+        width: 100%;
+        background: var(--bg-modal-color);
+        transition: --bg-modal-color var(--animation-speed) 0.3s ease-out;
+
+        @starting-style {
+            --bg-modal-color: white;
+            background: var(--bg-modal-color);
+        }
+    }
+
+    &::after {
+        background: radial-gradient(
+            ellipse at 50% -50px,
+            rgba(255, 255, 255, 0) 80%,
+            rgb(from var(--bg-modal-color) r g b / var(--alpha)) 90%,
+            rgb(from var(--bg-modal-color) r g b / var(--alpha)) 100%
+        );
+        height: 200%;
+    }
+
+    &::before {
+        height: 90%;
+        background: linear-gradient(
+            0deg,
+            rgb(from var(--bg-modal-color) r g b / var(--alpha)) 0%,
+            rgba(255, 255, 255, 1) 95%
+        );
+        transition-delay: 0.15s;
+        background-color: var(--bg-modal-color);
+    }
+}

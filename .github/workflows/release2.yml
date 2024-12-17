@@ -1,0 +1,38 @@
+name: Release2
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.event.head_commit.message }}
+on: [workflow_dispatch]
+
+jobs:
+  pull_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set github user
+        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+      - name: Install the dependencies
+        run: npm ci
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install the dependencies
+        run: npm run build
+      - name: Generate artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: bundle
+          path: ./dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Install the dependencies
+        run: npm run build
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: bundle
+      - name: echo
+        run: ls ~/ -al

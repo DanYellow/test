@@ -1,5 +1,5 @@
 name: Release2
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.event.head_commit.message }}
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.event.commits[0].message  }}
 on: [workflow_dispatch]
 
 jobs:

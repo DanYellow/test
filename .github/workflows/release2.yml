@@ -3,7 +3,7 @@ name: Release2
 on: [workflow_dispatch]
 
 env:
-  WORLD: Mona
+  VITE_WORLD: "${{ github.actor }}"
   VITE_HELLO: totally_awesome
 
 jobs:

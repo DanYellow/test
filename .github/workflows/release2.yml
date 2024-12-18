@@ -22,6 +22,8 @@ jobs:
       - run: echo "${{toJSON(github)}}"
       - name: Run unit tests
         run: npm run test --if-present
+      - name: Display date
+        run: $(date +'%Y-%m-%dT%H:%M:%S')
   # e2e_tests:
   #   runs-on: ubuntu-latest
   #   steps:

@@ -18,6 +18,9 @@ jobs:
   build:
     needs: [unit_tests]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4

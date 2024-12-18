@@ -27,12 +27,12 @@ jobs:
       # - run: echo "${{toJSON(github)}}"
       - name: Run unit tests
         run: npm run test --if-present
-      - name: Display date
-        run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
+      # - name: Display date
+      #   run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
       - name: Display date
         run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
-      run: |
-        printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
+      - run: |
+          printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
   # e2e_tests:
   #   runs-on: ubuntu-latest
   #   steps:

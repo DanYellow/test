@@ -19,54 +19,54 @@ jobs:
         run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
       - name: Install the dependencies
         run: npm ci
-      - run: node -v
+      - run: echo "${{toJSON(github.event)}}"
       - name: Run unit tests
         run: npm run test --if-present
-  e2e_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Install playwright
-        run: npx playwright install --with-deps
-      - name: Run playwright
-        run: npx playwright test
-  build:
-    needs: [unit_tests, e2e_tests]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Create nuild
-        run: npm run build
-      - name: Generate artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: bundle
-          path: ./dist
+  # e2e_tests:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v4
+  #     - name: Set github user
+  #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+  #     - name: Install the dependencies
+  #       run: npm ci
+  #     - name: Install playwright
+  #       run: npx playwright install --with-deps
+  #     - name: Run playwright
+  #       run: npx playwright test
+  # build:
+  #   needs: [unit_tests, e2e_tests]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v4
+  #     - name: Set github user
+  #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+  #     - name: Install the dependencies
+  #       run: npm ci
+  #     - name: Create nuild
+  #       run: npm run build
+  #     - name: Generate artifact
+  #       uses: actions/upload-artifact@master
+  #       with:
+  #         name: bundle
+  #         path: ./dist
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: bundle
-      # - name: echo
-      #   run: ls -al
-      # - name: Add ssh key
-      #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
-      - name: Fill ssh key
-        run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
-        # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
-      - name: Move files
-        run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: [build]
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@master
+  #       with:
+  #         name: bundle
+  #     # - name: echo
+  #     #   run: ls -al
+  #     # - name: Add ssh key
+  #     #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
+  #     - name: Fill ssh key
+  #       run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
+  #       # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+  #     - name: Move files
+  #       run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www

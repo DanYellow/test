@@ -13,7 +13,7 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - name: Create nuild
-        run: npm run test
+        run: npm run test --if-present
   build:
     needs: [unit_tests]
     runs-on: ubuntu-latest

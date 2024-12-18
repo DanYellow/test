@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 env:
   VITE_WORLD: "${{ github.actor }}"
-  VITE_HELLO: "(date +'%Y-%m-%dT%H:%M:%S')"
+  VITE_HELLO: "$(date +'%Y-%m-%dT%H:%M:%S')"
 
 jobs:
   unit_tests:

@@ -9,7 +9,7 @@ import {
     isElementInViewport,
 } from "./utils";
 import { generationScrollingObserver, pokedexItemScrollingObserver, firstVisiblePkmn } from "./scroll-observer";
-
+console.log(import.meta.env)
 import { typesBorderColor } from "./colors";
 
 import loadingImage from "/loading.svg?raw";

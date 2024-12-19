@@ -46,8 +46,10 @@ jobs:
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
         - name: Import db
           run: |
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
+            mysql -uroot -proot database_name < database.sql
+            mysql -uroot -proot database_name --execute="SHOW TABLES; "
+          # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
+          # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
 
         
 

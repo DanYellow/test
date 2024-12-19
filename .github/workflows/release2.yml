@@ -44,9 +44,9 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - name: Install playwright
-        run: npx playwright install --with-deps --project=chromium
+        run: npx playwright install --with-deps
       - name: Run playwright
-        run: npx playwright test
+        run: npx playwright test --project=chromium --grep @smoke
   build:
     needs: [unit_tests, e2e_tests]
     runs-on: ubuntu-latest

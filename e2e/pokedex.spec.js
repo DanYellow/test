@@ -80,7 +80,7 @@ test(
 
         const firstPkmn = page.getByTestId("pokemon").first();
         await firstPkmn.waitFor();
-        firstPkmn.click();
+        await firstPkmn.click();
 
         await expect(page).not.toHaveTitle("Pokédex v1.0.0");
     }

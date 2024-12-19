@@ -131,7 +131,7 @@ test(
 
         const firstPkmn = page.getByTestId("pokemon").first();
         await firstPkmn.waitFor();
-        firstPkmn.click();
+        await firstPkmn.click();
 
         await expect(page.getByTestId("pokemon-modal")).toHaveAttribute(
             "open",

@@ -18,7 +18,7 @@ env:
 jobs:
     mysql2:
       runs-on: ubuntu-latest
-      container: mysql
+      # container: mysql
       services:
         # Label used to access the service container
         mysql:

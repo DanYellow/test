@@ -1,6 +1,14 @@
 name: Release2
 # run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
-on: [workflow_dispatch]
+on: 
+    workflow_dispatch:
+        inputs:
+          environment:
+            type: environment
+            required: true
+            description: Environment
+            default: ''
+    # [workflow_dispatch]
 
 env:
   VITE_WORLD: "${{ github.actor }}"

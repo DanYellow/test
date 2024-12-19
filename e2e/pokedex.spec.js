@@ -68,7 +68,9 @@ test("should disable load generation button when there's no generation anymore",
 // });
 
 // if(!process.env.CI) {
-test("should not reload the page after select a Pokemon", async ({ page }) => {
+test("should not reload the page after select a Pokemon", {
+    tag: "@smoke",
+}, async ({ page }) => {
     await page.waitForResponse((resp) =>
         resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
     );

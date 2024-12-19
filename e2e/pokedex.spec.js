@@ -68,19 +68,23 @@ test("should disable load generation button when there's no generation anymore",
 // });
 
 // if(!process.env.CI) {
-test("should not reload the page after select a Pokemon", {
-    tag: "@smoke",
-}, async ({ page }) => {
-    await page.waitForResponse((resp) =>
-        resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
-    );
+test(
+    "should not reload the page after select a Pokemon",
+    {
+        tag: "@smoke",
+    },
+    async ({ page }) => {
+        await page.waitForResponse((resp) =>
+            resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
+        );
 
-    const firstPkmn = page.getByTestId("pokemon").first();
-    await firstPkmn.waitFor();
-    firstPkmn.click();
+        const firstPkmn = page.getByTestId("pokemon").first();
+        await firstPkmn.waitFor();
+        firstPkmn.click();
 
-    await expect(page).not.toHaveTitle("Pokédex v1.0.0");
-});
+        await expect(page).not.toHaveTitle("Pokédex v1.0.0");
+    }
+);
 
 test("should change title's value according to current generation displayed", async ({
     page,
@@ -115,25 +119,31 @@ test("should change title's value according to current generation displayed", as
     );
 });
 
-test("should listen to query string params",
+test(
+    "should listen to query string params",
     {
         tag: "@smoke",
-    }, async ({ page }) => {
-    await page.waitForResponse((resp) =>
-        resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
-    );
+    },
+    async ({ page }) => {
+        await page.waitForResponse((resp) =>
+            resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
+        );
 
-    const firstPkmn = page.getByTestId("pokemon").first();
-    await firstPkmn.waitFor();
-    firstPkmn.click();
+        const firstPkmn = page.getByTestId("pokemon").first();
+        await firstPkmn.waitFor();
+        firstPkmn.click();
 
-    await expect(page.getByTestId("pokemon-modal")).toHaveAttribute("open", "");
+        await expect(page.getByTestId("pokemon-modal")).toHaveAttribute(
+            "open",
+            ""
+        );
 
-    await page.goBack();
+        await page.goBack();
 
-    await expect(page.getByTestId("pokemon-modal")).not.toHaveAttribute(
-        "open",
-        ""
-    );
-});
+        await expect(page.getByTestId("pokemon-modal")).not.toHaveAttribute(
+            "open",
+            ""
+        );
+    }
+);
 // }

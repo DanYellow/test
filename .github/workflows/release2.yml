@@ -10,16 +10,9 @@ env:
 jobs:
   unit_tests:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     node-version: [22.x]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      # - name: Setup Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@master
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
       - name: Set github user
         run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
       - name: Install the dependencies

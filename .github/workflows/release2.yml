@@ -37,15 +37,15 @@ jobs:
             # Opens tcp port 6379 on the host and service container
             - 3306:3306
       steps:
-        - name: Check out repository code
-          uses: actions/checkout@v4
-        - name: Set github user
-          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+        # - name: Check out repository code
+        #   uses: actions/checkout@v4
+        # - name: Set github user
+        #   run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
         - name: Import db
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
             mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
-            SHOW TABLES;
+            echo "SHOW TABLES";
 
         
 

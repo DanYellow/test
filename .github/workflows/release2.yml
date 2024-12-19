@@ -49,6 +49,7 @@ jobs:
         # mysql -uroot -proot --execute="SHOW DATABASES;"
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
+            mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} --execute="SHOW DATABASES;"
           # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
 
         

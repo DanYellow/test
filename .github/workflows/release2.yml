@@ -17,6 +17,7 @@ env:
 
 jobs:
   unit_tests:
+    environment: staging_environment
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

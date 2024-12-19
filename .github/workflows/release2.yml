@@ -1,11 +1,11 @@
 name: Release2
-# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
 on: 
     workflow_dispatch:
         inputs:
           environment:
             type: environment
-            required: true
+            required: false
             description: Environment
             default: ''
     # [workflow_dispatch]
@@ -17,7 +17,6 @@ env:
 
 jobs:
   unit_tests:
-    environment: staging_environment
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -38,7 +37,6 @@ jobs:
           printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
   e2e_tests:
     runs-on: ubuntu-latest
-    environment: staging_environment2
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -54,7 +52,6 @@ jobs:
         run: npx playwright test --project=chromium --grep-invert @smoke
   build:
     needs: [unit_tests, e2e_tests]
-    environment: staging_environment2
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -75,8 +72,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    environment: staging_environment2
     needs: [build]
+    environment: staging_environment
     steps:
       - name: Download artifact
         uses: actions/download-artifact@master

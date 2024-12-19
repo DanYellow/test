@@ -16,75 +16,89 @@ env:
   VITE_HELLO: Foo
 
 jobs:
-  unit_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - run: echo "$FOO"
-      # - run: echo "${{toJSON(github)}}"
-      - name: Run unit tests
-        run: npm run test --if-present
-      # - name: Display date
-      #   run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
-      - name: Display date
-        run: echo "MY_VAR=$(date +'%Y/%m/%d')" >> "$GITHUB_ENV"
-      - run: |
-          printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
-  e2e_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config user.email "test@example.com" && git config user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Install playwright
-        run: npx playwright install --with-deps
-      - name: Run smoke tests
-        run: npx playwright test --project=chromium --grep @smoke
-      - name: Run non-smoke tests
-        run: npx playwright test --project=chromium --grep-invert @smoke
-  build:
-    needs: [unit_tests, e2e_tests]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Display date
-        run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
-      - name: Create build
-        run: npm run build
-      - name: Generate artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: bundle
-          path: ./dist
+    mysql:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out repository code
+          uses: actions/checkout@v4
+        - name: Set github user
+          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+        - name: Import db
+          run: |
+            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
+            mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    environment: staging_environment
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: bundle
-      # - name: echo
-      #   run: ls -al
-      # - name: Add ssh key
-      #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
-      - name: Fill ssh key
-        run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
-        # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
-      - name: Move files
-        run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        
+
+#   unit_tests:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository code
+#         uses: actions/checkout@v4
+#       - name: Set github user
+#         run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+#       - name: Install the dependencies
+#         run: npm ci
+#       - run: echo "$FOO"
+#       # - run: echo "${{toJSON(github)}}"
+#       - name: Run unit tests
+#         run: npm run test --if-present
+#       # - name: Display date
+#       #   run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
+#       - name: Display date
+#         run: echo "MY_VAR=$(date +'%Y/%m/%d')" >> "$GITHUB_ENV"
+#       - run: |
+#           printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
+#   e2e_tests:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository code
+#         uses: actions/checkout@v4
+#       - name: Set github user
+#         run: git config user.email "test@example.com" && git config user.name "CI/CD"
+#       - name: Install the dependencies
+#         run: npm ci
+#       - name: Install playwright
+#         run: npx playwright install --with-deps
+#       - name: Run smoke tests
+#         run: npx playwright test --project=chromium --grep @smoke
+#       - name: Run non-smoke tests
+#         run: npx playwright test --project=chromium --grep-invert @smoke
+#   build:
+#     needs: [unit_tests, e2e_tests]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository code
+#         uses: actions/checkout@v4
+#       - name: Set github user
+#         run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+#       - name: Install the dependencies
+#         run: npm ci
+#       - name: Display date
+#         run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
+#       - name: Create build
+#         run: npm run build
+#       - name: Generate artifact
+#         uses: actions/upload-artifact@master
+#         with:
+#           name: bundle
+#           path: ./dist
+
+#   deploy:
+#     runs-on: ubuntu-latest
+#     needs: [build]
+#     environment: staging_environment
+#     steps:
+#       - name: Download artifact
+#         uses: actions/download-artifact@master
+#         with:
+#           name: bundle
+#       # - name: echo
+#       #   run: ls -al
+#       # - name: Add ssh key
+#       #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
+#       - name: Fill ssh key
+#         run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
+#         # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+#       - name: Move files
+#         run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www

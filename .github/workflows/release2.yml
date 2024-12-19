@@ -19,24 +19,26 @@ jobs:
     mysql2:
       runs-on: ubuntu-latest
       # container: mysql
-      services:
-        # Label used to access the service container
-        mysql:
-          # Docker Hub image
-          image: mysql
-          env:
-            # The MySQL docker container requires these environment variables to be set
-            # so we can create and migrate the test database.
-            # See: https://hub.docker.com/_/mysql
-            MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
-            MYSQL_USER: ${{secrets.MYSQL_USER}}
-            MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
-            MYSQL_ROOT_HOST: ${{secrets.MYSQL_SERVER}}
-          #
-          ports:
-            # Opens tcp port 6379 on the host and service container
-            - 3306:3306
+      # services:
+      #   # Label used to access the service container
+      #   mysql:
+      #     # Docker Hub image
+      #     image: mysql
+      #     env:
+      #       # The MySQL docker container requires these environment variables to be set
+      #       # so we can create and migrate the test database.
+      #       # See: https://hub.docker.com/_/mysql
+      #       MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
+      #       MYSQL_USER: ${{secrets.MYSQL_USER}}
+      #       MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
+      #       MYSQL_ROOT_HOST: ${{secrets.MYSQL_SERVER}}
+      #     #
+      #     ports:
+      #       # Opens tcp port 6379 on the host and service container
+      #       - 3306:3306
       steps:
+        - run: |
+            sudo /etc/init.d/mysql start
         # - name: Check out repository code
         #   uses: actions/checkout@v4
         # - name: Set github user

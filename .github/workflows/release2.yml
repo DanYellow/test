@@ -40,11 +40,11 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+        run: git config user.email "test@example.com" && git config user.name "CI/CD"
       - name: Install the dependencies
         run: npm ci
       - name: Install playwright
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps --project=chromium
       - name: Run playwright
         run: npx playwright test
   build:

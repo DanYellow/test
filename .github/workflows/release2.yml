@@ -39,10 +39,10 @@ jobs:
       steps:
         - run: |
             sudo /etc/init.d/mysql start
-        # - name: Check out repository code
-        #   uses: actions/checkout@v4
-        # - name: Set github user
-        #   run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+        - name: Check out repository code
+          uses: actions/checkout@v4
+        - name: Set github user
+          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
         - name: Import db
           run: |

@@ -105,7 +105,7 @@ jobs:
         - name: Generate artifact
           uses: actions/upload-artifact@master
           with:
-            name: bundle-${{github.env.VITE_HELLO}}
+            name: bundle-${{ env.VITE_HELLO }}
             path: ./dist
 
     # deploy:

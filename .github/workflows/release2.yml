@@ -24,45 +24,52 @@ on:
 
     
 jobs:
-    mysql2:
+    test:
       runs-on: ubuntu-latest
-    #   if: "${{ github.event.inputs.bdd_chemin != ''}}"
-    #   if: "${{ github.event.inputs.bdd_chemin != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}"
       steps:
-        - name: Check out repository code
-          uses: actions/checkout@v4
-        - name: Set github user
-          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-        # - name: Check if file exists
-        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
-        #   run: |
-        #       # echo "${{ hashFiles('database.sql') }}"
-        #       # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
-        #       exit 1
-        - run: |
-            sudo /etc/init.d/mysql start
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
-        # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
-        - name: Run script file
-          run: |
-              chmod +x ./test.sh
-              ./test.sh
-        # - name: Import db
-        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
-        #   run: |
-        #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
-        #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
+        - name: head_ref 
+          run: echo "${{ github.head_ref  }}"
+        - name: ref_name
+          run: echo "${{ github.ref_name }}"
+    # mysql2:
+    #   runs-on: ubuntu-latest
+    # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"
+    # #   if: "${{ github.event.inputs.bdd_chemin != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}"
+    #   steps:
+    #     - name: Check out repository code
+    #       uses: actions/checkout@v4
+    #     - name: Set github user
+    #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+    #     # - name: Check if file exists
+    #     #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
+    #     #   run: |
+    #     #       # echo "${{ hashFiles('database.sql') }}"
+    #     #       # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
+    #     #       exit 1
+    #     - run: |
+    #         sudo /etc/init.d/mysql start
+    #       if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
+    #     # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
+    #     - name: Run script file
+    #       run: |
+    #           chmod +x ./test.sh
+    #           ./test.sh
+    #     # - name: Import db
+    #     #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
+    #     #   run: |
+    #     #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+    #     #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
 
-        #     # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
-        #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
-        #     # # value=$(<database.sql)
-        #     # # echo "$value"
-        #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
-        #   # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
-        #   # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
-        - name: message if db migration is skipped
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-          run: echo "::notice title=${{ github.job.name }}::${{ github.event.inputs.bdd_chemin }} file not found. DB migration skipped" 
+    #     #     # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+    #     #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
+    #     #     # # value=$(<database.sql)
+    #     #     # # echo "$value"
+    #     #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
+    #     #   # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
+    #     #   # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
+    #     - name: message if db migration is skipped
+    #       if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
+    #       run: echo "::notice title=${{ github.job.name }}::${{ github.event.inputs.bdd_chemin }} file not found. DB migration skipped" 
 
 #   unit_tests:
 #     runs-on: ubuntu-latest

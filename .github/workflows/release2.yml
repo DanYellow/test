@@ -15,6 +15,7 @@ on:
             default: 'mon-dump.sql'
     # [workflow_dispatch]
 
+    
 jobs:
     mysql2:
       runs-on: ubuntu-latest
@@ -50,7 +51,7 @@ jobs:
           # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
         - name: message if db migration is skipped
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-          run: echo "::warning title=${{ github.job.name }}::MYSQL_DATABASE file not found. DB migration skipped" 
+          run: echo "::notice title=${{ github.job.name }}::MYSQL_DATABASE file not found. DB migration skipped" 
 
 #   unit_tests:
 #     runs-on: ubuntu-latest

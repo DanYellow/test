@@ -12,6 +12,10 @@ describe("cleanString", () => {
     it("should remove all accents and lowercase string", () => {
         expect(cleanString("Stéphane")).toBe("stephane");
     });
+
+    it("should fail", () => {
+        expect(true).toBeFalsy();
+    });
 });
 
 describe("getEvolutionChain", () => {

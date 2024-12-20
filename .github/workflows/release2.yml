@@ -18,7 +18,8 @@ on:
 jobs:
     mysql2:
       runs-on: ubuntu-latest
-      if: "${{ github.event.inputs.bdd_chemin != '' }}"
+      if: "${{ github.event.inputs.bdd_chemin != '' || hashFiles(github.event.inputs.bdd_chemin) != ''}}"
+      # if: "${{ github.event.inputs.bdd_chemin != '' }}" || '${{ hashFiles('assets/') != '' }}'
       steps:
         - run: |
             sudo /etc/init.d/mysql start

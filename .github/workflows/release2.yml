@@ -39,6 +39,7 @@ jobs:
         - name: Run script file
           run: |
               chmod +x ./test.sh
+              ./test.sh
         # - name: Import db
         #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
         #   run: |

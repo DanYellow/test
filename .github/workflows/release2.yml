@@ -99,7 +99,7 @@ jobs:
         - name: Install the dependencies
           run: npm ci
         - name: Display date
-          run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
+          run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: Create build
           run: npm run build
         - name: Generate artifact

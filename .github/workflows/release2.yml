@@ -24,8 +24,8 @@ jobs:
         - name: Check if file exists
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
           run: |
-            echo "${{ hashFiles(github.event.inputs.bdd_chemin) }}"
-            echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }} }}"
+              echo "${{ hashFiles(github.event.inputs.bdd_chemin) }}"
+              echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
             # exit 1
         - run: |
             sudo /etc/init.d/mysql start
@@ -85,6 +85,7 @@ jobs:
 #         run: npx playwright test --project=chromium --grep-invert @smoke
     build:
       # needs: [unit_tests, e2e_tests]
+      needs: [mysql2]
       runs-on: ubuntu-latest
       steps:
         - name: Check out repository code

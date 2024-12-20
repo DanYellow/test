@@ -18,24 +18,6 @@ env:
 jobs:
     mysql2:
       runs-on: ubuntu-latest
-      # container: mysql
-      # services:
-      #   # Label used to access the service container
-      #   mysql:
-      #     # Docker Hub image
-      #     image: mysql
-      #     env:
-      #       # The MySQL docker container requires these environment variables to be set
-      #       # so we can create and migrate the test database.
-      #       # See: https://hub.docker.com/_/mysql
-      #       MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
-      #       MYSQL_USER: ${{secrets.MYSQL_USER}}
-      #       MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
-      #       MYSQL_ROOT_HOST: ${{secrets.MYSQL_SERVER}}
-      #     #
-      #     ports:
-      #       # Opens tcp port 6379 on the host and service container
-      #       - 3306:3306
       steps:
         - run: |
             sudo /etc/init.d/mysql start
@@ -45,11 +27,11 @@ jobs:
           run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
         - name: Import db
-        # mysql -uroot -proot database_name < database.sql
-        # mysql -uroot -proot --execute="SHOW DATABASES;"
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
             mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
+            value=$(<database.sql)
+            echo "$value"
             mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
           # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
           # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "

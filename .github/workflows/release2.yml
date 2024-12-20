@@ -50,7 +50,7 @@ jobs:
           # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
         - name: message if db migration is skipped
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-          run: echo "File ${{secrets.MYSQL_DATABASE}} not found. DB migration skipped"
+          run: echo "::warning title=YOUR-TITLE::File ${{secrets.MYSQL_DATABASE}} not found. DB migration skipped" 
 
 #   unit_tests:
 #     runs-on: ubuntu-latest

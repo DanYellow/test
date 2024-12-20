@@ -28,9 +28,9 @@ jobs:
         - name: Check if file exists
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
           run: |
-              echo "${{ hashFiles('database.sql') }}"
-              # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
-            # exit 1
+              # echo "${{ hashFiles('database.sql') }}"
+              # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
+              exit 1
         - run: |
             sudo /etc/init.d/mysql start
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql

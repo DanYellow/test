@@ -36,22 +36,25 @@ jobs:
             sudo /etc/init.d/mysql start
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
-        - name: Import db
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
+        - name: Run script file
           run: |
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
+              chmod +x ./test.sh
+        # - name: Import db
+        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
+        #   run: |
+        #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+        #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
 
-            # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
-            # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
-            # # value=$(<database.sql)
-            # # echo "$value"
-            # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
-          # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
-          # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
+        #     # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+        #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
+        #     # # value=$(<database.sql)
+        #     # # echo "$value"
+        #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
+        #   # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
+        #   # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
         - name: message if db migration is skipped
           if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-          run: echo "::notice title=${{ github.job.name }}::MYSQL_DATABASE file not found. DB migration skipped" 
+          run: echo "::notice title=${{ github.job.name }}::${{ github.event.inputs.bdd_chemin }} file not found. DB migration skipped" 
 
 #   unit_tests:
 #     runs-on: ubuntu-latest
@@ -87,26 +90,26 @@ jobs:
 #         run: npx playwright test --project=chromium --grep @smoke
 #       - name: Run non-smoke tests
 #         run: npx playwright test --project=chromium --grep-invert @smoke
-    build:
-      # needs: [unit_tests, e2e_tests]
-      needs: [mysql2]
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out repository code
-          uses: actions/checkout@v4
-        - name: Set github user
-          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-        - name: Install the dependencies
-          run: npm ci
-        - name: Display date
-          run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
-        - name: Create build
-          run: npm run build
-        - name: Generate artifact
-          uses: actions/upload-artifact@master
-          with:
-            name: bundle-${{ env.VITE_HELLO }}
-            path: ./dist
+    # build:
+    #   # needs: [unit_tests, e2e_tests]
+    #   needs: [mysql2]
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: Check out repository code
+    #       uses: actions/checkout@v4
+    #     - name: Set github user
+    #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+    #     - name: Install the dependencies
+    #       run: npm ci
+    #     - name: Display date
+    #       run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
+    #     - name: Create build
+    #       run: npm run build
+    #     - name: Generate artifact
+    #       uses: actions/upload-artifact@master
+    #       with:
+    #         name: bundle-${{ env.VITE_HELLO }}
+    #         path: ./dist
 
     # deploy:
     #   runs-on: ubuntu-latest
@@ -116,7 +119,7 @@ jobs:
     #     - name: Download artifact
     #       uses: actions/download-artifact@master
     #       with:
-    #         name: bundle
+    #         name: bundle-${{ env.VITE_HELLO }}
     #     # - name: echo
     #     #   run: ls -al
     #     # - name: Add ssh key

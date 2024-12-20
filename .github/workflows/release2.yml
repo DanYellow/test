@@ -8,16 +8,17 @@ on:
             required: false
             description: Environment
             default: ''
+          bdd_chemin:
+            type: string
+            required: false
+            description: Chemin du fichier d'export de la base de données
+            default: ''
     # [workflow_dispatch]
-
-env:
-  VITE_WORLD: "${{ github.actor }}"
-  FOO: ls -al
-  VITE_HELLO: Foo
 
 jobs:
     mysql2:
       runs-on: ubuntu-latest
+      if: "${{ github.event.inputs.bdd_chemin != '' }}"
       steps:
         - run: |
             sudo /etc/init.d/mysql start

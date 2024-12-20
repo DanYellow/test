@@ -1,8 +1,8 @@
 name: Release3
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   pull_request: 
     branches: [main]
     

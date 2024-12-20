@@ -24,7 +24,7 @@ jobs:
         - name: Check if file exists
           if: ${{ hashFiles('github.event.inputs.bdd_chemin') == '' }}
           run: |
-            exit 0
+            exit 1
         - run: |
             sudo /etc/init.d/mysql start
         - name: Check out repository code
@@ -35,7 +35,7 @@ jobs:
         - name: Import db
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < database.sql
+            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
 
             # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
             # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"

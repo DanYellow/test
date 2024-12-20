@@ -3,11 +3,11 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.re
 on: 
     workflow_dispatch:
         inputs:
-          environment:
-            type: environment
-            required: false
-            description: Environment
-            default: ''
+          # environment:
+          #   type: environment
+          #   required: false
+          #   description: Environment
+          #   default: ''
           bdd_chemin:
             type: string
             required: false
@@ -26,15 +26,17 @@ jobs:
         - name: Set github user
           run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
         # - name: Check if file exists
-        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
+        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
         #   run: |
         #       # echo "${{ hashFiles('database.sql') }}"
         #       # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
         #       exit 1
         - run: |
             sudo /etc/init.d/mysql start
+          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
         - name: Import db
+          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}

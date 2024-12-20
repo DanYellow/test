@@ -1,15 +1,10 @@
 name: Release3
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
-on: 
-    workflow_dispatch:
-        inputs:
-          stage:
-            type: choice
-            description: Select stage env
-            default: stage2
-            options:
-              - stage1
-              - stage2
+on:
+  push:
+    branches: [main]
+  pull_request: 
+    branches: [main]
     
 jobs:
     test:
@@ -17,41 +12,41 @@ jobs:
       steps:
         - name: Check out repository code
           run: echo "${{ github.ref_name }}"
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out repository code
-          uses: actions/checkout@v4
-        - name: Set github user
-          run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-        - name: Install the dependencies
-          run: npm ci
-        - name: Display date
-          run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
-        - name: Create build
-          run: npm run build
-        - name: Generate artifact
-          uses: actions/upload-artifact@master
-          with:
-            name: bundle
-            path: ./dist
+    # build:
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: Check out repository code
+    #       uses: actions/checkout@v4
+    #     - name: Set github user
+    #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+    #     - name: Install the dependencies
+    #       run: npm ci
+    #     - name: Display date
+    #       run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
+    #     - name: Create build
+    #       run: npm run build
+    #     - name: Generate artifact
+    #       uses: actions/upload-artifact@master
+    #       with:
+    #         name: bundle
+    #         path: ./dist
 
-    deploy:
-      runs-on: ubuntu-latest
-      needs: [build]
-      steps:
-        - name: Download artifact
-          uses: actions/download-artifact@master
-          with:
-            name: bundle
-        # - name: echo
-        #   run: ls -al
-        # - name: Add ssh key
-        #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
-        - name: Fill ssh key
-          run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
-          # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
-        - name: Move files
-          run: mkdir -p ${{ github.ref_name }}
-        - name: Move files
-          run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www/${{ github.ref_name }}
+    # deploy:
+    #   runs-on: ubuntu-latest
+    #   needs: [build]
+    #   steps:
+    #     - name: Download artifact
+    #       uses: actions/download-artifact@master
+    #       with:
+    #         name: bundle
+    #     # - name: echo
+    #     #   run: ls -al
+    #     # - name: Add ssh key
+    #     #   run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
+    #     - name: Fill ssh key
+    #       run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
+    #       # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+    #     - name: Move files
+    #       run: mkdir -p ${{ github.ref_name }}
+    #     - name: Move files
+    #       run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www/${{ github.ref_name }}

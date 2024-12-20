@@ -48,8 +48,9 @@ jobs:
         # mysql -uroot -proot database_name < database.sql
         # mysql -uroot -proot --execute="SHOW DATABASES;"
           run: |
-            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}}
-            mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE danyellow_test; SHOW TABLES;"
+            mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+            mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
+            mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} database_name < database.sql
           # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="SHOW TABLES;"
           # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
 

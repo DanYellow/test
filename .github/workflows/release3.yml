@@ -3,11 +3,6 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.re
 on: 
     workflow_dispatch:
         inputs:
-          # environment:
-          #   type: environment
-          #   required: false
-          #   description: Environment
-          #   default: ''
           stage:
             type: choice
             description: Select stage env
@@ -15,20 +10,13 @@ on:
             options:
               - stage1
               - stage2
-          # bdd_chemin:
-          #   type: string
-          #   required: false
-          #   description: Chemin du fichier d'export de la base de données
-          #   default: 'mon-dump.sql'
-    # [workflow_dispatch]
-
     
 jobs:
     test:
       runs-on: ubuntu-latest
       steps:
         - name: Check out repository code
-          run: echo "${{ github.head_ref || github.ref_name }}"
+          run: echo "${{ github.ref_name }}"
     build:
       runs-on: ubuntu-latest
       steps:
@@ -51,7 +39,6 @@ jobs:
     deploy:
       runs-on: ubuntu-latest
       needs: [build]
-      environment: staging_environment
       steps:
         - name: Download artifact
           uses: actions/download-artifact@master
@@ -65,4 +52,6 @@ jobs:
           run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
         - name: Move files
-          run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+          run: mkdir -p ${{ github.ref_name }}
+        - name: Move files
+          run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www/${{ github.ref_name }}

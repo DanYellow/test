@@ -18,7 +18,7 @@ on:
 jobs:
     mysql2:
       runs-on: ubuntu-latest
-      if: "${{ github.event.inputs.bdd_chemin != ''}}"
+    #   if: "${{ github.event.inputs.bdd_chemin != ''}}"
       # if: "${{ github.event.inputs.bdd_chemin != '' || hashFiles(github.event.inputs.bdd_chemin) != '' }}"
       steps:
         - name: Check out repository code
@@ -33,10 +33,10 @@ jobs:
         #       exit 1
         - run: |
             sudo /etc/init.d/mysql start
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
+          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql
         - name: Import db
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' }}
+          if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
           run: |
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
             mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}

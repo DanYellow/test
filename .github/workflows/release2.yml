@@ -19,18 +19,18 @@ jobs:
     mysql2:
       runs-on: ubuntu-latest
       if: "${{ github.event.inputs.bdd_chemin != ''}}"
-      # if: "${{ github.event.inputs.bdd_chemin != '' }}" || '${{ hashFiles('assets/') != '' }}'
+      # if: "${{ github.event.inputs.bdd_chemin != '' || hashFiles(github.event.inputs.bdd_chemin) != '' }}"
       steps:
         - name: Check out repository code
           uses: actions/checkout@v4
         - name: Set github user
           run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-        - name: Check if file exists
-          if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-          run: |
-              # echo "${{ hashFiles('database.sql') }}"
-              # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
-              exit 1
+        # - name: Check if file exists
+        #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
+        #   run: |
+        #       # echo "${{ hashFiles('database.sql') }}"
+        #       # # echo "${{ hashFiles(format('{0}', github.event.inputs.bdd_chemin)) }}"
+        #       exit 1
         - run: |
             sudo /etc/init.d/mysql start
         # mysql -u ${{secrets.MYSQL_USER}} -p database_name < database.sql

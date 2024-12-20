@@ -8,11 +8,18 @@ on:
           #   required: false
           #   description: Environment
           #   default: ''
-          bdd_chemin:
-            type: string
-            required: false
-            description: Chemin du fichier d'export de la base de données
-            default: 'mon-dump.sql'
+          stage:
+            type: choice
+            description: Select stage env
+            default: stage2
+            options:
+              - stage1
+              - stage2
+          # bdd_chemin:
+          #   type: string
+          #   required: false
+          #   description: Chemin du fichier d'export de la base de données
+          #   default: 'mon-dump.sql'
     # [workflow_dispatch]
 
     

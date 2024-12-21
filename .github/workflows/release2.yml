@@ -142,9 +142,7 @@ jobs:
           env:
             JSON_DOC: ${{ toJSON(github) }}
           run: |
-            # echo "${{ github }}" > foo.json
-            # echo "${{ env.JSON_DOC }}" > foo.json
-            # echo "${{ fromJSON(github) }}" > foo2.json
+
             echo "geee" > foo2.json
 
         # - name: echo
@@ -163,3 +161,7 @@ jobs:
             # "ENVIRONMENT=prod" >> .env
             # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
             # echo "KEY=${{ secrets.SERVER }}" >> .env
+
+            # echo "${{ github }}" > foo.json
+            # echo "${{ env.JSON_DOC }}" > foo.json
+            # echo "${{ fromJSON(github) }}" > foo2.json

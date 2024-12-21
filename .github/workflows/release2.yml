@@ -140,7 +140,7 @@ jobs:
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           env:
-            JSON_DOC: "$(date +'%Y-%m-%dT%H-%M-%S')"
+            JSON_DOC: $(date +'%Y-%m-%dT%H-%M-%S')
           run: |
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
@@ -148,9 +148,9 @@ jobs:
             echo '${{ toJSON(env) }}' > foo.json 
             
 
-        # - name: echo
-        #   run: |
-        #     echo "$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )" > .env3
+        - name: echo
+          run: |
+            echo "$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )" > .env3
         - name: Add ssh key
           run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
         - name: Fill ssh key

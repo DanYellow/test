@@ -140,7 +140,7 @@ jobs:
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           run: | 
-            echo "${{ toJSON(env) }}" > foo.json 
+            echo '${{ toJSON(env) }}' > foo.json 
             # "ENVIRONMENT=prod" >> .env
             # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
             # echo "KEY=${{ secrets.SERVER }}" >> .env

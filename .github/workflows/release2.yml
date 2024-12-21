@@ -142,7 +142,7 @@ jobs:
         #   env:
         #     JSON_DOC: ${{ toJSON(env) }}
           run: |
-            printf "${{ env.VITE_HELLO2 }}"
+            printf "$VITE_HELLO"
             printf "{\"Name\":\"$VITE_HELLO2\"}" >> foo2.json
             # printf "${{ toJSON(env) }}" >> foo3.json
 

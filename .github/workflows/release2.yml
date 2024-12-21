@@ -146,11 +146,10 @@ jobs:
             # printf "${{ github.ref_name }}"
             echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
             echo '${{ toJSON(env) }}' > foo.json 
-            
-
         - name: echo
           run: |
-            echo "$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )" > .env3
+            echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo2.json )" > .env2
+            echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo.json )" > .env
         - name: Add ssh key
           run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
         - name: Fill ssh key
@@ -158,13 +157,11 @@ jobs:
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
         - name: Move files
           run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-            # printf "${{ toJSON(env) }}" >> foo3.json
-                      # cat foo.json
-            # echo '${{ toJSON(env) }}' > foo.json 
-            # "ENVIRONMENT=prod" >> .env
-            # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
-            # echo "KEY=${{ secrets.SERVER }}" >> .env
+        - run: ssh ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
 
-            # echo "${{ github }}" > foo.json
-            # echo "${{ env.JSON_DOC }}" > foo.json
-            # echo "${{ fromJSON(github) }}" > foo2.json
+    ending:
+      runs-on: ubuntu-latest
+      if: ${{ success() }}
+      steps:
+        - name: Fill ssh key
+          run: echo "Hello"

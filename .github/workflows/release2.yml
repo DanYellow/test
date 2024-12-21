@@ -141,7 +141,7 @@ jobs:
         - name: read env file
           run: | 
             # echo ${{ env.VITE_HELLO2 }}
-            echo $GITHUB_ENV
+            echo ${{ toJSON(env) }}
             echo "ENVIRONMENT=prod" >> .env
             echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
         # - name: echo

@@ -138,8 +138,9 @@ jobs:
         - name: Create env file
           run: | 
             echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
-            echo "${{ env.VITE_HELLO }}"
+            echo "$VITE_HELLO"
             echo "ENVIRONMENT=prod" >> .env
+            echo "VITE_HELLO=$VITE_HELLO" >> .env
         # - name: echo
         #   run: ls -al
         # - name: Add ssh key

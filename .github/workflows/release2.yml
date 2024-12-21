@@ -141,9 +141,10 @@ jobs:
         - name: read env file
         # echo ${{ env.VITE_HELLO2 }}
         # echo "${{ toJSON(env) }}"
+        # echo "${{ toJSON(env) }}" >> .env2
           run: | 
-            # echo "${{ toJSON(env) }}" >> .env2
             echo $( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' ${{ toJSON(env) }})
+            echo $( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' ${{ toJSON(env) }}) >> .env3
             echo "ENVIRONMENT=prod" >> .env
             echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
             echo "KEY=${{ secrets.SERVER }}" >> .env

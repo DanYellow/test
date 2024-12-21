@@ -157,7 +157,7 @@ jobs:
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
         - name: Move files
           run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-        - run: ssh ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
+        - run: ssh ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json'
 
     ending:
       runs-on: ubuntu-latest

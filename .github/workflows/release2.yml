@@ -140,11 +140,12 @@ jobs:
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           env:
-            JSON_DOC: echo "$(date +'%Y-%m-%dT%H-%M-%S')"
+            JSON_DOC: "$(date +'%Y-%m-%dT%H-%M-%S')"
           run: |
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
-            echo "{\"Name\":${{ env.JSON_DOC }}}" >> foo2.json
+            echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
+            echo '${{ toJSON(env) }}' > foo.json 
             
 
         # - name: echo

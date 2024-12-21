@@ -137,6 +137,7 @@ jobs:
             name: bundle
         - name: Create env file
           run: | 
+            echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
             echo "${{ env.VITE_HELLO }}"
             echo "ENVIRONMENT=prod" >> .env
         # - name: echo

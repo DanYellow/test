@@ -129,7 +129,7 @@ jobs:
     deploy:
       runs-on: ubuntu-latest
       needs: [build]
-      environment: staging_environment
+    #   environment: staging_environment
       steps:
         - name: Download artifact
           uses: actions/download-artifact@master
@@ -137,8 +137,7 @@ jobs:
             name: bundle
         - name: Create env file
           run: | 
-            echo "$GITHUB_ENV"
-            echo $GITHUB_ENV
+            echo "${{ toJson(env) }}"
             echo "ENVIRONMENT=prod" >> .env
         # - name: echo
         #   run: ls -al

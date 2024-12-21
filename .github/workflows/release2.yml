@@ -142,7 +142,7 @@ jobs:
           env:
             JSON_DOC: ${{ toJSON(github) }}
           run: |
-            echo "::set-output name=deployment_env::${{ env.JSON_DOC }}"
+            echo "FOO=${{ env.JSON_DOC }}" >> $GITHUB_OUTPUT
             # printf "${{ env.JSON_DOC }}" > foo2.json
 
         # - name: echo

@@ -141,12 +141,12 @@ jobs:
         - name: read env file
           run: | 
             echo "${{ toJSON(env) }}" > foo.json 
-            echo "$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )" > .env3
-            "ENVIRONMENT=prod" >> .env
+            # "ENVIRONMENT=prod" >> .env
             # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
-            echo "KEY=${{ secrets.SERVER }}" >> .env
-        # - name: echo
-        #   run: ls -al
+            # echo "KEY=${{ secrets.SERVER }}" >> .env
+        - name: echo
+          run: |
+            echo "$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )" > .env3
         - name: Add ssh key
           run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
         - name: Fill ssh key

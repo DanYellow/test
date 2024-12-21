@@ -140,10 +140,10 @@ jobs:
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           run: | 
-            echo "${{ toJSON(env) }}" > foo.json 
-            echo "FOO=$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )"
+            echo ${{ toJSON(env) }} > foo.json 
+            FOO=$( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )
             echo $FOO
-            echo "ENVIRONMENT=prod" >> .env
+            "ENVIRONMENT=prod" >> .env
             # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
             echo "KEY=${{ secrets.SERVER }}" >> .env
         # - name: echo

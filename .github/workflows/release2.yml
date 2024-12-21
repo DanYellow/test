@@ -142,10 +142,11 @@ jobs:
         # echo ${{ env.VITE_HELLO2 }}
         # echo "${{ toJSON(env) }}"
           run: | 
-            echo "${{ toJSON(env) }}" >> .env2
+            # echo "${{ toJSON(env) }}" >> .env2
+            echo $( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' ${{ toJSON(env) }})
             echo "ENVIRONMENT=prod" >> .env
             echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
-            echo "KEY=${{ secrets.SSH_KEY }}" >> .env
+            echo "KEY=${{ secrets.SERVER }}" >> .env
         # - name: echo
         #   run: ls -al
         # - name: Add ssh key

@@ -142,7 +142,8 @@ jobs:
           env:
             JSON_DOC: ${{ toJSON(github) }}
           run: |
-            echo "$JSON_DOC" > foo.json
+            echo "${{ github }}" > foo.json
+            echo "${{ fromJSON(github) }}" > foo2.json
 
         # - name: echo
         #   run: |

@@ -143,10 +143,10 @@ jobs:
         # echo "${{ toJSON(env) }}"
         # echo "${{ toJSON(env) }}" >> .env2
           run: | 
-            echo ${{ toJSON(env) }} > foo.json 
+            echo "${{ toJSON(env) }}" > foo.json 
             echo $( echo "$values" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' foo.json )
             echo "ENVIRONMENT=prod" >> .env
-            # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
+            echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
             echo "KEY=${{ secrets.SERVER }}" >> .env
         # - name: echo
         #   run: ls -al

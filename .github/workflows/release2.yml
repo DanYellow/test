@@ -142,8 +142,8 @@ jobs:
         #   env:
         #     JSON_DOC: ${{ toJSON(env) }}
           run: |
-            printf "{\"Name\":\"$(date +'%Y-%m-%dT%H-%M-%S')\"}" >> foo2.json
-            printf "${{ fromJSON(toJSON(env)) }}" >> foo3.json
+            printf "{\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> foo2.json
+            # printf "${{ toJSON(env) }}" >> foo3.json
             # printf "${{ env.JSON_DOC }}" > foo2.json
 
         # - name: echo

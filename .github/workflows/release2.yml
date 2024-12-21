@@ -141,10 +141,11 @@ jobs:
         - name: read env file
           run: | 
             # echo ${{ env.VITE_HELLO2 }}
-            echo "${{ toJSON(env) }}"
+            # echo "${{ toJSON(env) }}"
             echo "${{ toJSON(env) }}" >> .env2
             echo "ENVIRONMENT=prod" >> .env
             echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env
+            echo "KEY=${{ secrets.SSH_KEY }}" >> .env
         # - name: echo
         #   run: ls -al
         # - name: Add ssh key

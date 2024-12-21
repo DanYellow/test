@@ -7,7 +7,7 @@
         "dev": "vite",
         "start": "vite",
         "test": "jest",
-        "build": "vite build",
+        "build": "vite build && cp **/*.php  --parents dist",
         "lint": "npx eslint",
         "preview": "vite preview"
     },

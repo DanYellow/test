@@ -140,7 +140,7 @@ jobs:
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           env:
-            JSON_DOC: $(date +'%Y-%m-%dT%H-%M-%S')
+            JSON_DOC: ${{ github.actor }}
           run: |
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
@@ -157,7 +157,7 @@ jobs:
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
         - name: Move files
           run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-        - run: ssh ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json'
+        - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json'
 
     ending:
       runs-on: ubuntu-latest

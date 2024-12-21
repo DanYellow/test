@@ -143,7 +143,7 @@ jobs:
             JSON_DOC: ${{ toJSON(github) }}
           run: |
             echo "$JSON_DOC" > foo.json
-            cat foo.json
+            # cat foo.json
             # echo '${{ toJSON(env) }}' > foo.json 
             # "ENVIRONMENT=prod" >> .env
             # echo "VITE_HELLO=${{ env.VITE_HELLO2 }}" >> .env

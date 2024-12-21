@@ -142,10 +142,8 @@ jobs:
         #   env:
         #     JSON_DOC: ${{ toJSON(env) }}
           run: |
-            # echo "FOO=${{ env.JSON_DOC }}" >> $GITHUB_OUTPUT
-            # printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> $GITHUB_ENV
             printf "{\"Name\":\"$(date +'%Y-%m-%dT%H-%M-%S')\"}" >> foo2.json
-            printf "${{ toJSON(env) }}" >> foo3.json
+            printf "${{ fromJSON(toJSON(env)) }}" >> foo3.json
             # printf "${{ env.JSON_DOC }}" > foo2.json
 
         # - name: echo

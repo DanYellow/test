@@ -142,7 +142,7 @@ jobs:
           env:
             JSON_DOC: ${{ toJSON(env) }}
           run: |
-            printf '%s\n' "$JSON_DOC" > foo.json
+            echo "$JSON_DOC" > foo.json
             cat foo.json
             # echo '${{ toJSON(env) }}' > foo.json 
             # "ENVIRONMENT=prod" >> .env

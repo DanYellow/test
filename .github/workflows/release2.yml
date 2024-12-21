@@ -137,7 +137,7 @@ jobs:
             name: bundle
         - name: Create env file
           run: | 
-            echo "${{ toJson(env) }}"
+            echo "${{ env.VITE_HELLO }}"
             echo "ENVIRONMENT=prod" >> .env
         # - name: echo
         #   run: ls -al

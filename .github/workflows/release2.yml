@@ -142,9 +142,9 @@ jobs:
         #   env:
         #     JSON_DOC: ${{ toJSON(env) }}
           run: |
-            printf "${{ github.ref }}"
-            printf "${{ github.ref_name }}"
-            printf "{\"Name\":$(VITE_HELLO2)}" >> foo2.json
+            # printf "${{ github.ref }}"
+            # printf "${{ github.ref_name }}"
+            echo "{\"Name\":$(VITE_HELLO2)}" >> foo2.json
             # printf "${{ toJSON(env) }}" >> foo3.json
 
         # - name: echo

@@ -135,14 +135,16 @@ jobs:
           uses: actions/download-artifact@master
           with:
             name: bundle
-        # - name: Create env file
-        #   run: | 
-        #     echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
+        - name: Create env file
+          run: | 
+            echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           env:
-            JSON_DOC: ${{ toJSON(github) }}
+            JSON_DOC: ${{ toJSON(env) }}
           run: |
-            echo "FOO=${{ env.JSON_DOC }}" >> $GITHUB_OUTPUT
+            # echo "FOO=${{ env.JSON_DOC }}" >> $GITHUB_OUTPUT
+            printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> $GITHUB_ENV
+            printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> foo2.json
             # printf "${{ env.JSON_DOC }}" > foo2.json
 
         # - name: echo

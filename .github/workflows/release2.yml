@@ -143,8 +143,8 @@ jobs:
             JSON_DOC: ${{ toJSON(env) }}
           run: |
             # echo "FOO=${{ env.JSON_DOC }}" >> $GITHUB_OUTPUT
-            printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> $GITHUB_ENV
-            printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> foo2.json
+            # printf "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> $GITHUB_ENV
+            echo "JSON_PAYLOAD={\"Name\":\"${{ env.VITE_HELLO2 }}\"}" >> foo2.json
             # printf "${{ env.JSON_DOC }}" > foo2.json
 
         # - name: echo

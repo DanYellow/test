@@ -160,6 +160,7 @@ jobs:
         - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
 
     ending:
+      needs: [build]
       runs-on: ubuntu-latest
       if: ${{ success() }}
       steps:

@@ -1,6 +1,6 @@
 name: Release2
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
-on: 
+on:
     workflow_dispatch:
         inputs:
           # environment:
@@ -22,12 +22,12 @@ on:
           #   default: 'mon-dump.sql'
     # [workflow_dispatch]
 
-    
+
 jobs:
     test:
       runs-on: ubuntu-latest
       steps:
-        - name: head_ref 
+        - name: head_ref
           run: echo "${{ github.head_ref  }}"
         - name: ref_name
           run: echo "${{ github.ref_name }}"
@@ -57,10 +57,10 @@ jobs:
     #     # - name: Import db
     #     #   if: ${{ hashFiles(github.event.inputs.bdd_chemin) != '' && hashFiles(github.event.inputs.bdd_chemin) != '' }}
     #     #   run: |
-    #     #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+    #     #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}}
     #     #     mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} ${{secrets.MYSQL_DATABASE}} < ${{github.event.inputs.bdd_chemin}}
 
-    #     #     # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} 
+    #     #     # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}}
     #     #     # mysql -u${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} -h ${{secrets.MYSQL_SERVER}} --execute="USE ${{secrets.MYSQL_DATABASE}}; SHOW TABLES;"
     #     #     # # value=$(<database.sql)
     #     #     # # echo "$value"
@@ -69,7 +69,7 @@ jobs:
     #     #   # mysql -u ${{secrets.MYSQL_USER}} -p${{secrets.MYSQL_PASSWORD}} ${{secrets.MYSQL_DATABASE}} --execute="SHOW TABLES; "
     #     - name: message if db migration is skipped
     #       if: ${{ hashFiles(github.event.inputs.bdd_chemin) == '' }}
-    #       run: echo "::notice title=${{ github.job.name }}::${{ github.event.inputs.bdd_chemin }} file not found. DB migration skipped" 
+    #       run: echo "::notice title=${{ github.job.name }}::${{ github.event.inputs.bdd_chemin }} file not found. DB migration skipped"
 
 #   unit_tests:
 #     runs-on: ubuntu-latest
@@ -136,7 +136,7 @@ jobs:
           with:
             name: bundle
         - name: Create env file
-          run: | 
+          run: |
             echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: read env file
           env:
@@ -145,7 +145,7 @@ jobs:
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
             echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
-            echo '${{ toJSON(env) }}' > foo.json 
+            echo '${{ toJSON(env) }}' > foo.json
         - name: echo
           run: |
             echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo2.json )" > .env2
@@ -160,7 +160,7 @@ jobs:
         - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
 
     ending:
-      needs: [build]
+      needs: [deploy]
       runs-on: ubuntu-latest
       if: ${{ success() }}
       steps:

@@ -7,7 +7,7 @@
         "dev": "vite",
         "start": "vite",
         "test": "jest",
-        "build": "vite build",
+        "build": "vite build && rsync -am --include='*.php' --include='**/*.php' --exclude='*' ./ dist/",
         "lint": "npx eslint",
         "preview": "vite preview"
     },

@@ -28,15 +28,14 @@ jobs:
             )
 
             response = req.json()
-            foo = response["workflow_runs"][0]["id"]
-            print(foo)
-            with open(env_file, "a") as myfile:
-                myfile.write(f"LAST_COMPLETED_RUN_ID={foo}")
+            last_completed_run_id = response["workflow_runs"][0]["id"]
+            with open(env_file, "a") as github_env:
+              github_env.write(f"LAST_COMPLETED_RUN_ID={last_completed_run_id}")
         - run: echo ${{ env.LAST_COMPLETED_RUN_ID }}
         - name: Download artifacts
           uses: actions/download-artifact@v4
           with:
             name: bundle
-            run-id: 12468380590
+            run-id: ${{ env.LAST_COMPLETED_RUN_ID }}
             github-token: ${{ secrets.GITHUB_TOKEN }}
         - run: ls -al

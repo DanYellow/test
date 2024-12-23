@@ -41,7 +41,7 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
   build:
-    needs: [unit_tests, e2e_tests]
+    # needs: [unit_tests, e2e_tests]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

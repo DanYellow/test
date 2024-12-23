@@ -120,7 +120,8 @@ jobs:
           run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
         - name: Create build
           run: npm run build
-        - run: cp ${{ github.workspace }}/test.sh ${{ github.workspace }}/bundle
+        - run: cp ${{ github.workspace }}/test.sh ${{ github.workspace }}/dist
+        - run: ${{ github.workspace }}/dist && ls -al
         - name: Generate artifact
           uses: actions/upload-artifact@master
           with:

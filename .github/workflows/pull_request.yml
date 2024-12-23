@@ -3,7 +3,8 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.re
 on:
   pull_request:
     branches: [main]
-    types: [ opened, reopened, edited ]
+    # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
+    types: [ opened, reopened, edited, synchronize ]
 
 jobs:
   # unit_tests:

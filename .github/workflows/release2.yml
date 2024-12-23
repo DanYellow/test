@@ -157,8 +157,8 @@ jobs:
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
         - name: Run script file
           run: |
-            chmod +x ./test.sh
-            ./test.sh
+            chmod +x $GITHUB_WORKSPACE/test.sh
+            $GITHUB_WORKSPACE/test.sh
         - name: Move files
           run: rsync -Pavz --exclude-from='rsync-exclude.txt' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
         # - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'

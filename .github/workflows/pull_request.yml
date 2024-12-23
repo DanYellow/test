@@ -1,4 +1,4 @@
-name: Release2
+name: PR to master
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
 on:
   pull_request:
@@ -41,8 +41,7 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
   build:
-    # needs: [unit_tests, e2e_tests]
-  #   needs: [mysql2]
+    needs: [unit_tests, e2e_tests]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -63,53 +62,3 @@ jobs:
         with:
           name: bundle
           path: ./dist
-
-    # deploy:
-    #   runs-on: ubuntu-latest
-    #   needs: [build]
-    # #   environment: staging_environment
-    #   steps:
-    #     - name: Download artifact
-    #       uses: actions/download-artifact@master
-    #       with:
-    #         name: bundle
-    #     - name: Create env file
-    #       run: |
-    #         echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
-    #     - name: read env file
-    #       env:
-    #         JSON_DOC: ${{ github.actor }}
-    #       run: |
-    #         # printf "${{ github.ref }}"
-    #         # printf "${{ github.ref_name }}"
-    #         # echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
-    #         echo '${{ toJSON(secrets) }}' > foo3.json
-    #     - name: echo
-    #       run: |
-    #         echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo2.json )" > .env2
-    #         echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo.json )" > .env
-    #     - name: Add ssh key
-    #       run: mkdir -p ~/.ssh && touch ~/.ssh/deploy_key
-    #     - name: Fill ssh key
-    #       run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
-    #       # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
-    #     - name: Run script file
-    #       run: |
-    #         ls -al
-    #         echo ${{ github.workspace }}
-    #         echo $GITHUB_WORKSPACE
-    #         chmod +x ${{ github.workspace }}/test.sh
-    #         ${{ github.workspace }}/test.sh
-    #     - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm -rf ~/www/*'
-    #     - name: Move files
-    #       run: rsync -Pavz --include='consignes.js' --include='consignes.css' --exclude='*' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ${{ github.workspace }}/ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-    #       # run: rsync -Pavz --exclude-from='rsync-exclude.txt' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-    #     # - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
-
-    # ending:
-    #   needs: [deploy]
-    #   runs-on: ubuntu-latest
-    #   if: ${{ success() }}
-    #   steps:
-    #     - name: Fill ssh key
-    #       run: echo "Hello"

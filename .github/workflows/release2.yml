@@ -31,6 +31,7 @@ jobs:
           run: echo "${{ github.head_ref  }}"
         - name: ref_name
           run: echo "${{ github.ref_name }}"
+          id: get-job-id
     # mysql2:
     #   runs-on: ubuntu-latest
     # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"

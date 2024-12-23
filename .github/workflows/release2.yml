@@ -147,7 +147,7 @@ jobs:
           run: |
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
-            echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
+            # echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
             echo '${{ toJSON(secrets) }}' > foo3.json
         - name: echo
           run: |

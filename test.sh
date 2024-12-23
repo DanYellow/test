@@ -1,4 +1,4 @@
-cat > .htaccess.tmp << EOF
+cat > .htaccess << EOF
 # Disable index view
 Options -Indexes
 

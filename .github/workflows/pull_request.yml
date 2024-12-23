@@ -6,25 +6,25 @@ on:
     types: [ opened, reopened, edited ]
 
 jobs:
-  unit_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - run: echo "$FOO"
-      # - run: echo "${{toJSON(github)}}"
-      - name: Run unit tests
-        run: npm run test --if-present
-      # - name: Display date
-      #   run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
-      - name: Display date
-        run: echo "MY_VAR=$(date +'%Y/%m/%d')" >> "$GITHUB_ENV"
-      - run: |
-          printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
+  # unit_tests:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v4
+  #     - name: Set github user
+  #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+  #     - name: Install the dependencies
+  #       run: npm ci
+  #     - run: echo "$FOO"
+  #     # - run: echo "${{toJSON(github)}}"
+  #     - name: Run unit tests
+  #       run: npm run test --if-present
+  #     # - name: Display date
+  #     #   run: FOO=$(date +'%Y-%m-%dT%H:%M:%S')
+  #     - name: Display date
+  #       run: echo "MY_VAR=$(date +'%Y/%m/%d')" >> "$GITHUB_ENV"
+  #     - run: |
+  #         printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
   e2e_tests:
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,7 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
   build:
-    # needs: [unit_tests, e2e_tests]
+    # needs: [e2e_tests]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

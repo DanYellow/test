@@ -145,7 +145,7 @@ jobs:
             # printf "${{ github.ref }}"
             # printf "${{ github.ref_name }}"
             echo "{\"Name\": "${{ env.JSON_DOC }}" }" > foo2.json
-            echo '${{ toJSON(secrets) }}' > foo.json
+            echo '${{ toJSON(secrets) }}' > foo3.json
         - name: echo
           run: |
             echo "$( echo "$values" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' foo2.json )" > .env2
@@ -155,9 +155,13 @@ jobs:
         - name: Fill ssh key
           run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 600 ~/deploy_key
           # run: echo "${{secrets.SSH_KEY}}" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+        - name: Run script file
+          run: |
+            chmod +x ./test.sh
+            ./test.sh
         - name: Move files
-          run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
-        - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
+          run: rsync -Pavz --exclude-from='rsync-exclude.txt' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
+        # - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
 
     ending:
       needs: [deploy]

@@ -1,0 +1,2 @@
+foo.json
+foo2.json

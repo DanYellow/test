@@ -121,7 +121,7 @@ jobs:
         - name: Create build
           run: npm run build
         - run: cp ${{ github.workspace }}/test.sh ${{ github.workspace }}/dist
-        - run: ${{ github.workspace }}/dist && ls -al
+        - run: cd ${{ github.workspace }}/dist && ls -al
         - name: Generate artifact
           uses: actions/upload-artifact@master
           with:

@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [get_artifact]
     steps:
+      - name: Fill ssh key
+        run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 400 ~/deploy_key
       - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm -rf ~/www/*'
       - name: Move files
         run: rsync -Pavz -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ${{ github.workspace }}/ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www

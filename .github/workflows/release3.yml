@@ -28,7 +28,7 @@ jobs:
             )
 
             response = req.json()
-            print(response)
+            print(response["workflow_runs"])
             # with open(env_file, "a") as myfile:
             #     myfile.write(f"LAST_COMPLETED_RUN_ID={response.workflow_runs[0].id}")
         - run: echo ${{ env.LAST_COMPLETED_RUN_ID }}

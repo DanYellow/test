@@ -28,9 +28,9 @@ jobs:
             )
 
             response = req.json()
-
-            with open(env_file, "a") as myfile:
-                myfile.write(f"LAST_COMPLETED_RUN_ID={response.workflow_runs[0].id}")
+            print(response)
+            # with open(env_file, "a") as myfile:
+            #     myfile.write(f"LAST_COMPLETED_RUN_ID={response.workflow_runs[0].id}")
         - run: echo ${{ env.LAST_COMPLETED_RUN_ID }}
         - name: Download artifacts
           uses: actions/download-artifact@v4

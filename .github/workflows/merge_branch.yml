@@ -1,5 +1,5 @@
 name: Merged with master
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
+run-name: ${{ github.actor }} is deploying ${{ github.head_ref }} to prod  🚀
 
 on:
   pull_request:
@@ -7,11 +7,10 @@ on:
     types: [closed]
 
 jobs:
-  get_artifact_id:
+  deploy_merged_branch:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.head_ref }}"
       - name: get last id
         shell: python
         run: |
@@ -39,21 +38,6 @@ jobs:
           name: bundle
           run-id: ${{ env.LAST_COMPLETED_RUN_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: ls -al
-      - name: Generate artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: bundle-preprod
-          path: ${{ github.workspace }}/
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [get_artifact_id]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: bundle-preprod
-      - run: ls -al
       - name: Fill ssh key
         run: echo "${{secrets.SSH_KEY}}" > ~/deploy_key && chmod 400 ~/deploy_key
       - name: Move files

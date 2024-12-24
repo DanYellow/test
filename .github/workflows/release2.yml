@@ -50,16 +50,16 @@ jobs:
                 # [name]=$($collaborator_login | jq '.name')
                 [login]=$collaborator_login
               )
-              echo "$collaborator"
+              echo `$collaborator | jq '.login'`
 
               res+=($collaborator)
 
             done
 
 
-            for collaborator_login in `echo $res | jq --raw-output -c '.[]'`; do
-              echo $collaborator_login | jq '.login'
-            done
+            # for collaborator_login in `echo $res | jq --raw-output -c '.[]'`; do
+            #   echo $collaborator_login | jq '.login'
+            # done
 
 
           env:

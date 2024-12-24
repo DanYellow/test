@@ -42,12 +42,18 @@ jobs:
             # echo "$list_collaborators_login"
 
             res=()
-            for collaborator in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
-              collaborator_login="$(gh api /users/${collaborator})"
+            for collaborator_login in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
+              collaborator_login="$(gh api /users/${collaborator_login})"
 
-              res+=(`echo $collaborator_login | jq '.login'`)
+              collaborator=(
+                [url]='test@xyz.org'
+                [name]='passwd1!'
+                [login]=${collaborator_login}
+              )
+              echo "$collaborator"
 
-              echo "$collaborator_login"
+              res+=(collaborator)
+
             done
 
             echo "$res"

@@ -43,9 +43,9 @@ jobs:
 
             res=()
             for collaborator in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
-              # collaborator_login="$(gh api /users/$collaborator)"
-              echo "/users/${collaborator}"
-              # echo "$collaborator_login"
+              collaborator_login="$(gh api /users/${collaborator})"
+
+              echo "$collaborator_login"
             done
 
             # while read -r repo; do echo "do something with $repo"; done

@@ -48,7 +48,7 @@ jobs:
               collaborator=(
                 [url]='test@xyz.org'
                 # [name]=$($collaborator_login | jq '.name')
-                [login]=${collaborator_login}
+                [login]=$collaborator_login
               )
               echo "$collaborator"
 
@@ -56,8 +56,10 @@ jobs:
 
             done
 
-              # res+=(`echo $collaborator_login | jq '.name'`)
-            echo "$res"
+
+            for collaborator_login in `echo $res | jq --raw-output -c '.[]'`; do
+              echo $($collaborator_login | jq '.login')
+            done
 
             # while read -r repo; do echo "do something with $repo"; done
 

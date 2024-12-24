@@ -38,12 +38,13 @@ jobs:
       steps:
         - run: |
             list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
-            declare -a list_collaborators_login=`echo $list_collaborators | jq '[.[].login]'`
+            list_collaborators_login=`echo $list_collaborators | jq '[.[].login]'`
             echo "$list_collaborators_login"
 
             res=()
             for group in `echo $list_collaborators_login | jq -c '.[]'`; do
-              echo "$group"
+              collaborator_login="$(gh api /users/${group})"
+              echo "$collaborator_login"
             done
 
             # while read -r repo; do echo "do something with $repo"; done

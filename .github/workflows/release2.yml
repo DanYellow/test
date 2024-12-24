@@ -37,7 +37,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - run: |
-            goo = "$(gh api /repos/DanYellow/test/collaborators)"
+            goo="$(gh api /repos/DanYellow/test/collaborators)"
             echo $goo
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

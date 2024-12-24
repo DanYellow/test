@@ -58,28 +58,9 @@ jobs:
 
 
             for collaborator_login in `echo $res | jq --raw-output -c '.[]'`; do
-              echo $($collaborator_login | jq '.login')
+              echo $collaborator_login | jq '.login'
             done
 
-            # while read -r repo; do echo "do something with $repo"; done
-
-
-
-            # list_collaborators_login=$($list_collaborators | jq '[.[].login]')
-            # $list_collaborators_login=$(jq '[.[].login]' <<< "$list_collaborators")
-
-
-            # echo $list_collaborators | jq '[.[].login]'
-
-            # $list_collaborators_login=$(echo "$list_collaborators" | jq '[.[].login]')
-
-
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
 
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -233,3 +214,23 @@ jobs:
     #   steps:
     #     - name: Fill ssh key
     #       run: echo "Hello"
+
+                # while read -r repo; do echo "do something with $repo"; done
+
+
+
+            # list_collaborators_login=$($list_collaborators | jq '[.[].login]')
+            # $list_collaborators_login=$(jq '[.[].login]' <<< "$list_collaborators")
+
+
+            # echo $list_collaborators | jq '[.[].login]'
+
+            # $list_collaborators_login=$(echo "$list_collaborators" | jq '[.[].login]')
+
+
+            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
+            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
+            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
+            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
+            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
+            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done

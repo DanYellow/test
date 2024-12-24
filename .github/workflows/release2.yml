@@ -38,9 +38,12 @@ jobs:
       steps:
         - run: |
             list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
-            echo "$list_collaborators" | jq '.[].login' | while read -r repo; do echo "do something with $repo"; done
+            list_collaborators_login = ARRAY()
 
-            echo $list_collaborators
+            "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login +=($collaborator_login"); done
+            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
+
+            echo $list_collaborators_login
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # mysql2:

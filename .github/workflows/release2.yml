@@ -42,7 +42,7 @@ jobs:
             echo "$list_collaborators_login"
 
             res=()
-            for OUTPUT in $list_collaborators_login
+            for OUTPUT in "${list_collaborators_login[@]}"
             do
                 echo "$OUTPUT"
             done

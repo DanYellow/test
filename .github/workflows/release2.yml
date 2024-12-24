@@ -42,12 +42,11 @@ jobs:
             echo "$list_collaborators_login"
 
             res=()
-            for OUTPUT in "${list_collaborators_login[@]}"
-            do
-                echo "$OUTPUT"
+            for group in `echo $list_collaborators_login | jq -c '.[]'`; do
+              echo "$group"
             done
 
-            while read -r repo; do echo "do something with $repo"; done
+            # while read -r repo; do echo "do something with $repo"; done
 
 
 

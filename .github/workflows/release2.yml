@@ -42,9 +42,9 @@ jobs:
             # echo "$list_collaborators_login"
 
             res=()
-            for collaborator in `echo $list_collaborators_login | jq  -c '.[]'`; do
+            for collaborator in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
               # collaborator_login="$(gh api /users/$collaborator)"
-              echo `/users/${collaborator}`
+              echo "/users/${collaborator}"
               # echo "$collaborator_login"
             done
 

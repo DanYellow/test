@@ -47,7 +47,7 @@ jobs:
 
               collaborator=(
                 [url]='test@xyz.org'
-                [name]=(`echo $collaborator_login | jq '.name'`)
+                [name]=$(`echo $collaborator_login | jq '.name'`)
                 [login]=${collaborator_login}
               )
               echo "$collaborator"

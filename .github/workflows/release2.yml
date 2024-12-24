@@ -51,8 +51,8 @@ jobs:
               #   [login]="`echo $collaborator_login`"
               # )
 
-              echo "`$collaborator_login_request | jq '.url'`"
-              echo "echo `$collaborator_login_request | jq '.url'`"
+              # echo "`$collaborator_login_request | jq '.url'`"
+              echo "$collaborator_login_request" | jq '.url'
 
               # res+=($collaborator)
 

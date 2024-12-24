@@ -57,6 +57,8 @@ jobs:
             done
 
             echo "VITE_HELLO=$res" >> "$GITHUB_ENV"
+            echo "$res" >> "./foo.json"
+
             # for collaborator in `echo $res | jq --raw-output -c '.[]'`; do
             #   echo $collaborator | jq '.url'
             #   echo $collaborator | jq '.name'
@@ -65,7 +67,9 @@ jobs:
 
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        - run: echo "$VITE_HELLO"
+        - run: |
+            echo "$VITE_HELLO"
+            cat "./foo.json"
     # mysql2:
     #   runs-on: ubuntu-latest
     # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"

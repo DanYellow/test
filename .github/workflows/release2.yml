@@ -56,15 +56,16 @@ jobs:
               res+=($collaborator)
             done
 
-
-            for collaborator in `echo $res | jq --raw-output -c '.[]'`; do
-              echo $collaborator | jq '.url'
-              echo $collaborator | jq '.name'
-            done
+            echo "VITE_HELLO=$res" >> "$GITHUB_ENV"
+            # for collaborator in `echo $res | jq --raw-output -c '.[]'`; do
+            #   echo $collaborator | jq '.url'
+            #   echo $collaborator | jq '.name'
+            # done
 
 
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - run: echo "$VITE_HELLO"
     # mysql2:
     #   runs-on: ubuntu-latest
     # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"

@@ -51,15 +51,16 @@ jobs:
                 [login]=$collaborator_login
               )
               # "$collaborator_login_request" | jq '.url'
-              echo $collaborator
+              # echo $collaborator
 
               res+=($collaborator)
             done
 
 
-            # for collaborator_login in `echo $res | jq --raw-output -c '.[]'`; do
-            #   echo $collaborator_login | jq '.login'
-            # done
+            for collaborator in `echo $res | jq --raw-output -c '.[]'`; do
+              echo $collaborator | jq '.url'
+              echo $collaborator | jq '.name'
+            done
 
 
           env:

@@ -40,7 +40,8 @@ jobs:
             list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
             list_collaborators_login=()
 
-            "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
+            echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
+            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
             # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
             # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
 

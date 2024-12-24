@@ -1,4 +1,4 @@
-name: Release2
+name: Test pipeline
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
 on:
     workflow_dispatch:
@@ -33,6 +33,14 @@ jobs:
           run: echo "${{ github.ref_name }}"
         - name: Adding markdown
           run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
+    comment:
+      runs-on: ubuntu-latest
+      steps:
+        - run: |
+            goo = "$(gh api /repos/DanYellow/test/collaborators)"
+            echo $goo
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # mysql2:
     #   runs-on: ubuntu-latest
     # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"
@@ -139,10 +147,10 @@ jobs:
     #   needs: [build]
     # #   environment: staging_environment
     #   steps:
-    #     - name: Download artifact
-    #       uses: actions/download-artifact@master
-    #       with:
-    #         name: bundle
+        # - name: Download artifact
+        #   uses: actions/download-artifact@master
+        #   with:
+        #     name: bundle
     #     - name: Create env file
     #       run: |
     #         echo "VITE_HELLO2=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"

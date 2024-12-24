@@ -38,7 +38,7 @@ jobs:
       steps:
         - run: |
             list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
-            jq '.login' <<< "$list_collaborators" | echo
+            jq '[.[].login]' <<< "$list_collaborators" | echo
             # echo $list_collaborators | jq '[.[].login]'
 
             # $list_collaborators_login=$(echo "$list_collaborators" | jq '[.[].login]')

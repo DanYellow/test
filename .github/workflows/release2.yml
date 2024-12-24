@@ -45,14 +45,15 @@ jobs:
             for collaborator_login in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
               collaborator_login_request="$(gh api /users/${collaborator_login})"
 
-              collaborator=(
-                [url]="`echo $collaborator_login_request | jq '.html_url'`"
-                # [name]=$($collaborator_login | jq '.name')
-                [login]="`echo $collaborator_login`"
-              )
+              # collaborator=(
+              #   [url]="`echo $collaborator_login_request | jq '.html_url'`"
+              #   # [name]=$($collaborator_login | jq '.name')
+              #   [login]="`echo $collaborator_login`"
+              # )
+
               echo "`$collaborator | jq '.url'`"
 
-              res+=($collaborator)
+              # res+=($collaborator)
 
             done
 

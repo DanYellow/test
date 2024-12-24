@@ -33,12 +33,14 @@ jobs:
           run: echo "${{ github.ref_name }}"
         - name: Adding markdown
           run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
-    comment:
+    collaborators:
       runs-on: ubuntu-latest
       steps:
         - run: |
-            goo="$(gh api /repos/DanYellow/test/collaborators)"
-            echo $goo
+            list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
+            echo "$list_collaborators" | jq '.[].login' | while read -r repo; do echo "do something with $repo"; done
+
+            echo $list_collaborators
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # mysql2:

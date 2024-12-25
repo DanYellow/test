@@ -7,7 +7,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Display the modules
-          shell: python
+          # shell: python
           run: |
             python hello.py
             # print(help('modules'))

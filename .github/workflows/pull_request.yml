@@ -26,33 +26,9 @@ jobs:
   #       run: echo "MY_VAR=$(date +'%Y/%m/%d')" >> "$GITHUB_ENV"
   #     - run: |
   #         printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
-  e2e_tests:
+  define_env:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config user.email "test@example.com" && git config user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Install playwright
-        run: npx playwright install --with-deps
-      - name: Run smoke tests
-        run: npx playwright test --project=chromium --grep @smoke
-      - name: Run non-smoke tests
-        run: npx playwright test --project=chromium --grep-invert @smoke
-  build:
-    # needs: [e2e_tests]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      # - name: Display date
-      #   run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
       - run: |
           list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
 
@@ -80,8 +56,36 @@ jobs:
           echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_ENV"
           echo "$result" > foo.json
 
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  e2e_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ env.VITE_LIST_COLLABORATORS }}"
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set github user
+        run: git config user.email "test@example.com" && git config user.name "CI/CD"
+      - name: Install the dependencies
+        run: npm ci
+      - name: Install playwright
+        run: npx playwright install --with-deps
+      - name: Run smoke tests
+        run: npx playwright test --project=chromium --grep @smoke
+      - name: Run non-smoke tests
+        run: npx playwright test --project=chromium --grep-invert @smoke
+  build:
+    # needs: [e2e_tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set github user
+        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+      - name: Install the dependencies
+        run: npm ci
+      # - name: Display date
+      #   run: echo "VITE_HELLO=$(date +'%Y-%m-%dT%H-%M-%S')" >> "$GITHUB_ENV"
       - name: Create build
         run: npm run build
       - run: |

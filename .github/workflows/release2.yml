@@ -38,32 +38,21 @@ jobs:
       steps:
         - run: |
             list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
-            list_collaborators_login=`echo $list_collaborators | jq '[.[].login]'`
-            # echo "$list_collaborators_login"
 
-            res=()
-            for collaborator_login in `echo $list_collaborators_login | jq --raw-output -c '.[]'`; do
-              collaborator_login_request="$(gh api /users/${collaborator_login})"
+            result='[]'
+            for collaborator in `echo $list_collaborators | jq --raw-output -c '.[]'`; do
+              login=`echo $collaborator | jq '.login'`
+              user_request="$(gh api /users/${login})"
 
-              collaborator=(
-                [url]=`echo $collaborator_login_request | jq '.html_url'`
-                [name]=`echo $collaborator_login_request | jq '.name'`
-                [login]=$collaborator_login
-              )
-              # "$collaborator_login_request" | jq '.url'
-              # echo $collaborator
+              collaborator="{}"
+              avatar_url=`echo $user_request | jq '.avatar_url'`
+              name=`echo $user_request | jq '.name'`
 
-              res+=($collaborator)
+              result="$(jq --argjson val "$obj" '. += [$val]' <<< "$result")"
             done
 
-            echo "VITE_HELLO=$res" >> "$GITHUB_ENV"
-            echo "$res" >> "./foo.json"
-
-            # for collaborator in `echo $res | jq --raw-output -c '.[]'`; do
-            #   echo $collaborator | jq '.url'
-            #   echo $collaborator | jq '.name'
-            # done
-
+            echo "VITE_HELLO=$result" >> "$GITHUB_ENV"
+            echo "$result" > foo.json
 
           env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

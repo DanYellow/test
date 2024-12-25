@@ -41,9 +41,8 @@ jobs:
 
             result='[]'
             for collaborator in `echo $list_collaborators | jq --raw-output -c '.[]'`; do
-              login=`echo $collaborator | jq --raw-output '.login'`
-              login_str=`echo $collaborator | jq '.login'`
-              user_request="$(gh api /users/${login})"
+              login=`echo $collaborator | jq '.login'`
+              user_request="$(gh api /users/$(jq --raw-output <<< "$login"))"
 
               collaborator="{}"
               avatar_url=`echo $user_request | jq '.avatar_url'`

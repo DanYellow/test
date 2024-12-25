@@ -1,5 +1,7 @@
 import { defineConfig, loadEnv  } from "vite";
 import vituum from 'vituum';
+import tailwindcss from 'tailwindcss'
+
 
 import nunjucks from '@vituum/vite-plugin-nunjucks'
 
@@ -32,10 +34,18 @@ export default ({ mode }) => {
 
     return defineConfig({
         base: "./",
+        // root: "./index.tmp.html",
         plugins: [
-            vituum(),
+            // vituum(),
+            vituum({
+                pages: {
+                    dir: "./src",
+                    root: "./",
+                    normalizeBasePath: true
+                  }
+            }),
             nunjucks({
-                root: './',
+                // root: './',
                 globals: {
                     LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS)
                 }
@@ -44,7 +54,7 @@ export default ({ mode }) => {
         build: {
             target: "esnext",
             rollupOptions: {
-                input: 'index.njk'
+                input: ['src/index.njk']
             }
         },
         define: {

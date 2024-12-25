@@ -9,6 +9,7 @@ jobs:
         - name: Display the modules
           # shell: python
           run: |
+            ls al
             python hello.py
             # print(help('modules'))
         # - uses: actions/setup-python@v5

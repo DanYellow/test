@@ -5,7 +5,7 @@ const initTabSystem = () => {
         });
 
         document.querySelectorAll("[data-tab-name]").forEach((item) => {
-            item.classList.remove("active");
+            item.classList.remove("activee");
         });
 
         document.querySelector(

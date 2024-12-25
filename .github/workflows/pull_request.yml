@@ -55,7 +55,7 @@ jobs:
 
           echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_ENV"
           echo "$result" > foo.json
-
+      - run: echo "${{ env.VITE_LIST_COLLABORATORS }}"
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   e2e_tests:

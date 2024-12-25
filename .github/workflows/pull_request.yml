@@ -28,6 +28,8 @@ jobs:
   #         printf '%s\n' "$VITE_HELLO" # This will output 'yellow'
   define_env:
     runs-on: ubuntu-latest
+    outputs:
+      VITE_LIST_COLLABORATORS: ${{ steps.test.outputs.VITE_LIST_COLLABORATORS }}
     steps:
       - run: |
           list_collaborators="$(gh api /repos/DanYellow/test/collaborators)"
@@ -49,19 +51,24 @@ jobs:
             result="$(jq --argjson val "$collaborator" '. += [$val]' <<< "$result")"
           done
 
-
           echo "$result"
           str_result="$(jq '.| tostring' <<< "$result")"
 
-          echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_ENV"
+          echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_OUTPUT"
+          echo "RESULT=10" >> $GITHUB_ENV
+          # echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_ENV"
           echo "$result" > foo.json
-
+        id: test
+      - run: echo "${{ steps.test.outputs.VITE_LIST_COLLABORATORS }}"
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   e2e_tests:
     runs-on: ubuntu-latest
+    needs: define_env
     steps:
-      - run: echo "${{ env.VITE_LIST_COLLABORATORS }}"
+      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
+      - run: echo "The result is ${{ env.VITE_LIST_COLLABORATORS }}"
+      - run: echo "The sum is ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}"
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user
@@ -75,9 +82,10 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
   build:
-    # needs: [e2e_tests]
+    needs: define_env
     runs-on: ubuntu-latest
     steps:
+      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user

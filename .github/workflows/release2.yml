@@ -48,7 +48,7 @@ jobs:
               avatar_url=`echo $user_request | jq '.avatar_url'`
               name=`echo $user_request | jq '.name'`
 
-              result="$(jq --argjson val "$obj" '. += [$val]' <<< "$result")"
+              result="$(jq --argjson val "$collaborator" '. += [$val]' <<< "$result")"
             done
 
             echo "VITE_HELLO=$result" >> "$GITHUB_ENV"

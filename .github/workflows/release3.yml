@@ -9,7 +9,7 @@ jobs:
         - name: Check out repository code
           uses: actions/checkout@v4
         - name: Display the modules
-          shell: python hello.py
+          shell: python {0}
           run: |
             # ls -al
             print("ghello")

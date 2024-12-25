@@ -44,16 +44,16 @@ jobs:
               login=`echo $collaborator | jq '.login'`
               user_request="$(gh api /users/$(echo $login | jq --raw-output))"
 
-              collaborator="{}"
-              avatar_url=`echo $user_request | jq '.avatar_url'`
-              name=`echo $user_request | jq '.name'`
+              # collaborator="{}"
+              # avatar_url=`echo $user_request | jq '.avatar_url'`
+              # name=`echo $user_request | jq '.name'`
 
-              collaborator="$(jq ".login=${login_str}" <<< "$collaborator")"
-              collaborator="$(jq ".name=${name}" <<< "$collaborator")"
-              collaborator="$(jq ".avatar_url=${avatar_url}" <<< "$collaborator")"
+              # collaborator="$(jq ".login=${login_str}" <<< "$collaborator")"
+              # collaborator="$(jq ".name=${name}" <<< "$collaborator")"
+              # collaborator="$(jq ".avatar_url=${avatar_url}" <<< "$collaborator")"
 
-              echo "$avatar_url"
-              result="$(jq --argjson val "$collaborator" '. += [$val]' <<< "$result")"
+              # echo "$avatar_url"
+              # result="$(jq --argjson val "$collaborator" '. += [$val]' <<< "$result")"
             done
 
 

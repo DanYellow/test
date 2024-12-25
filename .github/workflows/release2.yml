@@ -51,6 +51,7 @@ jobs:
               result="$(jq --argjson val "$collaborator" '. += [$val]' <<< "$result")"
             done
 
+            echo "$result"
             str_result="$(jq '.| tostring' <<< "$result")"
 
             echo "VITE_HELLO=$str_result" >> "$GITHUB_ENV"

@@ -9,7 +9,8 @@ jobs:
         - name: Display the modules
           shell: python
           run: |
-            print(help('modules'))
+            python hello.py
+            # print(help('modules'))
         # - uses: actions/setup-python@v5
         #   with:
         #     python-version: '3.13'

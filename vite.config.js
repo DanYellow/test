@@ -1,4 +1,6 @@
 import { defineConfig, loadEnv  } from "vite";
+import vituum from 'vituum';
+
 import nunjucks from '@vituum/vite-plugin-nunjucks'
 
 // const headers = {
@@ -7,7 +9,6 @@ import nunjucks from '@vituum/vite-plugin-nunjucks'
 //     'X-GitHub-Api-Version': '2022-11-28',
 //     'User-Agent': 'curl'
 // }
-
 // const req = await fetch("https://api.github.com/repos/DanYellow/cours/collaborators", { headers });
 
 // // console.log(await res.json());
@@ -32,7 +33,9 @@ export default ({ mode }) => {
     return defineConfig({
         base: "./",
         plugins: [
+            vituum(),
             nunjucks({
+                root: './',
                 globals: {
                     LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS)
                 }
@@ -40,6 +43,9 @@ export default ({ mode }) => {
         ],
         build: {
             target: "esnext",
+            rollupOptions: {
+                input: 'index.njk'
+            }
         },
         define: {
             "import.meta.env.VERSION": JSON.stringify(
@@ -51,7 +57,7 @@ export default ({ mode }) => {
             // Expose the server to the network allowing access from ip address
             host: true,
             open: true,
-        },
+        }
     });
 }
 

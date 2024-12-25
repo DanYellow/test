@@ -70,7 +70,7 @@ const typesClassesPlugin = plugin(({ theme, addComponents }) => {
 });
 
 export default {
-    content: ["./index.html", "./src/**/*.js"],
+    content: ["./index.(html|njk)", "./src/**/*.js"],
     safelist: [],
     theme: {
         extend: {

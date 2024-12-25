@@ -18,6 +18,7 @@
         "@playwright/test": "^1.49.0",
         "@tailwindcss/container-queries": "^0.1.1",
         "@types/node": "^22.10.1",
+        "@vituum/vite-plugin-nunjucks": "^1.1.0",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^29.7.0",
         "eslint": "^9.16.0",

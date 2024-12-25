@@ -6,10 +6,9 @@ jobs:
     download_artifact:
       runs-on: ubuntu-latest
       steps:
-        - name: Display the path
+        - name: Display the modules
           shell: python
           run: |
-            help('modules')
             print(help('modules'))
         # - uses: actions/setup-python@v5
         #   with:

@@ -66,8 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: define_env
     steps:
-      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_OUTPUT"
-      - run: echo "The result is ${{ env.RESULT }}"
+      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - run: echo "The result is ${{ env.VITE_LIST_COLLABORATORS }}"
       - run: echo "The sum is ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}"
       - name: Check out repository code
@@ -86,7 +85,7 @@ jobs:
     needs: define_env
     runs-on: ubuntu-latest
     steps:
-      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_OUTPUT"
+      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user

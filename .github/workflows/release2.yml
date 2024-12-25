@@ -45,7 +45,8 @@ jobs:
               user_request="$(gh api /users/$(echo $login | jq --raw-output))"
 
               # collaborator="{}"
-              # avatar_url=`echo $user_request | jq '.avatar_url'`
+              avatar_url=`echo $user_request | jq '.avatar_url'`
+              echo "$avatar_url"
               # name=`echo $user_request | jq '.name'`
 
               # collaborator="$(jq ".login=${login_str}" <<< "$collaborator")"

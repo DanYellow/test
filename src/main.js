@@ -44,11 +44,11 @@ const updateSwitchIcons = (isGridLayout) => {
     });
 
     Array.from(document.querySelectorAll("[data-icon='list']")).forEach((item) => {
-        item.classList.toggle("opacity-50", isGridLayout)
+        item.classList.toggle("opacity-20", isGridLayout)
     });
-    
+
     Array.from(document.querySelectorAll("[data-icon='grid']")).forEach((item) => {
-        item.classList.toggle("opacity-50", !isGridLayout)
+        item.classList.toggle("opacity-20", !isGridLayout)
     });
 }
 
@@ -57,7 +57,6 @@ const updatePokedexLayout = (isGridLayout) => {
         item.classList.toggle("grid-cols-3", isGridLayout);
         item.classList.toggle("md:grid-cols-5", isGridLayout);
         item.classList.toggle("lg:grid-cols-6", isGridLayout);
-        item.classList.toggle("px-2", isGridLayout);
         item.classList.toggle("grid-cols-1", !isGridLayout);
     });
 }
@@ -77,12 +76,12 @@ const loadPokedexForGeneration = async (generation = 1, triggerElement) => {
     const listLoadGenerationBtns = document.querySelectorAll("[data-load-generation]");
     document.title = `Chargement - ${initialPageTitle}`;
     faviconContainer.setAttribute("href", pikachuLoadingImage);
-    
+
     try {
         listLoadGenerationBtns.forEach((item) => item.inert = true);
         const pokedexData = await fetchPokemonForGeneration(generation);
         const cloneDex = document.importNode(pkdexTemplateRaw.content, true);
-        
+
         const pokedex = cloneDex.querySelector("[data-pokedex]");
 
         const layoutSwitch = cloneDex.querySelector("[data-layout-switch]")
@@ -95,7 +94,7 @@ const loadPokedexForGeneration = async (generation = 1, triggerElement) => {
             "[data-generation-range]"
         );
         const headerPokedex = cloneDex.querySelector('[data-header-pokedex]');
-        
+
         let nonRegionalPokedexData = pokedexData.filter((item) => {
             const name = item.name.fr;
             const listNames = (item.formes || []).map((form) => form.name.fr);
@@ -194,7 +193,7 @@ delegateEventHandler(document, "click", "[data-load-generation]", (e) => {
 
 delegateEventHandler(document, "change", "[data-layout-switch]", (e) => {
     localStorage.setItem("is_grid_layout", e.target.checked);
-    
+
     updatePokedexLayout(e.target.checked)
     updateSwitchIcons(e.target.checked);
 

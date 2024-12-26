@@ -42,7 +42,7 @@ export default ({ mode }) => {
                     dir: "./src",
                     root: "./",
                     normalizeBasePath: true
-                  }
+                }
             }),
             nunjucks({
                 // root: './',

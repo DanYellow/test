@@ -22,23 +22,24 @@
         </div>
         <header class="py-2 bg-slate-900 text-white">
             <div class="mr-[max(env(safe-area-inset-right),_theme(space.3))] ml-[max(env(safe-area-inset-left),_theme(space.3))]">
-                <div class="flex justify-between mx-auto max-w-6xl">
-                    <h1>Pokédex v%VERSION% - TP CI/CD</h1>
+                <div class="mx-auto max-w-6xl grid grid-cols-[min-content_1fr] gap-3">
+                    <h1 class="whitespace-nowrap">Pokédex v%VERSION% - TP CI/CD</h1>
 
-                    <ul class="md:flex gap-2 hidden">
-                        {% for member in LIST_COLLABORATORS %}
-                            <li>
-                                <a href="{{ member.html_url }}" class="hocus:text-gray-300" target="_blank" rel="noopener noreferrer">{{ member.login }} ({{ member.name }})</a>
-                            </li>
-                            {% if loop.last == false %}
-                                <li class="!text-white !opacity-100 !z-10" inert>/</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                    <button class="md:hidden" data-open-modal="credits">Crédits</button>
+                    <div class="@container/credits flex justify-end">
+                        <ul class="hidden flex-nowrap gap-2 @2xl/credits:flex">
+                            {% for member in LIST_COLLABORATORS %}
+                                <li class="">
+                                    <a href="{{ member.html_url }}" class="whitespace-nowrap hocus:text-gray-300" target="_blank" rel="noopener noreferrer">{{ member.login }} ({{ member.name }})</a>
+                                </li>
+                                {% if loop.last == false %}
+                                    <li class="!text-white !opacity-100 !z-10" inert>/</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <button class="@2xl/credits:hidden block" data-open-modal="credits">Crédits</button>
+                    </div>
                 </div>
             </div>
-
         </header>
         <main class="">
             <div data-list-pokedex></div>
@@ -315,7 +316,7 @@
         <dialog data-modal="credits" class="credits-dialog w-11/12 md:w-96 bg-white p-4 rounded-tl-lg rounded-tr-lg overflow-hidden bg-transparent backdrop:backdrop-blur-sm backdrop:bg-slate-400/50">
             <div class="w-full text-black overflow-hidden">
                 <p class="font-bold text-2xl mb-2">Crédits</p>
-                <ul class="">
+                <ul class="list-disc list-inside">
                     {% for member in LIST_COLLABORATORS %}
                         <li>
                             <a href="{{ member.html_url }}" class="hocus:text-gray-300 text-black" target="_blank" rel="noopener noreferrer">{{ member.login }} ({{ member.name }})</a>
@@ -327,7 +328,7 @@
                         data-close-modal="credits"
                         data-testid="close-credits-modal"
                         class=" block rounded-md transition-colors hocus:bg-white hocus:text-black w-full mt-2 p-2 border border-black border-solid bg-slate-950 text-white"
-                        >
+                    >
                         Fermer
                     </button>
                 </footer>

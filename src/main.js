@@ -11,6 +11,7 @@ import {
 import { generationScrollingObserver, pokedexItemScrollingObserver, firstVisiblePkmn } from "./scroll-observer";
 
 import { typesBorderColor } from "./colors";
+import "./modal-manager";
 
 import loadingImage from "/loading.svg?raw";
 import pikachuLoadingImage from "/pikachu-loading.gif"

@@ -25,7 +25,7 @@
                 <div class="flex justify-between mx-auto max-w-6xl">
                     <h1>Pokédex v%VERSION% - TP CI/CD</h1>
 
-                    <ul class="flex gap-2">
+                    <ul class="md:flex gap-2 hidden">
                         {% for member in LIST_COLLABORATORS %}
                             <li>
                                 <a href="{{ member.html_url }}" class="hocus:text-gray-300" target="_blank" rel="noopener noreferrer">{{ member.login }} ({{ member.name }})</a>
@@ -35,6 +35,7 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
+                    <button class="md:hidden" data-open-modal="credits">Crédits</button>
                 </div>
             </div>
 
@@ -183,7 +184,7 @@
             data-pokemon-modal
             data-pokemon-data
             data-testid="pokemon-modal"
-            class="backdrop:backdrop-blur-sm backdrop:bg-slate-400/50 overscroll-y-contain bg-white rounded-lg md:my-8 w-11/12 sm:max-w-3xl border-2 border-solid"
+            class="pkmn-details-dialog  backdrop:backdrop-blur-sm backdrop:bg-slate-400/50 overscroll-y-contain bg-white rounded-lg md:my-8 w-11/12 sm:max-w-3xl border-2 border-solid"
         >
             <header
                 class="main-infos mx-4 border-b text-black pb-4 pt-1 mb-3 md:sticky landscape:static landscape:lg:sticky top-0"
@@ -310,6 +311,27 @@
                     </button>
                 </div>
             </footer>
+        </dialog>
+        <dialog data-modal="credits" class="credits-dialog w-11/12 md:w-96 bg-white p-4 rounded-tl-lg rounded-tr-lg overflow-hidden bg-transparent backdrop:backdrop-blur-sm backdrop:bg-slate-400/50">
+            <div class="w-full text-black overflow-hidden">
+                <p class="font-bold text-2xl mb-2">Crédits</p>
+                <ul class="">
+                    {% for member in LIST_COLLABORATORS %}
+                        <li>
+                            <a href="{{ member.html_url }}" class="hocus:text-gray-300 text-black" target="_blank" rel="noopener noreferrer">{{ member.login }} ({{ member.name }})</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <footer class="pt-1 text-black">
+                    <button
+                        data-close-modal="credits"
+                        data-testid="close-credits-modal"
+                        class=" block rounded-md transition-colors hocus:bg-white hocus:text-black w-full mt-2 p-2 border border-black border-solid bg-slate-950 text-white"
+                        >
+                        Fermer
+                    </button>
+                </footer>
+            </div>
         </dialog>
     </body>
 </html>

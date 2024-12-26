@@ -6,6 +6,10 @@ html {
     scroll-behavior: smooth;
 }
 
+html:has(dialog[open]) {
+    overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     ::before,
@@ -74,30 +78,19 @@ html {
     inherits: true;
 }
 
+
 dialog {
     --animation-speed: 0.3s;
     opacity: 0;
     translate: 0 90vh;
     color: transparent;
     border-color: transparent;
-    transition: opacity var(--animation-speed) ease-out,
-        translate var(--animation-speed) ease-out,
-        color var(--animation-speed) ease-out,
-        border-color var(--animation-speed) ease-out,
-        overlay var(--animation-speed) ease-out allow-discrete,
-        display var(--animation-speed) ease-out allow-discrete;
-    box-shadow: 0px 0px 53px 0px;
-
-    background-image: radial-gradient(
-            var(--bg-modal-color) 0.5px,
-            transparent 0.5px
-        ),
-        radial-gradient(var(--bg-modal-color) 0.5px, rgba(255,255,255,0) 0.5px),
-        linear-gradient(0deg, var(--bg-modal-color) 0%, var(--bg-modal-color) 6.05%, rgba(255,255,255,0) 6.05%);
-    background-size: 20px 20px, 20px 20px, 100% 1210px;
-    background-position: 0 0, 10px 10px, center bottom -12px;
-    background-repeat: repeat, repeat, no-repeat;
-
+    transition: opacity var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1),
+        translate var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1),
+        color var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1),
+        border-color var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1),
+        overlay var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1) allow-discrete,
+        display var(--animation-speed) cubic-bezier(0.25, 0, 0.3, 1) allow-discrete;
     &[open] {
         opacity: 1;
         translate: 0 0;
@@ -111,6 +104,20 @@ dialog {
             border-color: transparent;
         }
     }
+}
+
+.pkmn-details-dialog {
+    box-shadow: 0px 0px 53px 0px;
+
+    background-image: radial-gradient(
+            var(--bg-modal-color) 0.5px,
+            transparent 0.5px
+        ),
+        radial-gradient(var(--bg-modal-color) 0.5px, rgba(255,255,255,0) 0.5px),
+        linear-gradient(0deg, var(--bg-modal-color) 0%, var(--bg-modal-color) 6.05%, rgba(255,255,255,0) 6.05%);
+    background-size: 20px 20px, 20px 20px, 100% 1210px;
+    background-position: 0 0, 10px 10px, center bottom -12px;
+    background-repeat: repeat, repeat, no-repeat;
 }
 
 .main-infos {
@@ -198,4 +205,8 @@ details {
         transition-delay: 0.15s;
         background-color: var(--bg-modal-color);
     }
+}
+
+.credits-dialog {
+    margin-bottom: 0;
 }

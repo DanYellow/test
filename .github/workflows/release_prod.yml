@@ -1,7 +1,8 @@
 name: Deploy master
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
+
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   define_env:

@@ -1,5 +1,5 @@
 name: Deploy master
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀 - ${{ github.ref }}
+run-name: ${{ github.actor }} is deploying to prod
 
 on:
   workflow_dispatch:
@@ -47,6 +47,7 @@ jobs:
     steps:
       # - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - run: echo "${{ env.TEST }}"
+      - run: echo ${{ env.VITE_LIST_COLLABORATORS }}
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user

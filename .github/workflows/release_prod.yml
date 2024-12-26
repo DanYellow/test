@@ -41,9 +41,10 @@ jobs:
   build:
     needs: define_env
     runs-on: ubuntu-latest
-    env:
-      VITE_LIST_COLLABORATORS: ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}
+    # env:
+    #   VITE_LIST_COLLABORATORS: ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}
     steps:
+      - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - run: echo "${{ env.VITE_LIST_COLLABORATORS }}"
       - name: Check out repository code
         uses: actions/checkout@v4

@@ -34,7 +34,7 @@ jobs:
           echo "$result"
           str_result="$(jq '.| tostring' <<< "$result")"
 
-          echo "VITE_LIST_COLLABORATORS=$str_result" >> "$GITHUB_OUTPUT"
+          VITE_LIST_COLLABORATORS=$str_result >> "$GITHUB_OUTPUT"
         id: test
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,8 +46,6 @@ jobs:
       TEST: tedd
     steps:
       - run: VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }} >> "$GITHUB_ENV"
-      - run: echo ${{ env.TEST }}
-      - run: echo ${{ env.VITE_LIST_COLLABORATORS }}
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set github user

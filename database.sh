@@ -16,11 +16,14 @@ cat > .my.cnf << EOF
 [client]
 user=$MYSQL_USER
 password=$MYSQL_PASSWORD
+database=$MYSQL_DATABASE
+host=$MYSQL_SERVER
 EOF
 
 chmod 400 .my.cnf
 
-mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
+mysql --defaults-extra-file=.my.cnf < database.sql
+# mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 # mysql \
 # -u $MYSQL_USER \

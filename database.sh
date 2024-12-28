@@ -1,4 +1,4 @@
-echo $SECRETS_CONTEXT
+# echo $SECRETS_CONTEXT
 # echo "$super_secret"
 # echo "$1"
 # echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE'
@@ -14,6 +14,7 @@ MYSQL_DATABASE = $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE');
 
 mysql -u $MYSQL_USER \
     -p$MYSQL_PASSWORD \
+    --ssl-mode=required \
     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 # mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER' --raw-output) \

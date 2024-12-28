@@ -22,14 +22,15 @@ EOF
 
 chmod 400 .my.cnf
 
-mysql --defaults-extra-file=.my.cnf < database.sql
+# mysql --defaults-extra-file=.my.cnf < database.sql
 # mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
-# mysql \
-# -u $MYSQL_USER \
-    # -p$MYSQL_PASSWORD \
-    # --ssl-mode=required \
-    # -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
+mysql -u $MYSQL_USER \
+    -p$MYSQL_PASSWORD \
+    --ssl-mode=required \
+    -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
+
+mysql --execute="SHOW TABLES;"
 
 # mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER' --raw-output) \
 #     -p $(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD' --raw-output) \

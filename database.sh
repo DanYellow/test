@@ -26,11 +26,11 @@ chmod 400 .my.cnf
 # mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 mysql -u $MYSQL_USER \
-    -p --ssl-mode=required $MYSQL_PASSWORD \
+    -p $MYSQL_PASSWORD \
     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 mysql -u $MYSQL_USER \
-    -p --ssl-mode=required $MYSQL_PASSWORD \
+    -p$MYSQL_PASSWORD \
     -h $MYSQL_SERVER $MYSQL_DATABASE --execute="SHOW TABLES;"
 
 # mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER' --raw-output) \

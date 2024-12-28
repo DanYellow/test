@@ -12,7 +12,7 @@ MYSQL_PASSWORD = $(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD');
 MYSQL_SERVER = $(echo $SECRETS_CONTEXT | jq '.MYSQL_SERVER');
 MYSQL_DATABASE = $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE');
 
-mysql -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
+mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 # mysql \
 # -u $MYSQL_USER \

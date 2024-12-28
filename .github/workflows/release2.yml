@@ -84,7 +84,7 @@ jobs:
             MYSQL_SERVER: ${{ secrets.MYSQL_SERVER }}
             MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
             MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          run: ./database.sh
+          run: sh ./database.sh
               # chmod +x ./database.sh
               # ./database.sh
 

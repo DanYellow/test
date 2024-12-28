@@ -16,8 +16,9 @@ cat > .my.cnf << EOF
 [client]
 user=$MYSQL_USER
 password=$MYSQL_PASSWORD
-
 EOF
+
+chmod 400 .my.cnf
 
 mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 

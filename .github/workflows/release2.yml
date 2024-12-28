@@ -79,8 +79,7 @@ jobs:
           env:
             SECRETS_CONTEXT: ${{ toJson(secrets) }}
           run: |
-              ls -al
-              chmod +x ./test.sh
+              chmod +x ./database.sh
               ./database.sh
 
     # mysql2:

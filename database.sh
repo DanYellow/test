@@ -17,7 +17,7 @@
 #     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 
-mysql -u $(echo $SECRETS_CONTEXT | jq --raw-output '.MYSQL_USER') \
-    -p$(echo $SECRETS_CONTEXT | jq --raw-output '.MYSQL_PASSWORD') \
-    -h $(echo $SECRETS_CONTEXT | jq --raw-output '.MYSQL_SERVER') $(echo $SECRETS_CONTEXT | jq --raw-output '.MYSQL_DATABASE') < database.sql
+mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER' --raw-output) \
+    -p$(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD' --raw-output) \
+    -h $(echo $SECRETS_CONTEXT | jq '.MYSQL_SERVER' --raw-output) $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE' --raw-output) < database.sql
 # mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql

@@ -13,8 +13,8 @@ MYSQL_SERVER = $(echo $SECRETS_CONTEXT | jq '.MYSQL_SERVER');
 MYSQL_DATABASE = $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE');
 
 mysql -u $MYSQL_USER \
-    -p$MYSQL_PASSWORD \
-    --ssl-mode=required \
+    # -p$MYSQL_PASSWORD \
+    # --ssl-mode=required \
     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 # mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER' --raw-output) \

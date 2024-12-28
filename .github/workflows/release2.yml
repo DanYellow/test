@@ -75,8 +75,9 @@ jobs:
           uses: actions/checkout@v4
         # - name: Set github user
         #   run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-        - run: echo "${{ secrets }}" >> $GITHUB_ENV
         - name: Run script file
+          env:
+            SECRETS_CONTEXT: ${{ toJson(secrets) }}
           run: |
               # chmod +x ./test.sh
               ./database.sh

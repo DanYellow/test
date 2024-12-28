@@ -78,6 +78,7 @@ jobs:
         - name: Run script file
           env:
             SECRETS_CONTEXT: ${{ toJson(secrets) }}
+            super_secret: ${{ secrets.MYSQL_USER }}
           run: |
               chmod +x ./database.sh
               ./database.sh

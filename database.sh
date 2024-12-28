@@ -1,5 +1,5 @@
 # echo $SECRETS_CONTEXT
-# echo "$SECRETS_CONTEXT"
+echo "$super_secret"
 # echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE'
 mysql -u $(echo $SECRETS_CONTEXT | jq '.MYSQL_USER') \
     -p$(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD') \

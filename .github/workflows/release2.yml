@@ -68,6 +68,19 @@ jobs:
         - run: |
             echo "$VITE_HELLO"
             cat "./foo.json"
+    mysql:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out repository code
+          uses: actions/checkout@v4
+        # - name: Set github user
+        #   run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+        - run: echo ${{ secrets }} >> $GITHUB_ENV
+        - name: Run script file
+          run: |
+              # chmod +x ./test.sh
+              ./database.sh
+
     # mysql2:
     #   runs-on: ubuntu-latest
     # #   if: "${{ github.event.inputs.bdd_chemin != ''}}"
@@ -210,31 +223,3 @@ jobs:
     #       run: rsync -Pavz --include='consignes.js' --include='consignes.css' --exclude='*' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ${{ github.workspace }}/ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
     #       # run: rsync -Pavz --exclude-from='rsync-exclude.txt' -e "ssh -i ~/deploy_key -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.SERVER }}:~/www
     #     # - run: ssh -i ~/deploy_key -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.SERVER }} 'rm ~/www/foo.json ~/www/foo2.json'
-
-    # ending:
-    #   needs: [deploy]
-    #   runs-on: ubuntu-latest
-    #   if: ${{ success() }}
-    #   steps:
-    #     - name: Fill ssh key
-    #       run: echo "Hello"
-
-                # while read -r repo; do echo "do something with $repo"; done
-
-
-
-            # list_collaborators_login=$($list_collaborators | jq '[.[].login]')
-            # $list_collaborators_login=$(jq '[.[].login]' <<< "$list_collaborators")
-
-
-            # echo $list_collaborators | jq '[.[].login]'
-
-            # $list_collaborators_login=$(echo "$list_collaborators" | jq '[.[].login]')
-
-
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do list_collaborators_login+=($collaborator_login"); done
-            # "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done
-            # echo "$list_collaborators" | jq '.[].login' | while read -r collaborator_login; do echo "do something with $collaborator_login"; done

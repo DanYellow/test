@@ -84,8 +84,10 @@ jobs:
             MYSQL_SERVER: ${{ secrets.MYSQL_SERVER }}
             MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
             MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          run: sh ./database.sh
-              # chmod +x ./database.sh
+          run: |
+              echo $'[client]\nuser=${{ secrets.MYSQL_USER }}\npassword=${{ secrets.MYSQL_PASSWORD }}' > .my.cnf
+              sh ./database.sh
+              # chmod +x ./database.sh my.cnf
               # ./database.sh
 
     # mysql2:

@@ -12,7 +12,8 @@ MYSQL_PASSWORD = $(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD');
 MYSQL_SERVER = $(echo $SECRETS_CONTEXT | jq '.MYSQL_SERVER');
 MYSQL_DATABASE = $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE');
 
-mysql -u $MYSQL_USER \
+mysql \
+# -u $MYSQL_USER \
     # -p$MYSQL_PASSWORD \
     # --ssl-mode=required \
     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql

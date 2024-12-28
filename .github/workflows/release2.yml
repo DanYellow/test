@@ -78,7 +78,7 @@ jobs:
         - name: Run script file
           shell: bash
           env:
-            SECRETS_CONTEXT: ${{ toJson(secrets) }}
+            SECRETS_CONTEXT: "${{ toJson(secrets) }}"
             super_secret: ${{ secrets.MYSQL_USER }}
             MYSQL_USER: ${{ secrets.MYSQL_USER }}
             MYSQL_SERVER: ${{ secrets.MYSQL_SERVER }}

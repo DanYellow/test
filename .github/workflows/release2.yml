@@ -79,7 +79,7 @@ jobs:
           env:
             SECRETS_CONTEXT: ${{ toJson(secrets) }}
             super_secret: ${{ secrets.MYSQL_USER }}
-          run: database.sh "$super_secret"
+          run: sh database.sh "$super_secret"
               # chmod +x ./database.sh
               # ./database.sh
 

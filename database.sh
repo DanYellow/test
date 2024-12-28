@@ -12,21 +12,21 @@ MYSQL_PASSWORD = $(echo $SECRETS_CONTEXT | jq '.MYSQL_PASSWORD');
 MYSQL_SERVER = $(echo $SECRETS_CONTEXT | jq '.MYSQL_SERVER');
 MYSQL_DATABASE = $(echo $SECRETS_CONTEXT | jq '.MYSQL_DATABASE');
 
-cat > .my.cnf << EOF
-[client]
-user=$MYSQL_USER
-password=$MYSQL_PASSWORD
-database=$MYSQL_DATABASE
-host=$MYSQL_SERVER
-EOF
+# cat > .my.cnf << EOF
+# [client]
+# user=$MYSQL_USER
+# password=$MYSQL_PASSWORD
+# database=$MYSQL_DATABASE
+# host=$MYSQL_SERVER
+# EOF
 
-chmod 400 .my.cnf
+# chmod 400 .my.cnf
 
 # mysql --defaults-extra-file=.my.cnf < database.sql
 # mysql --defaults-extra-file=.my.cnf -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 mysql -u $MYSQL_USER \
-    -p $MYSQL_PASSWORD \
+    -p$MYSQL_PASSWORD \
     -h $MYSQL_SERVER $MYSQL_DATABASE < database.sql
 
 mysql -u $MYSQL_USER \

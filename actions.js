@@ -163,11 +163,11 @@ class MyReporter {
                                 </tbody>
                             </table>
                         `
-
+// console.log(tableRes.split("\n").join("\n"))
                         if (process.env.CI) {
                             core.summary.addDetails(
                                 path.basename(filePath),
-                                tableRes
+                                tableRes.split("\n").join("\n")
                             );
                         }
                 }

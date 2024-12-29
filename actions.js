@@ -95,15 +95,16 @@ class MyReporter {
                 }, {});
 
                 for (const filePath of Object.keys(testsDict)) {
-                    console.log(testsDict[filePath]);
+                    // console.log(testsDict[filePath]);
 
-                    if (process.env.CI) {
+
                         // core.summary.addHeading(
                         //     path.basename(filePath),
                         //     "2"
                         // );
                         let tableRes = "";
                         const tableHeader = `
+                            <table>
                             <thead>
                                 <tr>
                                     <th scope="col">Test</th>
@@ -118,7 +119,7 @@ class MyReporter {
                         tableRes = tableHeader;
 
                         for (const test of testsDict[filePath]) {
-                            core.summary.addRaw(test.title, true);
+                            // core.summary.addRaw(test.title, true);
 
                             const tableBody = `
                                 <tr>
@@ -132,16 +133,18 @@ class MyReporter {
                             tableRes += tableBody;
                         }
                         tableRes += "</tbody></table>";
-
-                        core.summary.addDetails(
-                            path.basename(filePath),
-                            tableRes
-                        );
-                    }
+                        // console.log("tableRes", tableRes)
+                        if (process.env.CI) {
+                            core.summary.addDetails(
+                                path.basename(filePath),
+                                tableRes
+                            );
+                        }
                 }
             });
-
-            await core.summary.write();
+            if (process.env.CI) {
+                await core.summary.write();
+            }
         })();
 
         // console.dir(this.suite.suites[0]._entries[0]);

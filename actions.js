@@ -68,44 +68,60 @@ class MyReporter {
     }
 
     onEnd(result) {
-        this.suite?.suites.forEach((suite) => {
-            // console.log(suite.project())
-            // parent.title
-            const listTestFiles = suite
-                .allTests()
-                .map((test) => test.location.file)
-                .reduce((acc, curr) => {
-                    if (!acc.includes(curr)) {
-                        acc.push(curr);
-                    }
+        (async () => {
+            this.suite?.suites.forEach((suite) => {
+                // console.log(suite.project())
+                // parent.title
+                const listTestFiles = suite
+                    .allTests()
+                    .map((test) => test.location.file)
+                    .reduce((acc, curr) => {
+                        if (!acc.includes(curr)) {
+                            acc.push(curr);
+                        }
+
+                        return acc;
+                    }, []);
+
+                const testsDict = listTestFiles.reduce((acc, curr) => {
+                    acc[curr] = suite.allTests().filter((test) => {
+                        return test.location.file === curr;
+                    });
 
                     return acc;
-                }, []);
+                }, {});
 
-            const testsDict = listTestFiles.reduce((acc, curr) => {
-                acc[curr] = suite.allTests().filter((test) => {
-                    return test.location.file === curr;
-                });
+                for (const filePath of Object.keys(testsDict)) {
+                    console.log(testsDict[filePath]);
 
-                return acc;
-            }, {});
+                    if (process.env.CI) {
+                        core.summary.addHeading(
+                            path.basename(filePath),
+                            "2"
+                        );
 
-            for (const filePath of Object.keys(testsDict)) {
-                console.log(testsDict[filePath]);
+                        for (const test of testsDict[filePath]) {
+                            core.summary.addRaw(test.title, true);
+                        }
 
-                if (process.env.CI) {
-                    core.summary.addHeading(
-                        path.basename(filePath),
-                        "2"
-                    );
+                        const tableData = [
+                            {data: 'Header1', header: true},
+                            {data: 'Header2', header: true},
+                            {data: 'Header3', header: true},
+                            {data: 'MyData1'},
+                            {data: 'MyData2'},
+                            {data: 'MyData3'}
+                          ]
 
-                    for (const test of testsDict[filePath]) {
-                        core.summary.addRaw(test.title, true);
+                          // Add an HTML table
+                          core.summary.addTable([tableData])
                     }
-                    core.summary.write();
                 }
-            }
-        });
+            });
+
+            await core.summary.write();
+        })();
+
         // console.dir(this.suite.suites[0]._entries[0]);
         // console.dir(this.suite._entries);
         // console.log(`Finished the run: ${result.status}`);

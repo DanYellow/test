@@ -90,22 +90,25 @@ class MyReporter {
             core.summary.addRaw('<link rel="stylesheet" href="https://danyellow.net/cours-mmi/consignes.css" />', true)
             core.summary.addRaw('<script src="https://danyellow.net/cours-mmi/consignes.js" defer></script>', true)
 
-            core.summary.addRaw(`
-                <div class="tab-wrapper">
-                    <ul class="list-tabs">
-                        <li>
-                        <button data-tab-name="windows">Windows</button>
-                        </li>
-                        <li>
-                        <button data-tab-name="linux-macos">Linux / macOS</button>
-                        </li>
-                    </ul>
-                    <ul class="list-tab-content">
-                        <li class="tab-content" data-tab-content="windows">eefe</li>
-                        <li class="tab-content" data-tab-content="linux-macos">aafaf</li>
-                    </ul>
-                </div>
-            `, true)
+            const tabs = ['<div class="tab-wrapper">']
+            tabs.push('<ul class="list-tabs">')
+            tabs.push('<li>')
+            tabs.push('<button data-tab-name="windows">Windows</button>')
+            tabs.push('</li>')
+            tabs.push('<li>')
+            tabs.push('<button data-tab-name="linux-macos">Linux / macOS</button>')
+            tabs.push('</li>')
+            tabs.push('</ul>')
+            tabs.push('<ul class="list-tab-content">')
+            tabs.push('<li class="tab-content" data-tab-content="windows">eefe</li>')
+            tabs.push('<li class="tab-content" data-tab-content="linux-macos">aafaf</li>')
+            tabs.push('</ul>')
+            tabs.push('</div>')
+            core.summary.addRaw(tabs.join("\n"), true)
+
+            if (process.env.CI) {
+                await core.summary.write();
+            }
 
             this.suite?.suites.forEach((suite) => {
                 console.log(suite.project())

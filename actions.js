@@ -1,4 +1,5 @@
 import * as core from "@actions/core";
+import path from "path";
 
 
 // core.info('\u001b[43mThis background will be yellow');
@@ -10,21 +11,39 @@ import * as core from "@actions/core";
 
 class MyReporter {
     onBegin(config, suite) {
-        core.summary.addRaw(`Total tests: ${suite.allTests().length}`, true)
-        core.summary.write()
-        // console.log(`Starting the run with ${suite.allTests().length} tests`);
+        if(process.env.CI) {
+            core.summary.addRaw(`Total tests: ${suite.allTests().length}`, true)
+            core.summary.write()
+        }
+            // console.log(`Starting the run with ${suite.allTests().length} tests`);
     }
 
     onTestBegin(test, result) {
+        console.log(test._requireFile)
+        console.log(result)
         // console.log(`Starting test ${test.title}`);
     }
 
     onTestEnd(test, result) {
-        core.summary.addHeading(test.title, '2')
-        // core.summary.addRaw(test.title, true)
+        if(process.env.CI) {
+            core.summary.addHeading(path.basename(test._requireFile), '2')
+            core.summary.addRaw(test.title, true)
+            core.summary.write()
+
+            const tableData = [
+                {data: 'Header1', header: true},
+                {data: 'Header2', header: true},
+                {data: 'Header3', header: true},
+                {data: 'MyData1'},
+                {data: 'MyData2'},
+                {data: 'MyData3'}
+              ]
+
+              // Add an HTML table
+              core.summary.addTable([tableData])
+        }
         // console.dir(result.duration);
         // console.dir(test);
-        core.summary.write()
         console.log(`Finished test ${test.title}: ${result.status} | ${result.duration / 1000}s`);
     }
 

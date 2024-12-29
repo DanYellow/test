@@ -24,15 +24,15 @@ on:
 
 
 jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-        - name: head_ref
-          run: echo "${{ github.head_ref  }}"
-        - name: ref_name
-          run: echo "${{ github.ref_name }}"
-        - name: Adding markdown
-          run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
+    # test:
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: head_ref
+    #       run: echo "${{ github.head_ref  }}"
+    #     - name: ref_name
+    #       run: echo "${{ github.ref_name }}"
+    #     - name: Adding markdown
+    #       run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
     collaborators:
       runs-on: ubuntu-latest
       steps:

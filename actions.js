@@ -98,38 +98,45 @@ class MyReporter {
                     console.log(testsDict[filePath]);
 
                     if (process.env.CI) {
-                        core.summary.addHeading(
-                            path.basename(filePath),
-                            "2"
-                        );
+                        // core.summary.addHeading(
+                        //     path.basename(filePath),
+                        //     "2"
+                        // );
+                        let tableRes = "";
+                        const tableHeader = `
+                            <thead>
+                                <tr>
+                                    <th scope="col">Test</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Retries</th>
+                                    <th scope="col">Tag(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        `
+                        tableRes = tableHeader;
 
                         for (const test of testsDict[filePath]) {
                             core.summary.addRaw(test.title, true);
 
-                            const r = `
-                                <table>
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">Person</th>
-                                        <th scope="col">Most interest in</th>
-                                        <th scope="col">Age</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <th scope="row">Chris</th>
-                                        <td>HTML tables</td>
-                                        <td>22</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            const tableBody = `
+                                <tr>
+                                    <td>${test.title}</td>
+                                    <td>${test.expectedStatus}</td>
+                                    <td>${test.results[0].duration / 1000}s</td>
+                                    <td>${test.retries}</td>
+                                    <td>${test._tags.join(", ")}</td>
+                                </tr>
                             `
-
-                            core.summary.addDetails(
-                                test.title,
-                                r
-                            );
+                            tableRes += tableBody;
                         }
+                        tableRes += "</tbody></table>";
+
+                        core.summary.addDetails(
+                            path.basename(filePath),
+                            tableRes
+                        );
                     }
                 }
             });

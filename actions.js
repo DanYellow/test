@@ -75,7 +75,7 @@ class MyReporter {
 
             if (value.toLowerCase() === "flaky") {
                 value = "⚠️";
-            } else if (value.toLowerCase() === "pass") {
+            } else if (value.toLowerCase() === "expected") {
                 value = "✅";
             } else if (value.toLowerCase() === "skipped") {
                 value = "⏭️";
@@ -206,9 +206,9 @@ class MyReporter {
                 }
             });
 
-            for (const [key, value] of Object.entries(res)) {
-                console.log(value.join("\n"))
-            }
+            // for (const [key, value] of Object.entries(res)) {
+            //     console.log(value.join("\n"))
+            // }
 
             if (process.env.CI) {
                 for (const [key, value] of Object.entries(res)) {

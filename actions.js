@@ -206,6 +206,9 @@ class MyReporter {
                 }
             });
 
+            for (const [key, value] of Object.entries(res)) {
+                console.log(value.join("\n"))
+            }
 
             if (process.env.CI) {
                 for (const [key, value] of Object.entries(res)) {

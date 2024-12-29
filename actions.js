@@ -108,9 +108,9 @@ class MyReporter {
                             {data: 'Header1', header: true},
                             {data: 'Header2', header: true},
                             {data: 'Header3', header: true},
-                            {data: 'MyData1'},
-                            {data: 'MyData2'},
-                            {data: 'MyData3'}
+                            {data: 'MyData1', header: false},
+                            {data: 'MyData2', header: false},
+                            {data: 'MyData3', header: false}
                           ]
 
                           // Add an HTML table

@@ -149,15 +149,17 @@ class MyReporter {
                                 <tbody>
                                     ${(testsDict[filePath].map((test) => {
                                         return (
-                                            <tr>
-                                                <td>${test.title}</td>
-                                                <td>${test.expectedStatus}</td>
-                                                <td>${test.results[0].duration / 1000}s</td>
-                                                <td>${test.retries}</td>
-                                                <td>${test._tags.join(", ")}</td>
-                                            </tr>
+                                            `
+                                                <tr>
+                                                    <td>${test.title}</td>
+                                                    <td>${test.expectedStatus}</td>
+                                                    <td>${test.results[0].duration / 1000}s</td>
+                                                    <td>${test.retries}</td>
+                                                    <td>${test._tags.join(", ")}</td>
+                                                </tr>
+                                            `
                                         )
-                                    })).join("\n")}
+                                    }))}
                                 </tbody>
                             </table>
                         `

@@ -71,6 +71,7 @@ class MyReporter {
         this.suite?.suites.forEach((suite) => {
             // console.log(suite.project())
             // parent.title
+            console.log("fezfzfz")
             const listTestFiles = suite
                 .allTests()
                 .map((test) => test.location.file)

@@ -102,38 +102,66 @@ class MyReporter {
                         //     path.basename(filePath),
                         //     "2"
                         // );
-                        let tableRes = "";
-                        const tableHeader = `
-                            <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Test</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Duration</th>
-                                    <th scope="col">Retries</th>
-                                    <th scope="col">Tag(s)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                        `
-                        tableRes = tableHeader;
+                        // let tableRes = "";
+                        // const tableHeader = `
+                        //     <table>
+                        //     <thead>
+                        //         <tr>
+                        //             <th scope="col">Test</th>
+                        //             <th scope="col">Status</th>
+                        //             <th scope="col">Duration</th>
+                        //             <th scope="col">Retries</th>
+                        //             <th scope="col">Tag(s)</th>
+                        //         </tr>
+                        //     </thead>
+                        //     <tbody>
+                        // `
+                        // tableRes = tableHeader;
 
-                        for (const test of testsDict[filePath]) {
-                            // core.summary.addRaw(test.title, true);
+                        // for (const test of testsDict[filePath]) {
+                        //     // core.summary.addRaw(test.title, true);
 
-                            const tableBody = `
-                                <tr>
-                                    <td>${test.title}</td>
-                                    <td>${test.expectedStatus}</td>
-                                    <td>${test.results[0].duration / 1000}s</td>
-                                    <td>${test.retries}</td>
-                                    <td>${test._tags.join(", ")}</td>
-                                </tr>
-                            `
-                            tableRes += tableBody;
-                        }
-                        tableRes += "</tbody></table>";
+                        //     const tableBody = `
+                                // <tr>
+                                //     <td>${test.title}</td>
+                                //     <td>${test.expectedStatus}</td>
+                                //     <td>${test.results[0].duration / 1000}s</td>
+                                //     <td>${test.retries}</td>
+                                //     <td>${test._tags.join(", ")}</td>
+                                // </tr>
+                        //     `
+                        //     tableRes += tableBody;
+                        // }
+                        // tableRes += "</tbody></table>";
                         // console.log("tableRes", tableRes)
+
+                        const tableRes = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Test</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">Retries</th>
+                                        <th scope="col">Tag(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${(testsDict[filePath].map((test) => {
+                                        return (
+                                            <tr>
+                                                <td>${test.title}</td>
+                                                <td>${test.expectedStatus}</td>
+                                                <td>${test.results[0].duration / 1000}s</td>
+                                                <td>${test.retries}</td>
+                                                <td>${test._tags.join(", ")}</td>
+                                            </tr>
+                                        )
+                                    })).join("\n")}
+                                </tbody>
+                            </table>
+                        `
+
                         if (process.env.CI) {
                             core.summary.addDetails(
                                 path.basename(filePath),

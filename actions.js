@@ -93,7 +93,7 @@ class MyReporter {
 
                     return acc;
                 }, {});
-
+                console.log("Object", Object.keys(testsDict))
                 for (const filePath of Object.keys(testsDict)) {
                     // console.log(testsDict[filePath]);
 
@@ -135,40 +135,35 @@ class MyReporter {
                         // tableRes += "</tbody></table>";
                         // console.log("tableRes", tableRes)
 
-                        const tableRes = `
-                            <br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Test</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Duration</th>
-                                        <th scope="col">Retries</th>
-                                        <th scope="col">Tag(s)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${(testsDict[filePath].map((test) => {
-                                        return (
-                                            `
-                                                <tr>
-                                                    <td>${test.title}</td>
-                                                    <td>${test.expectedStatus}</td>
-                                                    <td>${test.results[0].duration / 1000}s</td>
-                                                    <td>${test.retries}</td>
-                                                    <td>${test._tags.join(", ")}</td>
-                                                </tr>
-                                            `
-                                        )
-                                    }))}
-                                </tbody>
-                            </table>
-                        `
-// console.log(tableRes.split("\n").join("\n"))
+                        const tableRes = ["<table role='table'>"]
+                        tableRes.push("<thead>")
+                        tableRes.push("<tr>")
+                        tableRes.push("<th scope='col'>Test</th>")
+                        tableRes.push("<th scope='col'>Status</th>")
+                        tableRes.push("<th scope='col'>Duration</th>")
+                        tableRes.push("<th scope='col'>Retries</th>")
+                        tableRes.push("<th scope='col'>Tag(s)</th>")
+                        tableRes.push("</tr>")
+                        tableRes.push("</thead>")
+                        tableRes.push("<tbody>")
+                        tableRes.push("<tr>")
+                        testsDict[filePath].forEach((test) => {
+                            tableRes.push(`<td>${test.title}</td>`)
+                            tableRes.push(`<td>${test.expectedStatus}</td>`)
+                            tableRes.push(`<td>${test.results[0].duration / 1000}s</td>`)
+                            tableRes.push(`<td>${test.retries}</td>`)
+                            tableRes.push(`<td></td>`)
+                        })
+                        tableRes.push("</tr>")
+                        tableRes.push("</tbody>")
+                        tableRes.push("</table>")
+
+                        // console.log(tableRes.join("\n"))
+
                         if (process.env.CI) {
                             core.summary.addDetails(
                                 path.basename(filePath),
-                                tableRes.split("\n").join("\n")
+                                tableRes.join("\n")
                             );
                         }
                 }

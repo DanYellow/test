@@ -1,5 +1,7 @@
 import * as core from "@actions/core";
 import path from "path";
+import Convert from "ansi-to-html";
+
 
 // core.info('\u001b[43mThis background will be yellow');
 
@@ -18,6 +20,7 @@ const processResults = (results) => {
     });
 };
 
+const convert = new Convert();
 class MyReporter {
     constructor() {
         this.suite = {};
@@ -102,19 +105,31 @@ class MyReporter {
 
                         for (const test of testsDict[filePath]) {
                             core.summary.addRaw(test.title, true);
+
+                            const r = `
+                                <table>
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Person</th>
+                                        <th scope="col">Most interest in</th>
+                                        <th scope="col">Age</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <th scope="row">Chris</th>
+                                        <td>HTML tables</td>
+                                        <td>22</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            `
+
+                            core.summary.addDetails(
+                                test.title,
+                                r
+                            );
                         }
-
-                        const tableData = [
-                            {data: 'Header1', header: true},
-                            {data: 'Header2', header: true},
-                            {data: 'Header3', header: true},
-                            {data: 'MyData1', header: false},
-                            {data: 'MyData2', header: false},
-                            {data: 'MyData3', header: false}
-                          ]
-
-                          // Add an HTML table
-                          core.summary.addTable([tableData])
                     }
                 }
             });

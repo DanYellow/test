@@ -136,6 +136,7 @@ class MyReporter {
                         // console.log("tableRes", tableRes)
 
                         const tableRes = `
+                            <br>
                             <table>
                                 <thead>
                                     <tr>

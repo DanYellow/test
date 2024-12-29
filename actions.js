@@ -146,15 +146,15 @@ class MyReporter {
                         tableRes.push("</tr>")
                         tableRes.push("</thead>")
                         tableRes.push("<tbody>")
-                        tableRes.push("<tr>")
                         testsDict[filePath].forEach((test) => {
+                            tableRes.push("<tr>")
                             tableRes.push(`<td>${test.title}</td>`)
                             tableRes.push(`<td>${test.expectedStatus}</td>`)
                             tableRes.push(`<td>${test.results[0].duration / 1000}s</td>`)
                             tableRes.push(`<td>${test.retries}</td>`)
-                            tableRes.push(`<td></td>`)
+                            tableRes.push(`<td>${test._tags.join(", ")}</td>`)
+                            tableRes.push("</tr>")
                         })
-                        tableRes.push("</tr>")
                         tableRes.push("</tbody>")
                         tableRes.push("</table>")
 

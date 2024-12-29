@@ -15,6 +15,7 @@
         "report": "npx playwright test --reporter=html"
     },
     "devDependencies": {
+        "@actions/core": "^1.11.1",
         "@babel/core": "^7.26.0",
         "@babel/preset-env": "^7.26.0",
         "@eslint/js": "^9.16.0",

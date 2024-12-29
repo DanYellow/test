@@ -71,9 +71,44 @@ class MyReporter {
     }
 
     onEnd(result) {
+        const getStatus = (test) => {
+            const value = test.outcome();
+
+            if (value.toLowerCase() === "flaky") {
+                value = `⚠️`;
+            } else if (value.toLowerCase() === "pass") {
+              value = "✅";
+            } else if (value.toLowerCase() === "skipped") {
+              value = `⏭️`;
+            } else if (value.toLowerCase() === "fail") {
+              value = "❌";
+            }
+
+            return `${value} ${test.expectedStatus}`;
+        };
         (async () => {
+            core.summary.addRaw('<link rel="stylesheet" href="https://danyellow.net/cours-mmi/consignes.css" />', true)
+            core.summary.addRaw('<script src="https://danyellow.net/cours-mmi/consignes.js" defer></script>', true)
+
+            core.summary.addRaw(`
+                <div class="tab-wrapper">
+                    <ul class="list-tabs">
+                        <li>
+                        <button data-tab-name="windows">Windows</button>
+                        </li>
+                        <li>
+                        <button data-tab-name="linux-macos">Linux / macOS</button>
+                        </li>
+                    </ul>
+                    <ul class="list-tab-content">
+                        <li class="tab-content" data-tab-content="windows">eefe</li>
+                        <li class="tab-content" data-tab-content="linux-macos">aafaf</li>
+                    </ul>
+                </div>
+            `, true)
+
             this.suite?.suites.forEach((suite) => {
-                // console.log(suite.project())
+                console.log(suite.project())
                 // parent.title
                 const listTestFiles = suite
                     .allTests()
@@ -93,48 +128,9 @@ class MyReporter {
 
                     return acc;
                 }, {});
-                console.log("Object", Object.keys(testsDict))
+                // console.log("Object", Object.keys(testsDict))
                 for (const filePath of Object.keys(testsDict)) {
                     // console.log(testsDict[filePath]);
-
-
-                        // core.summary.addHeading(
-                        //     path.basename(filePath),
-                        //     "2"
-                        // );
-                        // let tableRes = "";
-                        // const tableHeader = `
-                        //     <table>
-                        //     <thead>
-                        //         <tr>
-                        //             <th scope="col">Test</th>
-                        //             <th scope="col">Status</th>
-                        //             <th scope="col">Duration</th>
-                        //             <th scope="col">Retries</th>
-                        //             <th scope="col">Tag(s)</th>
-                        //         </tr>
-                        //     </thead>
-                        //     <tbody>
-                        // `
-                        // tableRes = tableHeader;
-
-                        // for (const test of testsDict[filePath]) {
-                        //     // core.summary.addRaw(test.title, true);
-
-                        //     const tableBody = `
-                                // <tr>
-                                //     <td>${test.title}</td>
-                                //     <td>${test.expectedStatus}</td>
-                                //     <td>${test.results[0].duration / 1000}s</td>
-                                //     <td>${test.retries}</td>
-                                //     <td>${test._tags.join(", ")}</td>
-                                // </tr>
-                        //     `
-                        //     tableRes += tableBody;
-                        // }
-                        // tableRes += "</tbody></table>";
-                        // console.log("tableRes", tableRes)
-
                         const tableRes = ["<table role='table'>"]
                         tableRes.push("<thead>")
                         tableRes.push("<tr>")
@@ -147,18 +143,17 @@ class MyReporter {
                         tableRes.push("</thead>")
                         tableRes.push("<tbody>")
                         testsDict[filePath].forEach((test) => {
+                            // console.log(test.parent.parent.title)
                             tableRes.push("<tr>")
                             tableRes.push(`<td>${test.title}</td>`)
-                            tableRes.push(`<td>${test.expectedStatus}</td>`)
+                            tableRes.push(`<td>${getStatus(test)}</td>`)
                             tableRes.push(`<td>${test.results[0].duration / 1000}s</td>`)
                             tableRes.push(`<td>${test.retries}</td>`)
                             tableRes.push(`<td>${test._tags.join(", ")}</td>`)
                             tableRes.push("</tr>")
-                        })
+                        });
                         tableRes.push("</tbody>")
                         tableRes.push("</table>")
-
-                        // console.log(tableRes.join("\n"))
 
                         if (process.env.CI) {
                             core.summary.addDetails(

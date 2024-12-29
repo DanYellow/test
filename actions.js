@@ -197,18 +197,18 @@ class MyReporter {
                     });
                     // detailsTest = { file: path.basename(filePath), content: tableRes, projectName }
 
-                    if (process.env.CI) {
-                        core.summary.addDetails(
-                            path.basename(filePath),
-                            tableRes.join("\n")
-                        );
-                    }
+                    // if (process.env.CI) {
+                    //     core.summary.addDetails(
+                    //         path.basename(filePath),
+                    //         tableRes.join("\n")
+                    //     );
+                    // }
                 }
             });
 
 
             if (process.env.CI) {
-                for (const [key, value] of Object.entries(object1)) {
+                for (const [key, value] of Object.entries(res)) {
                     core.summary.addDetails(
                         path.basename(key),
                         value.join("\n")

@@ -44,20 +44,28 @@ class MyReporter {
     // https://github.com/estruyf/playwright-github-actions-reporter/blob/main/src/index.ts
     onEnd(result) {
         const getStatusIcon = (testStatus) => {
-            let icon = "❌";
-
-            if (testStatus.toLowerCase() === "flaky") {
-                icon = "⚠️";
-            } else if (
-                testStatus.toLowerCase() === "expected" ||
-                testStatus.toLowerCase() === "passed"
-            ) {
-                icon = "✅";
-            } else if (testStatus.toLowerCase() === "skipped") {
-                icon = "⏭️";
+            switch (testStatus.toLowerCase()) {
+                case "flaky":
+                    return "⚠️";
+                case "skipped":
+                    return "⏭️";
+                case "passed":
+                    return "✅";
+                default:
+                    return "❌";
             }
+        };
 
-            return icon;
+        const getTestOutcome = (outcome) => {
+            switch (outcome.toLowerCase()) {
+                case "expected":
+                    return "passed";
+                case "flaky":
+                case "unexpected":
+                    return "failed";
+                default:
+                    return outcome.toLowerCase();
+            }
         };
 
         const getTestTitle = (test) => {
@@ -136,7 +144,7 @@ class MyReporter {
 
                         return acc;
                     }, []);
-                    // console.log(suite.allTests())
+                // console.log(suite.allTests())
                 const testsDict = listTestFiles.reduce((acc, curr) => {
                     acc[curr] = suite.allTests().filter((test) => {
                         return test.location.file === curr;
@@ -165,9 +173,9 @@ class MyReporter {
                         tableRes.push("<tr>");
                         tableRes.push(`<td>${getTestTitle(test)}</td>`);
                         tableRes.push(
-                            `<td>${getStatusIcon(test.outcome())} ${
+                            `<td>${getStatusIcon(
                                 test.outcome()
-                            }</td>`
+                            )} ${getTestOutcome(test.outcome())}</td>`
                         );
                         tableRes.push(
                             `<td>${(test.results[0].duration / 1000).toFixed(

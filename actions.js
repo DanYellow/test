@@ -50,6 +50,7 @@ class MyReporter {
                 case "skipped":
                     return "⏭️";
                 case "passed":
+                case "expected":
                     return "✅";
                 default:
                     return "❌";

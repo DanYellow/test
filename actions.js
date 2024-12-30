@@ -41,35 +41,9 @@ class MyReporter {
         // console.log(`Starting the run with ${suite.allTests().length} tests`);
     }
 
-    onTestBegin(test, result) {
-        // console.log(test._requireFile)
-        // console.log(test)
-        // console.log(`Starting test ${test.title}`);
-    }
-
-    onTestEnd(test, result) {
-        // if(process.env.CI) {
-        //     core.summary.addHeading(path.basename(test._requireFile), '2')
-        //     core.summary.addRaw(test.title, true)
-        //     const tableData = [
-        //         {data: 'Header1', header: true},
-        //         {data: 'Header2', header: true},
-        //         {data: 'Header3', header: true},
-        //         {data: 'MyData1'},
-        //         {data: 'MyData2'},
-        //         {data: 'MyData3'}
-        //       ]
-        //       // Add an HTML table
-        //       core.summary.addTable([tableData])
-        //       core.summary.write()
-        // }
-        // console.dir(result.duration);
-        // console.dir(test);
-        // console.log(`Finished test ${test.title}: ${result.status} | ${result.duration / 1000}s`);
-        // console.dir(test);
-    }
     // https://github.com/estruyf/playwright-github-actions-reporter/blob/main/src/index.ts
     onEnd(result) {
+
         const getStatus = (test) => {
             let value = test.outcome();
 
@@ -86,10 +60,6 @@ class MyReporter {
             return `${value} ${test.expectedStatus}`;
         };
         (async () => {
-            core.summary.addRaw('<link rel="stylesheet" href="https://danyellow.net/cours-mmi/consignes.css" />', true)
-            core.summary.addRaw('<script src="https://danyellow.net/cours-mmi/consignes.js" defer></script>', true)
-            core.summary.addRaw('<br>', true)
-
             // const tabs = ['<div class="tab-wrapper">']
             // tabs.push('<ul class="list-tabs">')
             // tabs.push('<li>')
@@ -133,6 +103,7 @@ class MyReporter {
 
             this.suite?.suites.forEach((suite) => {
                 const project = suite.project();
+                console.log(result)
                 const projectName = project.name;
                 // console.log(projectName)
 
@@ -213,6 +184,21 @@ class MyReporter {
                     );
                 }
             }
+
+            if(result.status.toLowerCase() === "failed") {
+                if (process.env.CI) {
+                    core.error('e2e went wrong')
+                }
+            }
+
+            if (process.env.CI) {
+                const summary = [];
+                for (const [key, value] of Object.entries(result)) {
+                    summary.push(`${key}: ${value}`)
+                }
+                core.summary.addList(summary, true)
+            }
+
 
             if (process.env.CI) {
                 await core.summary.write();

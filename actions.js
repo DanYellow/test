@@ -48,13 +48,30 @@ class MyReporter {
 
             if (testStatus.toLowerCase() === "flaky") {
                 icon = "⚠️";
-            } else if (testStatus.toLowerCase() === "expected" || testStatus.toLowerCase() === "passed") {
+            } else if (
+                testStatus.toLowerCase() === "expected" ||
+                testStatus.toLowerCase() === "passed"
+            ) {
                 icon = "✅";
             } else if (testStatus.toLowerCase() === "skipped") {
                 icon = "⏭️";
             }
 
             return icon;
+        };
+
+        const getTestTitle = (test) => {
+            if (!test) {
+                return "";
+            }
+
+            const parent = test.parent;
+
+            if (!parent || !parent.title) {
+                return test.title;
+            }
+
+            return `${parent.title} > ${test.title}`;
         };
 
         (async () => {
@@ -101,7 +118,7 @@ class MyReporter {
 
             this.suite?.suites.forEach((suite) => {
                 const project = suite.project();
-                console.log(result)
+                console.log(result);
                 const projectName = project.name;
                 // console.log(projectName)
 
@@ -143,13 +160,25 @@ class MyReporter {
                     tableRes.push("<tbody>");
                     testsDict[filePath].forEach((test) => {
                         tableRes.push("<tr>");
-                        tableRes.push(`<td>${test.title}</td>`);
-                        tableRes.push(`<td>${getStatusIcon(test)} ${test.expectedStatus}</td>`);
+                        tableRes.push(`<td>${getTestTitle(test)}</td>`);
                         tableRes.push(
-                            `<td>${(test.results[0].duration / 1000).toFixed(2)}s</td>`
+                            `<td>${getStatusIcon(test.expectedStatus)} ${
+                                test.expectedStatus
+                            }</td>`
+                        );
+                        tableRes.push(
+                            `<td>${(test.results[0].duration / 1000).toFixed(
+                                2
+                            )}s</td>`
                         );
                         tableRes.push(`<td>${test.results.at(-1).retry}</td>`);
-                        tableRes.push(`<td>${test._tags.join(", ")}</td>`);
+                        tableRes.push(
+                            `<td>${(test._tags || [])
+                                .map((t) =>
+                                    t.startsWith(`@`) ? t.substring(1) : t
+                                )
+                                .join(", ")}</td>`
+                        );
                         tableRes.push("</tr>");
                     });
                     tableRes.push("</tbody>");
@@ -175,7 +204,7 @@ class MyReporter {
             // }
 
             if (process.env.CI) {
-                core.summary.addHeading('Summary', '3')
+                core.summary.addHeading("Summary", "3");
                 for (const [key, value] of Object.entries(res)) {
                     core.summary.addDetails(
                         path.basename(key),
@@ -184,9 +213,9 @@ class MyReporter {
                 }
             }
 
-            if(result.status.toLowerCase() === "failed") {
+            if (result.status.toLowerCase() === "failed") {
                 if (process.env.CI) {
-                    core.error('e2e went wrong')
+                    core.error("e2e went wrong");
                 }
             }
 
@@ -197,15 +226,13 @@ class MyReporter {
                     if (key === "duration") {
                         res = `${(value / 1000).toFixed(2)}s`;
                     } else if (key === "status") {
-                        res = `${getStatusIcon(value)} ${value}`
+                        res = `${getStatusIcon(value)} ${value}`;
                     } else if (key === "startTime") {
-
                     }
                     summary.push(`${key}: ${res}`);
                 }
                 core.summary.addList(summary, false);
             }
-
 
             if (process.env.CI) {
                 await core.summary.write();

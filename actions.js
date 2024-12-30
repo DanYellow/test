@@ -121,7 +121,7 @@ class MyReporter {
 
             this.suite?.suites.forEach((suite) => {
                 const project = suite.project();
-                console.log(result);
+                // console.log(result);
                 const projectName = project.name;
                 // console.log(projectName)
 
@@ -136,7 +136,7 @@ class MyReporter {
 
                         return acc;
                     }, []);
-
+                    // console.log(suite.allTests())
                 const testsDict = listTestFiles.reduce((acc, curr) => {
                     acc[curr] = suite.allTests().filter((test) => {
                         return test.location.file === curr;
@@ -162,12 +162,11 @@ class MyReporter {
                     tableRes.push("</thead>");
                     tableRes.push("<tbody>");
                     testsDict[filePath].forEach((test) => {
-
                         tableRes.push("<tr>");
                         tableRes.push(`<td>${getTestTitle(test)}</td>`);
                         tableRes.push(
-                            `<td>${getStatusIcon(test.expectedStatus)} ${
-                                test.expectedStatus
+                            `<td>${getStatusIcon(test.outcome())} ${
+                                test.outcome()
                             }</td>`
                         );
                         tableRes.push(

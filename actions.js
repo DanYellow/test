@@ -162,6 +162,7 @@ class MyReporter {
                     tableRes.push("</thead>");
                     tableRes.push("<tbody>");
                     testsDict[filePath].forEach((test) => {
+
                         tableRes.push("<tr>");
                         tableRes.push(`<td>${getTestTitle(test)}</td>`);
                         tableRes.push(
@@ -183,6 +184,10 @@ class MyReporter {
                                 .join(", ")}</td>`
                         );
                         tableRes.push("</tr>");
+                        // for (const annotation of test.annotations) {
+                        //     console.log( annotation)
+
+                        // }
                     });
                     tableRes.push("</tbody>");
                     tableRes.push("</table>");
@@ -202,9 +207,9 @@ class MyReporter {
                 }
             });
 
-            for (const [key, value] of Object.entries(res)) {
-                console.log(value.join("\n"))
-            }
+            // for (const [key, value] of Object.entries(res)) {
+            //     console.log(value.join("\n"))
+            // }
 
             if (process.env.CI) {
                 core.summary.addHeading("Summary", "3");

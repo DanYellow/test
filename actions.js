@@ -86,8 +86,9 @@ class MyReporter {
             return `${value} ${test.expectedStatus}`;
         };
         (async () => {
-            // core.summary.addRaw('<link rel="stylesheet" href="https://danyellow.net/cours-mmi/consignes.css" />', true)
-            // core.summary.addRaw('<script src="https://danyellow.net/cours-mmi/consignes.js" defer></script>', true)
+            core.summary.addRaw('<link rel="stylesheet" href="https://danyellow.net/cours-mmi/consignes.css" />', true)
+            core.summary.addRaw('<script src="https://danyellow.net/cours-mmi/consignes.js" defer></script>', true)
+            core.summary.addRaw('<br>', true)
 
             // const tabs = ['<div class="tab-wrapper">']
             // tabs.push('<ul class="list-tabs">')
@@ -130,7 +131,6 @@ class MyReporter {
 
             let res = {};
 
-            let detailsTest = {};
             this.suite?.suites.forEach((suite) => {
                 const project = suite.project();
                 const projectName = project.name;
@@ -155,14 +155,12 @@ class MyReporter {
 
                     return acc;
                 }, {});
-                let rootTableRes = [...rootTableTemplate];
-                // console.log("Object", Object.keys(testsDict))
+
                 for (const filePath of Object.keys(testsDict)) {
                     if (filePath in res === false) {
                         res[filePath] = rootTableTemplate;
                     }
 
-                    // console.log(testsDict[filePath]);
                     const tableRes = ["<table role='table'>"];
                     tableRes.push("<thead>");
                     tableRes.push("<tr>");
@@ -175,14 +173,13 @@ class MyReporter {
                     tableRes.push("</thead>");
                     tableRes.push("<tbody>");
                     testsDict[filePath].forEach((test) => {
-                        // console.log(test.parent.parent.title)
                         tableRes.push("<tr>");
                         tableRes.push(`<td>${test.title}</td>`);
                         tableRes.push(`<td>${getStatus(test)}</td>`);
                         tableRes.push(
                             `<td>${test.results[0].duration / 1000}s</td>`
                         );
-                        tableRes.push(`<td>${test.retries}</td>`);
+                        tableRes.push(`<td>${test.results.at(-1).retry}</td>`);
                         tableRes.push(`<td>${test._tags.join(", ")}</td>`);
                         tableRes.push("</tr>");
                     });
@@ -195,8 +192,6 @@ class MyReporter {
                             tableRes.join("\n")
                         );
                     });
-                    // detailsTest = { file: path.basename(filePath), content: tableRes, projectName }
-
                     // if (process.env.CI) {
                     //     core.summary.addDetails(
                     //         path.basename(filePath),

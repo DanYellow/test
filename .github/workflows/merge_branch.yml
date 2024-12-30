@@ -1,5 +1,5 @@
 name: Merged with master
-run-name: ${{ github.actor }} is deploying ${{ github.head_ref }} to prod  🚀
+run-name: ${{ github.actor }} is deploying ${{ github.head_ref }} branch to prod  🚀
 
 on:
   pull_request:

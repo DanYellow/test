@@ -194,9 +194,13 @@ class MyReporter {
             if (process.env.CI) {
                 const summary = [];
                 for (const [key, value] of Object.entries(result)) {
-                    summary.push(`${key}: ${value}`)
+                    let res = value;
+                    if (key === "duration") {
+                        res = `${value / 1000}s`;
+                    }
+                    summary.push(`${key}: ${res}`);
                 }
-                core.summary.addList(summary, true)
+                core.summary.addList(summary, false);
             }
 
 

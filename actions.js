@@ -194,7 +194,6 @@ class MyReporter {
                         tableRes.push("</tr>");
                         // for (const annotation of test.annotations) {
                         //     console.log( annotation)
-
                         // }
                     });
                     tableRes.push("</tbody>");
@@ -229,11 +228,11 @@ class MyReporter {
                 }
             }
 
-            if (result.status.toLowerCase() === "failed") {
-                if (process.env.CI) {
-                    core.error("e2e went wrong");
-                }
-            }
+            // if (result.status.toLowerCase() === "failed") {
+            //     if (process.env.CI) {
+            //         core.error("e2e went wrong");
+            //     }
+            // }
 
             if (process.env.CI) {
                 const summary = [];

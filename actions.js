@@ -43,20 +43,18 @@ class MyReporter {
 
     // https://github.com/estruyf/playwright-github-actions-reporter/blob/main/src/index.ts
     onEnd(result) {
-        const getStatusIcon = (test) => {
-            let value = test.outcome();
+        const getStatusIcon = (testStatus) => {
+            let icon = "❌";
 
-            if (value.toLowerCase() === "flaky") {
-                value = "⚠️";
-            } else if (value.toLowerCase() === "expected" || value.toLowerCase() === "passed") {
-                value = "✅";
-            } else if (value.toLowerCase() === "skipped") {
-                value = "⏭️";
-            } else if (value.toLowerCase() === "fail") {
-                value = "❌";
+            if (testStatus.toLowerCase() === "flaky") {
+                icon = "⚠️";
+            } else if (testStatus.toLowerCase() === "expected" || testStatus.toLowerCase() === "passed") {
+                icon = "✅";
+            } else if (testStatus.toLowerCase() === "skipped") {
+                icon = "⏭️";
             }
 
-            return `${value}`;
+            return icon;
         };
 
         (async () => {
@@ -200,6 +198,8 @@ class MyReporter {
                         res = `${(value / 1000).toFixed(2)}s`;
                     } else if (key === "status") {
                         res = `${getStatusIcon(value)} ${value}`
+                    } else if (key === "startTime") {
+
                     }
                     summary.push(`${key}: ${res}`);
                 }

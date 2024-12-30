@@ -19,3 +19,7 @@ test.describe("first", () => {
         );
     });
 });
+
+test("should fail", () => {
+    expect(true).toBeFalsy();
+});

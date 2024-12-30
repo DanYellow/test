@@ -43,13 +43,12 @@ class MyReporter {
 
     // https://github.com/estruyf/playwright-github-actions-reporter/blob/main/src/index.ts
     onEnd(result) {
-
-        const getStatus = (test) => {
+        const getStatusIcon = (test) => {
             let value = test.outcome();
 
             if (value.toLowerCase() === "flaky") {
                 value = "⚠️";
-            } else if (value.toLowerCase() === "expected") {
+            } else if (value.toLowerCase() === "expected" || value.toLowerCase() === "passed") {
                 value = "✅";
             } else if (value.toLowerCase() === "skipped") {
                 value = "⏭️";
@@ -57,8 +56,9 @@ class MyReporter {
                 value = "❌";
             }
 
-            return `${value} ${test.expectedStatus}`;
+            return `${value}`;
         };
+
         (async () => {
             // const tabs = ['<div class="tab-wrapper">']
             // tabs.push('<ul class="list-tabs">')
@@ -146,9 +146,9 @@ class MyReporter {
                     testsDict[filePath].forEach((test) => {
                         tableRes.push("<tr>");
                         tableRes.push(`<td>${test.title}</td>`);
-                        tableRes.push(`<td>${getStatus(test)}</td>`);
+                        tableRes.push(`<td>${getStatusIcon(test)} ${test.expectedStatus}</td>`);
                         tableRes.push(
-                            `<td>${test.results[0].duration / 1000}s</td>`
+                            `<td>${(test.results[0].duration / 1000).toFixed(2)}s</td>`
                         );
                         tableRes.push(`<td>${test.results.at(-1).retry}</td>`);
                         tableRes.push(`<td>${test._tags.join(", ")}</td>`);
@@ -177,6 +177,7 @@ class MyReporter {
             // }
 
             if (process.env.CI) {
+                core.summary.addHeading('Summary', '3')
                 for (const [key, value] of Object.entries(res)) {
                     core.summary.addDetails(
                         path.basename(key),
@@ -196,7 +197,9 @@ class MyReporter {
                 for (const [key, value] of Object.entries(result)) {
                     let res = value;
                     if (key === "duration") {
-                        res = `${value / 1000}s`;
+                        res = `${(value / 1000).toFixed(2)}s`;
+                    } else if (key === "status") {
+                        res = `${getStatusIcon(value)} ${value}`
                     }
                     summary.push(`${key}: ${res}`);
                 }

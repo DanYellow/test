@@ -71,6 +71,9 @@ class MyReporter {
                 return test.title;
             }
 
+            if (path.basename(test._requireFile) === parent.title) {
+                return test.title;
+            }
             return `${parent.title} > ${test.title}`;
         };
 
@@ -199,9 +202,9 @@ class MyReporter {
                 }
             });
 
-            // for (const [key, value] of Object.entries(res)) {
-            //     console.log(value.join("\n"))
-            // }
+            for (const [key, value] of Object.entries(res)) {
+                console.log(value.join("\n"))
+            }
 
             if (process.env.CI) {
                 core.summary.addHeading("Summary", "3");

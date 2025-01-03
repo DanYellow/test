@@ -20,6 +20,6 @@ test.describe("first", () => {
     });
 });
 
-test("should fail", { tag: "@smoke" }, () => {
-    expect(true).toBeFalsy();
-});
+// test("should fail", { tag: "@smoke" }, () => {
+//     expect(true).toBeFalsy();
+// });

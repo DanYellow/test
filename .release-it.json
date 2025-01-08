@@ -1,19 +1,13 @@
 {
     "git": {
-        "commitMessage": "chore: release ${version}"
+        "commitMessage": "chore: release ${version}",
+        "requireBranch": "main"
     },
     "npm": {
         "publish": false
     },
-    "plugins": {
-        "@release-it/conventional-changelog": {
-            "gitRawCommitsOpts": {
-                "merges": null
-            },
-            "preset": {
-                "name": "angular"
-            },
-            "infile": "CHANGELOG.md"
-        }
+    "hooks": {
+        "before:init": ["git pull"],
+        "after:bump": "npx auto-changelog -p"
     }
 }

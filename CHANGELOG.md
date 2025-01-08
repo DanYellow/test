@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.3.0](https://github.com/DanYellow/test/compare/1.2.0...1.3.0) (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 2 ([a83604e](https://github.com/DanYellow/test/commit/a83604e4a88018a86fe1a7b0f0e2ac47cbed79db))
+
 # [1.2.0](https://github.com/DanYellow/test/compare/1.1.6...1.2.0) (2025-01-08)
 
 

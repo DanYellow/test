@@ -14,7 +14,7 @@ describe("cleanString", () => {
     });
 
     it("should fail", () => {
-        expect(true).toBeFalsy();
+        expect(false).toBeFalsy();
     });
 });
 

@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.11.2](https://github.com/DanYellow/test/compare/1.11.1...1.11.2) (2025-01-08)
+
 ## 1.11.1 (2025-01-08)
 
 

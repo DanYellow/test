@@ -42,7 +42,7 @@ jobs:
     needs: define_env
     runs-on: ubuntu-latest
     env:
-      VITE_LIST_COLLABORATORS: "${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}"
+      VITE_LIST_COLLABORATORS: ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}
       VITE_TEST: tedd
     steps:
       - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"

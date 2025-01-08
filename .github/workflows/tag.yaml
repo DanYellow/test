@@ -12,6 +12,6 @@ jobs:
     #     with:
     #         node-version: 22.11.0
       - name: Set github user
-        run: git config user.email "test@example.com" && git config user.name "CI/CD - MMI"
+        run: git config user.email "test2@example.com" && git config user.name "CI/CD - MMI"
       - run: npm ci
       - run: npx release-it --ci

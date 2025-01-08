@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.5.0 (2025-01-08)
+
+
+### Features
+
+* clean pipeline 2 ([d432def](https://github.com/DanYellow/test/commit/d432def87abf0f1d7f9cc442d5583737b0b4f5cd))
+
 ## [1.4.4](https://github.com/DanYellow/test/compare/1.4.3...1.4.4) (2025-01-08)
 
 ## 1.4.3 (2025-01-08)

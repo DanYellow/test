@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.3 (2025-01-08)
+
+
+### Bug Fixes
+
+* clean pipeline ([bbb774c](https://github.com/DanYellow/test/commit/bbb774cba8135af83dfae9b9e23914dcb03e115a))
+
 ## 1.7.2 (2025-01-08)
 
 

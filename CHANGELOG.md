@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.9.0 (2025-01-08)
+
+
+### Features
+
+* Display debug cicd ([8eee2e5](https://github.com/DanYellow/test/commit/8eee2e5979f8930809a9722b3e6ca7f6119288d9))
+
 ## 1.8.1 (2025-01-08)
 
 # 1.8.0 (2025-01-08)

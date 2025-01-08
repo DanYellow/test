@@ -44,6 +44,7 @@ jobs:
     env:
       VITE_LIST_COLLABORATORS: ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}
       VITE_TEST: tedd
+      VITE_AUTHOR: ${{ github.actor }}
     steps:
       - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
       - run: echo "${{ env.VITE_TEST }}"

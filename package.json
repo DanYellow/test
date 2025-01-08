@@ -12,7 +12,8 @@
         "lint": "npx eslint",
         "preview": "vite preview",
         "e2e": "npx playwright test --ui",
-        "report": "npx playwright test --reporter=html"
+        "report": "npx playwright test --reporter=html",
+        "release": "release-it"
     },
     "devDependencies": {
         "@actions/core": "^1.11.1",

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.5 (2025-01-08)
+
+
+### Bug Fixes
+
+* Update changelog 3 ([2a66914](https://github.com/DanYellow/test/commit/2a669149d5e65878aff7c9f26e61290c94b5e1ee))
+
 ## 1.11.4 (2025-01-08)
 
 ## 1.11.3 (2025-01-08)

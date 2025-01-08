@@ -13,7 +13,8 @@
         "preview": "vite preview",
         "e2e": "npx playwright test --ui",
         "report": "npx playwright test --reporter=html",
-        "release": "release-it"
+        "release": "release-it",
+        "release_test": "release-it --no-git --debug --dry-run"
     },
     "devDependencies": {
         "@actions/core": "^1.11.1",

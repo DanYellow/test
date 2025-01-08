@@ -55,10 +55,10 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - run: |
-          echo "VITE_BUILD_DATE=$(date + '%d/%m/%Y')" >> $GITHUB_ENV
+          echo "VITE_BUILD_DATE=$(date + '%Y/%m/%d')" >> $GITHUB_ENV
           echo "$VITE_BUILD_DATE"
-          # chmod +x ${{ github.workspace }}/copy.sh
-          # ${{ github.workspace }}/copy.sh ${{ github.workspace }}
+          chmod +x ${{ github.workspace }}/copy.sh
+          ${{ github.workspace }}/copy.sh ${{ github.workspace }}
       - name: Create build
         run: npm run build
       - name: Generate artifact

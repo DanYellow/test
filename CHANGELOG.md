@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.4.4](https://github.com/DanYellow/test/compare/1.4.3...1.4.4) (2025-01-08)
+
 ## 1.4.3 (2025-01-08)
 
 ## 1.4.2 (2025-01-08)

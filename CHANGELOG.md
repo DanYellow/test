@@ -1,6 +1,10 @@
 ## Changelog
 
-### [1.10.4](https://github.com/DanYellow/test/compare/1.1.4...1.10.4) - 
+### [1.10.5](https://github.com/DanYellow/test/compare/1.1.4...1.10.5) - 
+
+#### Fixes
+
+- fix: add release it changelog generation 10 @PC-Dan 
 
 ### [1.1.4](https://github.com/DanYellow/test/compare/1.1.3...1.1.4) -  7 December 2024 
 

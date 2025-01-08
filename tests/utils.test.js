@@ -13,9 +13,9 @@ describe("cleanString", () => {
         expect(cleanString("Stéphane")).toBe("stephane");
     });
 
-    it("should fail", () => {
-        expect(true).toBeFalsy();
-    });
+    // it("should fail", () => {
+    //     expect(true).toBeFalsy();
+    // });
 });
 
 describe("getEvolutionChain", () => {
@@ -36,7 +36,7 @@ describe("getEvolutionChain", () => {
             evolutionLineFr,
             pokedex
         );
-        
+
         res.forEach((item) => {
             expect(Array.isArray(item)).toBeTruthy();
         });

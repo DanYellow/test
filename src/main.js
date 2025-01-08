@@ -30,6 +30,10 @@ const initialPageTitle = document.title;
 const initialPageFavicon = faviconContainer.getAttribute("href");
 const listPokemon = [];
 
+console.log(import.meta.env.VITE_BUILD_DATE)
+console.log(import.meta.env)
+
+
 const setTitleTagForGeneration = () => {
     const allStickedHeaders = Array.from(document.querySelectorAll(".is-pinned"));
     let allStickedVisibleHeaders = allStickedHeaders.filter((item) => isElementInViewport(item));

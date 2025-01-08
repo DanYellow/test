@@ -42,11 +42,11 @@ jobs:
     needs: define_env
     runs-on: ubuntu-latest
     env:
-      VITE_LIST_COLLABORATORS: ${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}
-      TEST: tedd
+      VITE_LIST_COLLABORATORS: "${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}"
+      VITE_TEST: tedd
     steps:
       - run: echo "VITE_LIST_COLLABORATORS=${{ needs.define_env.outputs.VITE_LIST_COLLABORATORS }}" >> "$GITHUB_ENV"
-      - run: echo "${{ env.TEST }}"
+      - run: echo "${{ env.VITE_TEST }}"
       - run: echo ${{ env.VITE_LIST_COLLABORATORS }}
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -55,10 +55,10 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - run: |
-          # echo "VITE_BUILD_DATE=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
+          echo "VITE_BUILD_DATE=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
           echo "$VITE_BUILD_DATE"
-          chmod +x ${{ github.workspace }}/copy.sh
-          ${{ github.workspace }}/copy.sh ${{ github.workspace }}
+          # chmod +x ${{ github.workspace }}/copy.sh
+          # ${{ github.workspace }}/copy.sh ${{ github.workspace }}
       - name: Create build
         run: npm run build
       - name: Generate artifact

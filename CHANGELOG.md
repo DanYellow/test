@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.4.0 (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 4 ([e0b03a7](https://github.com/DanYellow/test/commit/e0b03a749678f6e4a5034405809475e8c1ca6750))
+
 ## [1.3.5](https://github.com/DanYellow/test/compare/1.3.4...1.3.5) (2025-01-08)
 
 ## 1.3.4 (2025-01-08)

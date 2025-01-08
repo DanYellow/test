@@ -55,6 +55,7 @@ jobs:
       - name: Install the dependencies
         run: npm ci
       - run: |
+          echo "VITE_BUILD_DATE=$(date + '%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
           chmod +x ${{ github.workspace }}/copy.sh
           ${{ github.workspace }}/copy.sh ${{ github.workspace }}
       - name: Create build

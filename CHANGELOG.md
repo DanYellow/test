@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.8.0 (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 5 ([3ed2426](https://github.com/DanYellow/test/commit/3ed24267306aaf3c4ba369db77b8813f0829424c))
+
 ## 1.7.4 (2025-01-08)
 
 ## 1.7.3 (2025-01-08)

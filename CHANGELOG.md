@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.10.0 (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 8 ([b2ec8e7](https://github.com/DanYellow/test/commit/b2ec8e70cf4e6a894b86497a277ea7c938627b5c))
+
 ## 1.9.1 (2025-01-08)
 
 # 1.9.0 (2025-01-08)

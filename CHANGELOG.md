@@ -1,4 +1,13 @@
-## Changelog
+# Changelog
+
+# 1.11.0 (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 13 ([e4f7be9](https://github.com/DanYellow/test/commit/e4f7be9be68d60723d87135747acc62d190bd700))
+
+#
 
 ### [1.10.6](https://github.com/DanYellow/test/compare/1.1.4...1.10.6) - 
 
@@ -33,4 +42,4 @@
 #### General Changes
 
 - Create sonarqube.yml @Jean-Louis Danielo 
-- Add new actions @PC-Dan 
+- Add new actions @PC-Dan

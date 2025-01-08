@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.6.0 (2025-01-08)
+
+
+### Features
+
+* add release it changelog generation 4 ([b618c0d](https://github.com/DanYellow/test/commit/b618c0d071a9987db3c0d3fa0f1d54e210f98d6a))
+
 ## 1.5.2 (2025-01-08)
 
 ## 1.5.1 (2025-01-08)

@@ -6,8 +6,15 @@
     "npm": {
         "publish": false
     },
+    "plugins": {
+        "@release-it/conventional-changelog": {
+            "preset": {
+                "name": "angular"
+            },
+            "infile": "CHANGELOG.md"
+        }
+    },
     "hooks": {
-        "before:init": ["git pull"],
-        "after:bump": "npx auto-changelog -p"
+        "before:init": ["git pull"]
     }
 }

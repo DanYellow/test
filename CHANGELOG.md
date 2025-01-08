@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.7.0 (2025-01-08)
+
+
+### Features
+
+* testy ([881158a](https://github.com/DanYellow/test/commit/881158a2b244421d3dbe0f1568d8e402a8a15789))
+
 ## 1.6.3 (2025-01-08)
 
 

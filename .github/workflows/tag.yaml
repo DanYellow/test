@@ -16,5 +16,5 @@ jobs:
       - run: npm ci
       - run: node -v
       - run: npm run release -- --no-git --debug --dry-run
-      - run: npm run release --ci
-    #   - run: npx release-it --ci
+    #   - run: npm run release --ci
+      - run: npx release-it --ci

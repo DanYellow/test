@@ -1,13 +1,16 @@
 {
-  "npm": {
-    "publish": false
-  },
-  "plugins": {
-    "@release-it/conventional-changelog": {
-      "preset": {
-        "name": "angular"
-      },
-      "infile": "CHANGELOG.md"
+    "npm": {
+        "publish": false
+    },
+    "plugins": {
+        "@release-it/conventional-changelog": {
+            "gitRawCommitsOpts": {
+                "merges": null
+            },
+            "preset": {
+                "name": "angular"
+            },
+            "infile": "CHANGELOG.md"
+        }
     }
-  }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.3 (2025-01-08)
+
+
+### Bug Fixes
+
+* fix unit tests ([cb09804](https://github.com/DanYellow/test/commit/cb09804081896c99cf34c8252e917e3c8fae7d57))
+
 ## 1.6.2 (2025-01-08)
 
 ## 1.6.1 (2025-01-08)

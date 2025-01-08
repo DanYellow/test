@@ -5,4 +5,4 @@
 
 echo "VITE_BUILD_DATE=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
 echo "FOO=HELLO" >> $GITHUB_ENV
-echo "VITE_BUILD_AUTHOR=${{ github.actor }}" >> $GITHUB_ENV
+echo "VITE_BUILD_AUTHOR=$(echo ${{ github.actor }})" >> $GITHUB_ENV

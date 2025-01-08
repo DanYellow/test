@@ -46,9 +46,9 @@ export default ({ mode }) => {
             }),
             nunjucks({
                 // root: './', process.env.VITE_LIST_COLLABORATORS
-                // globals: {
-                //     LIST_COLLABORATORS: JSON.parse("[]")
-                // }
+                globals: {
+                    LIST_COLLABORATORS: process.env.VITE_LIST_COLLABORATORS
+                }
             })
         ],
         build: {

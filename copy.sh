@@ -4,3 +4,4 @@
 # cp $1/consignes.css $1/dist
 
 echo "VITE_BUILD_DATE=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
+echo "VITE_FOO=HELLO" >> $GITHUB_ENV

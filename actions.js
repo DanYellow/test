@@ -131,7 +131,6 @@ class MyReporter {
                 const project = suite.project();
                 // console.log(result);
                 const projectName = project.name;
-                // console.log(projectName)
 
                 // parent.title
                 const listTestFiles = suite

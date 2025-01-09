@@ -1,5 +1,0 @@
-foo.json
-foo2.json
-rsync-exclude.txt
-*.sh
-/**/*.sh

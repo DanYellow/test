@@ -11,10 +11,7 @@
             "preset": {
                 "name": "angular"
             },
-            "infile": "CHANGELOG.md",
-            "gitRawCommitsOpts": {
-                "from": "HEAD~2"
-            }
+            "infile": "CHANGELOG.md"
         }
     },
     "hooks": {

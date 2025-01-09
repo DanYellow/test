@@ -143,7 +143,6 @@ class MyReporter {
 
                         return acc;
                     }, []);
-                // console.log(suite.allTests())
                 const testsDict = listTestFiles.reduce((acc, curr) => {
                     acc[curr] = suite.allTests().filter((test) => {
                         return test.location.file === curr;

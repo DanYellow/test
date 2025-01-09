@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.13.0 (2025-01-09)
+
+
+### Features
+
+* 🎸 Add commitizen ([675feb3](https://github.com/DanYellow/test/commit/675feb33bc9dc0ccecb7aa460d6ac38106b61828))
+
 ## 1.12.2 (2025-01-09)
 
 ## 1.12.1 (2025-01-09)

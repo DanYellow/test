@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.12.0 (2025-01-09)
+
+
+### Features
+
+* Test update ([795b123](https://github.com/DanYellow/test/commit/795b1230449a1f55093a4cf6dfb90e4f5b9ca40a))
+
 ## 1.11.5 (2025-01-08)
 
 

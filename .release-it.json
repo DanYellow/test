@@ -12,7 +12,9 @@
                 "name": "angular"
             },
             "infile": "CHANGELOG.md",
-            "ignoreRecommendedBump": true
+            "gitRawCommitsOpts": {
+                "from": "HEAD~2"
+            }
         }
     },
     "hooks": {

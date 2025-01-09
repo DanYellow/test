@@ -30,6 +30,7 @@
         "auto-changelog": "^2.5.0",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^29.7.0",
+        "commitizen": "^4.3.1",
         "eslint": "^9.16.0",
         "globals": "^15.13.0",
         "jest": "^29.7.0",

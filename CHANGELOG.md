@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1](https://github.com/DanYellow/test/compare/1.14.0...1.14.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* Default branch ([dafe208](https://github.com/DanYellow/test/commit/dafe2087294f4f608d871d053f1e75d871862429))
+
 # [1.14.0](https://github.com/DanYellow/test/compare/1.13.2...1.14.0) (2025-01-09)
 
 

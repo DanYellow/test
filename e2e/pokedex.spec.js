@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 test(
     "should add new Pokedex",
     {
-        tag: "@smoke",
+        tag: "@smake",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>
@@ -71,7 +71,7 @@ test("should disable load generation button when there's no generation anymore",
 test(
     "should not reload the page after select a Pokemon",
     {
-        tag: "@smoke",
+        tag: "@smake",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>
@@ -133,7 +133,7 @@ test("should change title's value according to current generation displayed", as
 test(
     "should listen to query string params",
     {
-        tag: "@smoke",
+        tag: "@smake",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>

@@ -21,7 +21,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test --workers 4 --project=chromium --grep @smoke
+        run: |
+          npx playwright test --workers 4 --project=chromium --grep @smoke
+          echo ::set-output name=status::$status
       - uses: actions/upload-artifact@v4
         if: always()
         with:

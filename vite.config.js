@@ -22,9 +22,9 @@ export default defineConfig({
         },
     },
     define: {
-        "import.meta.env.VERSION": JSON.stringify(
-            process.env.npm_package_version
-        ),
+        // "import.meta.env.VERSION": JSON.stringify(
+        //     process.env.npm_package_version
+        // ),
     },
     server: {
         // Expose the server to the network allowing access from ip address

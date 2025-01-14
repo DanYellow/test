@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
 const baseURL = 'http://localhost:5173'
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './foo',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

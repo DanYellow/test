@@ -25,7 +25,7 @@ export default defineConfig({
     },
     define: {
         "import.meta.env.VERSION": JSON.stringify(
-            process.env.npm_package_version
+            process.env.npm_package_versio
         ),
     },
     server: {

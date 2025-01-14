@@ -24,10 +24,10 @@ const createSensibility = (template, data, listTypes) => {
         "[data-damage-factor]"
     );
 
-    const imgTag = template.querySelector("img")
-    imgTag.alt = `icône type ${typeData.name}`;
-    imgTag.src = loadingImage;
-    replaceImage(imgTag, typeData.sprite);
+    // const imgTag = template.querySelector("img")
+    // imgTag.alt = `icône type ${typeData.name}`;
+    // imgTag.src = loadingImage;
+    // replaceImage(imgTag, typeData.sprite);
 
     const typeLabel = template.querySelector("[data-type]");
     typeLabel.setAttribute("aria-label", `Type ${data.name}`);

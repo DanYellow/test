@@ -612,20 +612,20 @@ displayModal = async (pkmnData) => {
     modal_DOM.nbGames.textContent = ` (${pkmnExtraData.game_indices.length})`;
     modal_DOM.listGames.closest("details").inert = pkmnExtraData.game_indices.length === 0;
 
-    clearTagContent(modal_DOM.listVarieties);
-    modal_DOM.nbVarieties.textContent = ` (${pkmnData.formes?.length || 0})`;
+    // clearTagContent(modal_DOM.listVarieties);
+    // modal_DOM.nbVarieties.textContent = ` (${pkmnData.formes?.length || 0})`;
 
-    for (const item of pkmnData?.formes || []) {
-        const pkmnForm = await fetchPokemon(pkmnData.pokedex_id, item.region);
-        const clone = createAlternateForm(
-            document.importNode(pkmnTemplateRaw.content, true),
-            {...item, ...pkmnData, ...pkmnForm, sprite: pkmnForm.sprites.regular, varieties: listDescriptions.varieties}
-        );
+    // for (const item of pkmnData?.formes || []) {
+    //     const pkmnForm = await fetchPokemon(pkmnData.pokedex_id, item.region);
+    //     const clone = createAlternateForm(
+    //         document.importNode(pkmnTemplateRaw.content, true),
+    //         {...item, ...pkmnData, ...pkmnForm, sprite: pkmnForm.sprites.regular, varieties: listDescriptions.varieties}
+    //     );
 
-        modal_DOM.listVarieties.append(clone);
-    }
+    //     modal_DOM.listVarieties.append(clone);
+    // }
 
-    modal_DOM.listVarieties.closest("details").inert = (pkmnData?.formes || []).length === 0;
+    // modal_DOM.listVarieties.closest("details").inert = (pkmnData?.formes || []).length === 0;
 
     clearTagContent(modal_DOM.statistics);
 

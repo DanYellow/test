@@ -1,10 +1,10 @@
 name: Partie 3
 on: workflow_dispatch
-env:
-  Actor: ${{ github.actor }}
-  RunName: ${{ github.actor }} Fait la partie 3
-  Time: date +"%T"
-  Date: date +"%d-%m-%y"
+# env:
+#   Actor: ${{ github.actor }}
+#   RunName: ${{ github.actor }} Fait la partie 3
+#   Time: date +"%T"
+#   Date: date +"%d-%m-%y"
 jobs:
   build:
     name: Partie 3

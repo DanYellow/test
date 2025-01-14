@@ -46,10 +46,10 @@ export default ({ mode }) => {
             }),
             nunjucks({
                 // root: './', process.env.VITE_LIST_COLLABORATORS
-                globals: {
-                    LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS),
-                    VITE_FOO: process.env.FOO
-                }
+                // globals: {
+                //     LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS),
+                //     VITE_FOO: process.env.FOO
+                // }
             })
         ],
         build: {
@@ -59,9 +59,9 @@ export default ({ mode }) => {
             }
         },
         define: {
-            "import.meta.env.VERSION": JSON.stringify(
-                process.env.npm_package_version
-            ),
+            // "import.meta.env.VERSION": JSON.stringify(
+            //     process.env.npm_package_version
+            // ),
             // "import.meta.env.MEMBERS": res,
         },
         server: {

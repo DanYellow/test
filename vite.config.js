@@ -59,9 +59,9 @@ export default ({ mode }) => {
             }
         },
         define: {
-            // "import.meta.env.VERSION": JSON.stringify(
-            //     process.env.npm_package_version
-            // ),
+            "import.meta.env.VERSION": JSON.stringify(
+                process.env.npm_package_version
+            ),
             // "import.meta.env.MEMBERS": res,
         },
         server: {

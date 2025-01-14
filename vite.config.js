@@ -68,7 +68,18 @@ export default ({ mode }) => {
             // Expose the server to the network allowing access from ip address
             host: true,
             open: true,
-        }
+        },
+        test: {
+            exclude: [
+                "**/node_modules/**",
+                "**/dist/**",
+                "**/cypress/**",
+                "**/.{idea,git,cache,output,temp}/**",
+                "**/e2e/**",
+            ],
+            environment: 'happy-dom',
+            css: false,
+        },
     });
 }
 

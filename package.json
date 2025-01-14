@@ -41,6 +41,7 @@
         "tailwindcss": "^3.4.15",
         "vite": "^6.0.1",
         "vite-plugin-eslint": "^1.8.1",
+        "vitest": "^2.1.8",
         "vituum": "^1.1.1"
     },
     "dependencies": {

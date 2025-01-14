@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 test(
     "should add new Pokedex",
     {
-        tag: "@smake",
+        tag: "@smoke",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>
@@ -54,24 +54,24 @@ test("should disable load generation button when there's no generation anymore",
     await expect(loadGenerationBtn).toHaveAttribute("inert", "");
 });
 
-// test("Should create a cookie", async ({ page }) => {
-//     const listCookies = await page.context().cookies();
+test("Should create a cookie", async ({ page }) => {
+    const listCookies = await page.context().cookies();
 
-//     try {
-//         const cookieName = "form";
-//         expect(
-//             listCookies.find((item) => item.name === cookieName).value
-//         ).toBeDefined();
-//     } catch (e) {
-//         throw new Error("Cookie not found");
-//     }
-// });
+    try {
+        const cookieName = "form";
+        expect(
+            listCookies.find((item) => item.name === cookieName).value
+        ).toBeDefined();
+    } catch (e) {
+        throw new Error("Cookie not found");
+    }
+});
 
 // if(!process.env.CI) {
 test(
     "should not reload the page after select a Pokemon",
     {
-        tag: "@smake",
+        tag: "@smoke",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>
@@ -133,7 +133,7 @@ test(
 test(
     "should listen to query string params",
     {
-        tag: "@smake",
+        tag: "@smoke",
     },
     async ({ page }) => {
         await page.waitForResponse((resp) =>

@@ -45,4 +45,4 @@ jobs:
             - name: SSH
               run: |
                 echo "${{ secrets.SSH_KEY }}" > ~/deployement_key && chmod 400 ~/deployement_key
-                rsync -Pav -e "ssh -i ~/deployement_key -o StrictHostKeyChecking=no" ./dist ${{secrets.USER}}@${{secrets.SERVER}}:/www
+                rsync -Pav -e "ssh -i ~/deployement_key -o StrictHostKeyChecking=no" ./dist ${{secrets.USER}}@${{secrets.SERVER}}:~/www

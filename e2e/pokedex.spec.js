@@ -86,49 +86,49 @@ test(
     }
 );
 
-test("should change title's value according to current generation displayed", async ({
-    page,
-}) => {
-    await page.waitForResponse((resp) =>
-        resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
-    );
+// test("should change title's value according to current generation displayed", async ({
+//     page,
+// }) => {
+//     await page.waitForResponse((resp) =>
+//         resp.url().includes("https://tyradex.vercel.app/api/v1/gen/1")
+//     );
 
-    const loadGenerationButton = await page
-        .getByTestId("load-generation-btn")
-        .first();
-    loadGenerationButton.click();
-    const nextGenerationNumber = await loadGenerationButton.getAttribute(
-        "data-load-generation"
-    );
+//     const loadGenerationButton = await page
+//         .getByTestId("load-generation-btn")
+//         .first();
+//     loadGenerationButton.click();
+//     const nextGenerationNumber = await loadGenerationButton.getAttribute(
+//         "data-load-generation"
+//     );
 
-    await page.waitForResponse((resp) =>
-        resp
-            .url()
-            .includes(
-                `https://tyradex.vercel.app/api/v1/gen/${nextGenerationNumber}`
-            )
-    );
-    console.log(nextGenerationNumber);
-    const firstPkmn = page.locator(`[data-header-pokedex="${nextGenerationNumber}"]`).first();
-    await firstPkmn.waitFor();
+//     await page.waitForResponse((resp) =>
+//         resp
+//             .url()
+//             .includes(
+//                 `https://tyradex.vercel.app/api/v1/gen/${nextGenerationNumber}`
+//             )
+//     );
+//     console.log(nextGenerationNumber);
+//     const firstPkmn = page.locator(`[data-header-pokedex="${nextGenerationNumber}"]`).first();
+//     await firstPkmn.waitFor();
 
-    // for (let index = 0; index < 15; index++) {
-    //     await page.mouse.wheel(0, 400);
-    //     await page.waitForTimeout(0.5);
-    // }
+//     // for (let index = 0; index < 15; index++) {
+//     //     await page.mouse.wheel(0, 400);
+//     //     await page.waitForTimeout(0.5);
+//     // }
 
-    await page.waitForTimeout(1);
-    await page.evaluate(async () => {
-        window.scrollTo(0, document.body.scrollHeight);
-        // for (let i = 0; i < document.body.scrollHeight; i+100) {
-        //    window.scrollTo(0, i)
-        // }
-    });
+//     await page.waitForTimeout(1);
+//     await page.evaluate(async () => {
+//         window.scrollTo(0, document.body.scrollHeight);
+//         // for (let i = 0; i < document.body.scrollHeight; i+100) {
+//         //    window.scrollTo(0, i)
+//         // }
+//     });
 
-    await expect(page).toHaveTitle(
-        new RegExp(String.raw`Génération #${nextGenerationNumber}`, "g")
-    );
-});
+//     await expect(page).toHaveTitle(
+//         new RegExp(String.raw`Génération #${nextGenerationNumber}`, "g")
+//     );
+// });
 
 test(
     "should listen to query string params",

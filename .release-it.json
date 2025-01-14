@@ -1,8 +1,7 @@
 {
     "git": {
-        "commitMessage": "chore: release ${version}",
-        "requireBranch": "main"
-    },
+        "commitMessage": "chore: release ${version}"
+        },
     "npm": {
         "publish": false
     },

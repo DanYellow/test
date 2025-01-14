@@ -7,6 +7,7 @@ on: workflow_dispatch
 #   Date: date +"%d-%m-%y"
 jobs:
   e2e_tests:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

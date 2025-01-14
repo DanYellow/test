@@ -46,10 +46,10 @@ export default ({ mode }) => {
             }),
             nunjucks({
                 // root: './', process.env.VITE_LIST_COLLABORATORS
-                // globals: {
-                //     LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS),
-                //     VITE_FOO: process.env.FOO
-                // }
+                globals: {
+                    LIST_COLLABORATORS: JSON.parse(process.env.VITE_LIST_COLLABORATORS),
+                    VITE_FOO: process.env.FOO
+                }
             })
         ],
         build: {

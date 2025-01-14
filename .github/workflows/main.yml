@@ -36,8 +36,8 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --project=chromium --grep @smoke
 
-      - name: Date et heure du build
-        run: echo "Le build a été lancé le ${{ env.Date }} à ${{ env.Time }} par ${{ env.Actor }}"
+      # - name: Date et heure du build
+      #   run: echo "Le build a été lancé le ${{ env.Date }} à ${{ env.Time }} par ${{ env.Actor }}"
 
       - name: Build
         run: npm run build

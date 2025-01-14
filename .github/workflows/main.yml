@@ -12,7 +12,7 @@ jobs:
           node-version: lts/*
       - name: Install the dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        run: sudo npx playwright install --with-deps
+      # - name: Install Playwright Browsers
+      #   run: sudo npx playwright install --with-deps
       - name: Run Playwright tests
-        run: sudo npx playwright test
+        run: npx playwright test

@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
 const baseURL = 'http://localhost:5173'
 
 export default defineConfig({
-  testDir: './foo',
+  testDir: './e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -24,7 +24,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-//   reporter: "./actions.js",
+  reporter: "./actions.js",
 //   reporter: process.env.CI ? [['dot'], ['github']] : 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions ff. */
   use: {
@@ -74,10 +74,10 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-//   webServer: {
-//     command: 'npm run dev',
-//     url: baseURL,
-//     reuseExistingServer: !process.env.CI,
-//   },
+  webServer: {
+    command: 'npm run dev',
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
+  },
 });
 

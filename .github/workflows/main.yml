@@ -6,6 +6,22 @@ on: workflow_dispatch
 #   Time: date +"%T"
 #   Date: date +"%d-%m-%y"
 jobs:
+  e2e_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set github user
+        run: git config user.email "test@example.com" && git config user.name "CI/CD"
+      - name: Install the dependencies
+        run: npm ci
+      - name: Install playwright
+        run: npx playwright install --with-deps
+      - name: Run smoke tests
+        run: npx playwright test --project=chromium --grep @smoke
+      - name: Run non-smoke tests
+        run: npx playwright test --project=chromium --grep-invert @smoke
+
   build:
     name: Partie 3
     runs-on: ubuntu-latest
@@ -39,20 +55,10 @@ jobs:
       # - name: Date et heure du build
       #   run: echo "Le build a été lancé le ${{ env.Date }} à ${{ env.Time }} par ${{ env.Actor }}"
 
-      - name: Build
-        run: npm run build
+      # - name: Build
+      #   run: npm run build
 
-      - name: SSH
-        run: |
-          echo ${{ secrets.ACTION_SSH }} > ~/deployement_key && chmod 400 ~/deployement_key
-          rsync -Pav -e "ssh -i ~/deployement_key -o StrictHostKeyChecking=no" ./git_action_P3/ ${{ secrets.USER_SSH}}@${{secrets.SERVER_SSH}}:/www/
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy
-        run: |
-          git add .
-          git commit -m "CI/CD - MMI"
-          git push
+      # - name: SSH
+      #   run: |
+      #     echo ${{ secrets.ACTION_SSH }} > ~/deployement_key && chmod 400 ~/deployement_key
+      #     rsync -Pav -e "ssh -i ~/deployement_key -o StrictHostKeyChecking=no" ./git_action_P3/ ${{ secrets.USER_SSH}}@${{secrets.SERVER_SSH}}:/www/

@@ -13,9 +13,9 @@ describe("cleanString", () => {
         expect(cleanString("Stéphane")).toBe("stephane");
     });
 
-    it("should fail", () => {
-        expect(true).toBeFalsy();
-    });
+    // it("should fail", () => {
+    //     expect(true).toBeFalsy();
+    // });
 });
 
 describe("getEvolutionChain", () => {

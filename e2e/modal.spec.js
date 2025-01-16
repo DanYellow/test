@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("first", () => {
-    test.skip("should open modal", { tag: "@smoke" }, async ({ page }) => {
+    test("should open modal", { tag: "@smoke" }, async ({ page }) => {
         await page.goto("/");
         const firstPkmn = await page.getByTestId("pokemon").first();
         const firstPkmnDataRaw = await firstPkmn.getAttribute(

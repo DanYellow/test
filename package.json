@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "vite",
         "start": "vite",
-        "test": "jest",
+        "test": "vitest",
         "build": "vite build",
         "build1": "vite build && rsync -am --include='*.php' --include='**/*.php' --exclude='*' ./ dist/",
         "lint": "npx eslint",

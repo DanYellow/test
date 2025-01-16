@@ -23,20 +23,20 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
 
-  # unit_tests:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v4
-  #     - name: Set github user
-  #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-  #     - name: Install the dependencies
-  #       run: npm ci
-  #     - name: Run unit tests
-  #       run: npm run test --if-present
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set github user
+        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+      - name: Install the dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm run test --if-present
 
   build:
-    needs: [e2e_tests]
+    needs: [e2e_tests, unit_tests]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

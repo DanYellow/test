@@ -33,13 +33,8 @@ jobs:
         if: ${{ success() }}
         with:
           name: playwright-report
-          path: playwright-report/
+          path: ./playwright-report
           retention-days: 30
-      - name: Persist logs
-        if: ${{ failure() }}
-        run: |
-          cat output.log
-        shell: bash
 
   unit_tests:
     runs-on: ubuntu-latest

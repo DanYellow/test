@@ -54,5 +54,8 @@
         "commitizen": {
             "path": "git-cz"
         }
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "*"
     }
 }

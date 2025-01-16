@@ -24,7 +24,8 @@ jobs:
       - name: Install playwright
         run: npx playwright install --with-deps
       - name: Run smoke tests
-        run: npx playwright test --project=chromium --grep @smoke
+        run: npx playwright test --project=chromium --grep @smoke | tee output.log
+        shell: bash
       - name: Run non-smoke tests
         # run: npx playwright test --project=chromium --grep-invert @smoke
         run: npx playwright test --only-changed=$GITHUB_BASE_REF
@@ -34,6 +35,11 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Persist logs
+        if: ${{ failure() }}
+        run: |
+          cat output.log
+        shell: bash
 
   unit_tests:
     runs-on: ubuntu-latest

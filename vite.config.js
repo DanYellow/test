@@ -79,7 +79,7 @@ export default ({ mode }) => {
                 "**/.{idea,git,cache,output,temp}/**",
                 "**/e2e/**",
             ],
-            environment: "happy-dom",
+            environment: 'happy-dom',
             css: false,
         },
     });

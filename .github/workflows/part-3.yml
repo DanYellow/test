@@ -36,7 +36,6 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-
   unit_tests:
     runs-on: ubuntu-latest
     steps:
@@ -81,11 +80,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
-        if: ${{ !cancelled() }}
-        uses: actions/download-artifact@master
-        with:
-          name: playwright-report
       - name: Download artifacts
         uses: actions/download-artifact@master
         with:

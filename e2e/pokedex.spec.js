@@ -113,8 +113,7 @@ test("should change title's value according to current generation displayed", as
     });
 
     await expect(page).toHaveTitle(
-        ""
-        // new RegExp(String.raw`Génération #${nextGenerationNumber}`, "g")
+        new RegExp(String.raw`Génération #${nextGenerationNumber}`, "g")
     );
 });
 

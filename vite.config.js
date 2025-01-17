@@ -81,6 +81,7 @@ export default ({ mode }) => {
             ],
             environment: 'happy-dom',
             css: false,
+            reporters: ['html', 'default'],
         },
     });
 };

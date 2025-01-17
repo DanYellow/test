@@ -26,6 +26,7 @@
         "@release-it/conventional-changelog": "^10.0.0",
         "@tailwindcss/container-queries": "^0.1.1",
         "@types/node": "^22.10.1",
+        "@vitest/ui": "^2.1.8",
         "@vituum/vite-plugin-nunjucks": "^1.1.0",
         "ansi-to-html": "^0.7.2",
         "auto-changelog": "^2.5.0",

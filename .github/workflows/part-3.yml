@@ -9,6 +9,7 @@ jobs:
   ## Possibilité de fusionner les deux tâches suivantes, mais déconseillé
   e2e_tests:
     runs-on: ubuntu-latest
+    name: Run end-to-end tests
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
